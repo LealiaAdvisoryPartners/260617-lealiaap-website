@@ -37,11 +37,11 @@ const Navigation = () => {
   };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border shadow-sm">
+    <nav className="fixed top-0 left-0 right-0 z-50 glass border-b border-border/50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
+        <div className="flex justify-between items-center h-20">
           {/* Logo */}
-          <Link to={buildPath(language, "/")} className="flex items-center">
+          <Link to={buildPath(language, "/")} className="flex items-center transition-opacity hover:opacity-80">
             <img src={logoHeader} alt="Lealia Advisory Partners" className="h-8 w-auto" />
           </Link>
 
@@ -51,9 +51,10 @@ const Navigation = () => {
               <Link
                 key={link.path}
                 to={link.path}
-                className={`font-body font-medium transition-colors hover:text-accent ${
-                  isActive(link.path) ? "text-accent" : "text-foreground"
+                className={`text-sm tracking-wide font-body link-underline transition-colors hover:text-accent ${
+                  isActive(link.path) ? "text-accent" : "text-foreground/80"
                 }`}
+                style={{ fontWeight: 400 }}
               >
                 {link.name}
               </Link>

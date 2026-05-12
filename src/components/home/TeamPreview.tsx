@@ -27,74 +27,84 @@ const teamMembers = [
 
 const TeamPreview = () => {
   const { t, language } = useLanguage();
-  
+
   return (
-    <section className="section-container bg-secondary">
+    <section className="section-container relative bg-background">
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
-        className="text-center mb-12"
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+        className="flex flex-col items-center text-center mb-16"
       >
-        <h2 className="section-title">{t("team.title")}</h2>
-        <p className="section-subtitle mx-auto">
-          {t("team.subtitle")}
-        </p>
+        <span className="eyebrow mb-6">{t("team.title")}</span>
+        <h2 className="section-title max-w-3xl">
+          The <span className="serif-accent text-accent">people</span> behind the partnership
+        </h2>
+        <p className="section-subtitle mx-auto mt-4">{t("team.subtitle")}</p>
       </motion.div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-sm md:max-w-2xl lg:max-w-4xl mx-auto">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
         {teamMembers.map((member, index) => (
           <motion.div
             key={member.name}
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: index * 0.1 }}
-            className="card-elegant p-6"
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.9, delay: index * 0.15, ease: [0.16, 1, 0.3, 1] }}
+            className="group relative"
           >
-            <Link to={`${buildPath(language, "/team")}#${member.id}`} className="block group">
-              <div className="relative overflow-hidden rounded-lg mb-4">
+            <Link to={`${buildPath(language, "/team")}#${member.id}`} className="block">
+              <div className="relative overflow-hidden rounded-[var(--radius)] mb-6 bg-secondary">
                 <img
                   src={member.image}
                   alt={member.name}
-                  className="w-full aspect-square object-cover transition-transform duration-300 group-hover:scale-105"
+                  className="w-full aspect-[4/5] object-cover transition-transform duration-[1.2s] ease-out group-hover:scale-[1.06]"
                 />
+                <div
+                  aria-hidden
+                  className="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/10 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-700"
+                />
+                <div className="absolute bottom-0 left-0 right-0 p-6 translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
+                  <h3 className="text-2xl text-primary-foreground font-heading mb-1" style={{ fontWeight: 400 }}>
+                    {member.name}
+                  </h3>
+                  <p className="text-primary-foreground/80 text-sm font-body italic" style={{ fontWeight: 300 }}>
+                    {t(member.role)}
+                  </p>
+                </div>
               </div>
-              <h3 className="text-xl font-heading font-semibold text-primary mb-1">
-                {member.name}
-              </h3>
-              <p className="text-muted-foreground font-body italic mb-4">{t(member.role)}</p>
             </Link>
-            <div className="flex justify-center gap-4">
+
+            <div className="flex justify-center gap-3">
               <a
                 href={`mailto:${member.email}`}
-                className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-accent/10 text-accent hover:bg-accent hover:text-accent-foreground transition-colors"
+                className="inline-flex items-center justify-center w-11 h-11 rounded-full border border-border hover:border-accent text-muted-foreground hover:text-accent transition-all duration-500 hover:-translate-y-0.5"
                 aria-label="Email"
               >
-                <Mail className="w-5 h-5" />
+                <Mail className="w-4 h-4" strokeWidth={1.5} />
               </a>
               <a
                 href={member.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-accent/10 text-accent hover:bg-accent hover:text-accent-foreground transition-colors"
+                className="inline-flex items-center justify-center w-11 h-11 rounded-full border border-border hover:border-accent text-muted-foreground hover:text-accent transition-all duration-500 hover:-translate-y-0.5"
                 aria-label="LinkedIn"
               >
-                <Linkedin className="w-5 h-5" />
+                <Linkedin className="w-4 h-4" strokeWidth={1.5} />
               </a>
             </div>
           </motion.div>
         ))}
       </div>
 
-      {/* Meet Our Team Link at Bottom */}
-      <div className="mt-12 flex justify-center">
+      <div className="mt-16 flex justify-center">
         <Link
           to={buildPath(language, "/team")}
-          className="inline-flex items-center gap-2 text-primary font-semibold text-lg hover:text-primary/70 transition-colors"
+          className="group inline-flex items-center gap-3 text-primary text-sm uppercase tracking-[0.2em] font-medium"
         >
-          {t("team.cta")} <ArrowRight className="w-5 h-5" />
+          <span className="link-underline">{t("team.cta")}</span>
+          <ArrowRight className="w-4 h-4 transition-transform duration-500 group-hover:translate-x-1" />
         </Link>
       </div>
     </section>
