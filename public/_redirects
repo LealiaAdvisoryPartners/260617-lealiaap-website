@@ -1,0 +1,49 @@
+# Domain redirects - redirect specific domains to lealiaap.com with language prefix
+# Spanish domains (.es) → lealiaap.com/es
+https://lealia.es/* https://www.lealiaap.com/es/:splat 301!
+https://www.lealia.es/* https://www.lealiaap.com/es/:splat 301!
+https://lealiaap.es/* https://www.lealiaap.com/es/:splat 301!
+https://www.lealiaap.es/* https://www.lealiaap.com/es/:splat 301!
+
+# Portuguese domains (.pt) → lealiaap.com/pt
+https://lealia.pt/* https://www.lealiaap.com/pt/:splat 301!
+https://www.lealia.pt/* https://www.lealiaap.com/pt/:splat 301!
+https://lealiaap.pt/* https://www.lealiaap.com/pt/:splat 301!
+https://www.lealiaap.pt/* https://www.lealiaap.com/pt/:splat 301!
+https://lealia-ap.pt/* https://www.lealiaap.com/pt/:splat 301!
+https://www.lealia-ap.pt/* https://www.lealiaap.com/pt/:splat 301!
+https://lealiaadvisorypartners.pt/* https://www.lealiaap.com/pt/:splat 301!
+https://www.lealiaadvisorypartners.pt/* https://www.lealiaap.com/pt/:splat 301!
+
+# Country-based language redirects for .com domain (and other domains not listed above)
+# Exclude static assets and API routes from language redirects (must come BEFORE language redirects)
+/favicon.ico  /favicon.ico  200
+/robots.txt   /robots.txt   200
+/assets/*     /assets/:splat  200
+/*.js         /:splat         200
+/*.css        /:splat         200
+/*.json       /:splat         200
+/*.ico        /:splat         200
+/*.png        /:splat         200
+/*.jpg        /:splat         200
+/*.jpeg       /:splat         200
+/*.svg        /:splat         200
+/*.woff       /:splat         200
+/*.woff2      /:splat         200
+# Pass-through for already language-prefixed paths (must come BEFORE geo-redirects)
+# This prevents redirect loops like /es -> /es/es
+/en/*    /index.html   200
+/pt/*    /index.html   200
+/es/*    /index.html   200
+
+# Portuguese: PT, BR, CV (Cabo Verde), AO (Angola), MZ (Mozambique)
+/*   /pt/:splat   302!   Country=PT,BR,CV,AO,MZ
+
+# Spanish: ES (Spain) + key South America countries (AR, CL, CO, PE, VE, MX, BO, PY, UY, EC, CR, GT, SV, HN, NI, PA, DO)
+/*   /es/:splat   302!   Country=ES,AR,CL,CO,PE,VE,MX,BO,PY,UY,EC,CR,GT,SV,HN,NI,PA,DO
+
+# Fallback: everywhere else → English
+/*   /en/:splat   302!
+
+# SPA fallback - must be last: serve index.html for all other routes
+/*        /index.html   200

@@ -1,0 +1,153 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Cinzel:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Lealia Advisory Partners Design System */
+
+@layer base {
+  :root {
+    /* Professional navy and gold palette */
+    --background: 0 0% 98%;
+    --foreground: 220 15% 20%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 220 15% 20%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 15% 20%;
+
+    /* Deep navy primary */
+    --primary: 220 60% 15%;
+    --primary-foreground: 0 0% 98%;
+
+    /* Light secondary */
+    --secondary: 220 20% 95%;
+    --secondary-foreground: 220 60% 15%;
+
+    /* Muted tones */
+    --muted: 220 15% 92%;
+    --muted-foreground: 220 10% 45%;
+
+    /* Gold accent */
+    --accent: 40 70% 55%;
+    --accent-foreground: 220 60% 15%;
+
+    /* Elegant gold variant */
+    --gold: 40 70% 55%;
+    --gold-foreground: 220 60% 15%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 220 15% 88%;
+    --input: 220 15% 88%;
+    --ring: 220 60% 15%;
+
+    --radius: 0.5rem;
+
+    /* Shadows */
+    --shadow-elegant: 0 4px 20px rgba(26, 38, 66, 0.08);
+    --shadow-hover: 0 8px 30px rgba(26, 38, 66, 0.12);
+
+    /* Transitions */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+    --sidebar-background: 0 0% 98%;
+
+    --sidebar-foreground: 240 5.3% 26.1%;
+
+    --sidebar-primary: 240 5.9% 10%;
+
+    --sidebar-primary-foreground: 0 0% 98%;
+
+    --sidebar-accent: 240 4.8% 95.9%;
+
+    --sidebar-accent-foreground: 240 5.9% 10%;
+
+    --sidebar-border: 220 13% 91%;
+
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 220 60% 8%;
+    --foreground: 0 0% 95%;
+
+    --card: 220 50% 12%;
+    --card-foreground: 0 0% 95%;
+
+    --popover: 220 50% 12%;
+    --popover-foreground: 0 0% 95%;
+
+    --primary: 40 70% 55%;
+    --primary-foreground: 220 60% 15%;
+
+    --secondary: 220 40% 18%;
+    --secondary-foreground: 0 0% 95%;
+
+    --muted: 220 40% 18%;
+    --muted-foreground: 220 10% 65%;
+
+    --accent: 40 70% 55%;
+    --accent-foreground: 220 60% 15%;
+
+    --gold: 40 70% 55%;
+    --gold-foreground: 220 60% 15%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 95%;
+
+    --border: 220 40% 22%;
+    --input: 220 40% 22%;
+    --ring: 40 70% 55%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-body antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading;
+  }
+}
+
+@layer components {
+  /* Professional card styles */
+  .card-elegant {
+    @apply bg-card rounded-lg border border-border shadow-[var(--shadow-elegant)] transition-[var(--transition-smooth)];
+  }
+
+  .card-elegant:hover {
+    @apply shadow-[var(--shadow-hover)] -translate-y-1;
+  }
+
+  /* Button variants */
+  .btn-gold {
+    @apply bg-accent text-accent-foreground hover:bg-accent/90 font-medium px-8 py-3 rounded-md transition-[var(--transition-smooth)];
+  }
+
+  .btn-outline-gold {
+    @apply border-2 border-accent text-accent hover:bg-accent hover:text-accent-foreground font-medium px-8 py-3 rounded-md transition-[var(--transition-smooth)];
+  }
+
+  /* Section styles */
+  .section-container {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24;
+  }
+
+  .section-title {
+    @apply text-3xl md:text-4xl font-heading font-semibold text-primary mb-4;
+  }
+
+  .section-subtitle {
+    @apply text-lg text-muted-foreground max-w-3xl;
+  }
+}
