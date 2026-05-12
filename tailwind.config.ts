@@ -14,8 +14,9 @@ export default {
     },
     extend: {
       fontFamily: {
-        heading: ['Playfair Display', 'serif'],
-        body: ['Inter', 'sans-serif'],
+        heading: ['Raleway', 'system-ui', 'sans-serif'],
+        body: ['Raleway', 'system-ui', 'sans-serif'],
+        serif: ['Playfair Display', 'serif'],
         cinzel: ['Cinzel', 'serif'],
       },
       colors: {
