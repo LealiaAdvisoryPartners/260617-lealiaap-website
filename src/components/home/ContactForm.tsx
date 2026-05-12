@@ -74,99 +74,108 @@ const ContactForm = () => {
   };
 
   return (
-    <section id="contact" className="section-container bg-secondary">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
-        className="max-w-2xl mx-auto"
-      >
-        <div className="text-center mb-8">
-          <h2 className="section-title">{t("contact.title")}</h2>
-        </div>
+    <section id="contact" className="relative overflow-hidden bg-background">
+      {/* soft top divider */}
+      <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
 
-        <div className="text-center mb-4 text-muted-foreground text-sm sm:text-base">
-          <a
-            href="mailto:INFO@LEALIAAP.COM"
-            className="font-medium hover:text-foreground transition-colors"
-          >
-            INFO@LEALIAAP.COM
-          </a>
-          <a
-            href="tel:+351935882323"
-            className="font-medium mt-1 block hover:text-foreground transition-colors"
-          >
-            +351 935 882 323
-          </a>
-        </div>
+      <div
+        aria-hidden
+        className="absolute -top-40 left-1/2 -translate-x-1/2 w-[40rem] h-[40rem] rounded-full"
+        style={{ background: "radial-gradient(circle, hsl(var(--accent) / 0.10), transparent 70%)" }}
+      />
 
-        <div className="card-elegant p-8">
-          <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-              <FormField
-                control={form.control}
-                name="name"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>{t("contact.name")} *</FormLabel>
-                    <FormControl>
-                      <Input placeholder={t("contact.name.placeholder")} {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="email"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>{t("contact.email")} *</FormLabel>
-                    <FormControl>
-                      <Input placeholder={t("contact.email.placeholder")} {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="company"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>{t("contact.company")}</FormLabel>
-                    <FormControl>
-                      <Input placeholder={t("contact.company.placeholder")} {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="message"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>{t("contact.message")} *</FormLabel>
-                    <FormControl>
-                      <Textarea
-                        placeholder={t("contact.message.placeholder")}
-                        className="min-h-[120px]"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <Button type="submit" className="btn-gold w-full">
-                {t("contact.submit")}
-              </Button>
-            </form>
-          </Form>
-        </div>
-      </motion.div>
+      <div className="section-container relative">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+          className="max-w-2xl mx-auto"
+        >
+          <div className="text-center mb-12">
+            <span className="eyebrow mb-6">{t("contact.title")}</span>
+            <h2 className="section-title mt-6">
+              Let's <span className="serif-accent text-accent">talk</span>.
+            </h2>
+
+            <div className="mt-6 flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-6 text-sm text-muted-foreground" style={{ letterSpacing: "0.12em" }}>
+              <a href="mailto:geral@lealiaap.com" className="hover:text-accent transition-colors link-underline">
+                GERAL@LEALIAAP.COM
+              </a>
+              <span className="hidden sm:inline text-border">·</span>
+              <a href="tel:+351935882323" className="hover:text-accent transition-colors link-underline">
+                +351 935 882 323
+              </a>
+            </div>
+          </div>
+
+          <div className="relative gradient-border p-8 md:p-10" style={{ boxShadow: "var(--shadow-elegant)" }}>
+            <Form {...form}>
+              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                <FormField
+                  control={form.control}
+                  name="name"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="text-xs uppercase tracking-[0.2em] text-muted-foreground font-medium">{t("contact.name")} *</FormLabel>
+                      <FormControl>
+                        <Input placeholder={t("contact.name.placeholder")} {...field} className="rounded-lg border-border/70 h-12" />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="text-xs uppercase tracking-[0.2em] text-muted-foreground font-medium">{t("contact.email")} *</FormLabel>
+                      <FormControl>
+                        <Input placeholder={t("contact.email.placeholder")} {...field} className="rounded-lg border-border/70 h-12" />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="company"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="text-xs uppercase tracking-[0.2em] text-muted-foreground font-medium">{t("contact.company")}</FormLabel>
+                      <FormControl>
+                        <Input placeholder={t("contact.company.placeholder")} {...field} className="rounded-lg border-border/70 h-12" />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="message"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="text-xs uppercase tracking-[0.2em] text-muted-foreground font-medium">{t("contact.message")} *</FormLabel>
+                      <FormControl>
+                        <Textarea
+                          placeholder={t("contact.message.placeholder")}
+                          className="min-h-[140px] rounded-lg border-border/70"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <Button type="submit" className="btn-gold w-full h-12">
+                  {t("contact.submit")}
+                </Button>
+              </form>
+            </Form>
+          </div>
+        </motion.div>
+      </div>
     </section>
   );
 };
