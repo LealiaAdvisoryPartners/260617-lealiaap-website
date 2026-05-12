@@ -1,8 +1,11 @@
+import { motion } from "framer-motion";
 import { useLanguage } from "@/contexts/LanguageContext";
 import SEOHead, { pageMeta } from "@/components/SEOHead";
 
 const Privacy = () => {
   const { t } = useLanguage();
+
+  const sections = [1, 2, 3, 4, 5, 6, 7];
 
   return (
     <>
@@ -11,88 +14,71 @@ const Privacy = () => {
         descriptionKey={pageMeta.privacy.descriptionKey}
         path="privacy"
       />
-      <div className="min-h-screen">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
-        <h1 className="text-4xl md:text-5xl font-heading font-semibold text-primary mb-8">
-          {t("privacy.title")}
-        </h1>
-        
-        <div className="prose prose-lg max-w-none space-y-8">
-          <p className="text-lg text-muted-foreground">
-            {t("privacy.lastUpdated")}
-          </p>
 
-          <section>
-            <h2 className="text-2xl font-heading font-semibold text-primary mb-4">
-              {t("privacy.section1.title")}
-            </h2>
-            <p className="text-foreground/80 mb-4">
-              {t("privacy.section1.content")}
+      {/* Hero */}
+      <section
+        className="relative overflow-hidden grain"
+        style={{ background: "var(--gradient-hero)" }}
+      >
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 md:pt-40 pb-16 md:pb-20 relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <span className="eyebrow mb-6">Legal</span>
+            <h1 className="text-5xl md:text-6xl font-heading font-light text-primary tracking-tight leading-[1.05] mt-6 mb-6">
+              <span className="serif-accent text-accent">
+                {t("privacy.title").split(" ")[0]}
+              </span>{" "}
+              {t("privacy.title").split(" ").slice(1).join(" ")}
+            </h1>
+            <p className="text-sm text-muted-foreground font-body font-light tracking-wide">
+              {t("privacy.lastUpdated")}
             </p>
-          </section>
-
-          <section>
-            <h2 className="text-2xl font-heading font-semibold text-primary mb-4">
-              {t("privacy.section2.title")}
-            </h2>
-            <p className="text-foreground/80 mb-4">
-              {t("privacy.section2.content")}
-            </p>
-            <ul className="list-disc pl-6 space-y-2 text-foreground/80">
-              <li>{t("privacy.section2.item1")}</li>
-              <li>{t("privacy.section2.item2")}</li>
-              <li>{t("privacy.section2.item3")}</li>
-              <li>{t("privacy.section2.item4")}</li>
-            </ul>
-          </section>
-
-          <section>
-            <h2 className="text-2xl font-heading font-semibold text-primary mb-4">
-              {t("privacy.section3.title")}
-            </h2>
-            <p className="text-foreground/80 mb-4">
-              {t("privacy.section3.content")}
-            </p>
-          </section>
-
-          <section>
-            <h2 className="text-2xl font-heading font-semibold text-primary mb-4">
-              {t("privacy.section4.title")}
-            </h2>
-            <p className="text-foreground/80 mb-4">
-              {t("privacy.section4.content")}
-            </p>
-          </section>
-
-          <section>
-            <h2 className="text-2xl font-heading font-semibold text-primary mb-4">
-              {t("privacy.section5.title")}
-            </h2>
-            <p className="text-foreground/80 mb-4">
-              {t("privacy.section5.content")}
-            </p>
-          </section>
-
-          <section>
-            <h2 className="text-2xl font-heading font-semibold text-primary mb-4">
-              {t("privacy.section6.title")}
-            </h2>
-            <p className="text-foreground/80 mb-4">
-              {t("privacy.section6.content")}
-            </p>
-          </section>
-
-          <section>
-            <h2 className="text-2xl font-heading font-semibold text-primary mb-4">
-              {t("privacy.section7.title")}
-            </h2>
-            <p className="text-foreground/80 mb-4">
-              {t("privacy.section7.content")}
-            </p>
-          </section>
+          </motion.div>
         </div>
-      </div>
-      </div>
+      </section>
+
+      {/* Content */}
+      <section className="py-16 md:py-24">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="space-y-14">
+            {sections.map((n, i) => (
+              <motion.section
+                key={n}
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.5, delay: i * 0.04 }}
+                className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 pb-14 border-b border-border/60 last:border-0"
+              >
+                <div className="md:col-span-3">
+                  <span className="serif-accent text-3xl text-accent">
+                    0{n}
+                  </span>
+                  <h2 className="text-xl md:text-2xl font-heading font-light text-primary tracking-tight mt-2">
+                    {t(`privacy.section${n}.title`)}
+                  </h2>
+                </div>
+                <div className="md:col-span-9 space-y-4 text-foreground/75 font-body font-light leading-relaxed">
+                  <p>{t(`privacy.section${n}.content`)}</p>
+                  {n === 2 && (
+                    <ul className="list-none space-y-2 pl-0 mt-4">
+                      {[1, 2, 3, 4].map((j) => (
+                        <li key={j} className="flex items-start gap-3">
+                          <span className="text-accent mt-2 w-2 h-px bg-accent shrink-0" />
+                          <span>{t(`privacy.section2.item${j}`)}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              </motion.section>
+            ))}
+          </div>
+        </div>
+      </section>
     </>
   );
 };

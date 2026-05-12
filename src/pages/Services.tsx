@@ -1,8 +1,7 @@
-import { motion } from "framer-motion";
-import { useState, useEffect } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useState, useEffect, useRef } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import SEOHead, { pageMeta } from "@/components/SEOHead";
-import logoCircle from "@/assets/Logo_no_text_zoom_704x704.png";
 import { ServicesSidebar } from "@/components/services/ServicesSidebar";
 import { ServicesOverview } from "@/components/services/ServicesOverview";
 import { ServicesBuySide } from "@/components/services/ServicesBuySide";
@@ -15,16 +14,9 @@ const Services = () => {
   const [activeSection, setActiveSection] = useState("overview");
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const { t } = useLanguage();
-
-  // Track desktop viewport width
-  const [isDesktop, setIsDesktop] = useState(false);
-
-  useEffect(() => {
-    const checkDesktop = () => setIsDesktop(window.innerWidth >= 1024);
-    checkDesktop();
-    window.addEventListener("resize", checkDesktop);
-    return () => window.removeEventListener("resize", checkDesktop);
-  }, []);
+  const heroRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
+  const y = useTransform(scrollYProgress, [0, 1], [0, 100]);
 
   const sections = [
     { id: "overview", label: t("servicespage.overview") },
@@ -69,23 +61,40 @@ const Services = () => {
         descriptionKey={pageMeta.services.descriptionKey}
         path="services"
       />
-      {isDesktop && (
+
+      {/* Editorial hero */}
+      <section
+        ref={heroRef}
+        className="relative overflow-hidden grain"
+        style={{ background: "var(--gradient-hero)" }}
+      >
+        <div
+          className="absolute -top-32 -right-32 w-[480px] h-[480px] rounded-full float-slow pointer-events-none"
+          style={{ background: "radial-gradient(circle, hsl(var(--accent) / 0.18), transparent 70%)" }}
+        />
         <motion.div
-          initial={{ opacity: 0, scale: 0.9, y: -20 }}
-          animate={{ opacity: 0.35, scale: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="absolute top-0 right-0 overflow-hidden pointer-events-none z-0 w-[650px] h-[650px]"
+          style={{ y }}
+          className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 md:pt-44 pb-20 md:pb-28 relative z-10"
         >
-          <img
-            src={logoCircle}
-            alt=""
-            className="absolute -top-40 -right-40 w-[650px] h-[650px] opacity-35"
-          />
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+            className="max-w-4xl"
+          >
+            <span className="eyebrow mb-8">{t("nav.services")}</span>
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-heading text-primary tracking-tight leading-[1.05] mb-6 mt-6">
+              <span className="serif-accent text-accent">
+                {t("servicespage.overview.title").split(" ")[0]}
+              </span>{" "}
+              {t("servicespage.overview.title").split(" ").slice(1).join(" ")}
+            </h1>
+          </motion.div>
         </motion.div>
-      )}
+      </section>
 
       {/* Page Layout */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 relative z-10">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20 relative z-10">
         <div className="flex gap-8">
           <ServicesSidebar
             sections={sections}
@@ -105,7 +114,6 @@ const Services = () => {
         </div>
       </section>
 
-      {/* CTA Section - Full width outside main container */}
       <ServicesCTA />
     </>
   );

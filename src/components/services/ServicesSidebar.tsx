@@ -25,19 +25,17 @@ export const ServicesSidebar = ({
       <button
         onClick={() => setMobileNavOpen(true)}
         aria-label="Open navigation"
-        className="lg:hidden fixed top-20 left-4 z-40 p-2 rounded-md bg-muted text-foreground shadow"
+        className="lg:hidden fixed top-20 left-4 z-40 p-2.5 rounded-full glass shadow-[var(--shadow-soft)]"
       >
-        <Menu className="w-5 h-5" />
+        <Menu className="w-4 h-4 text-primary" />
       </button>
 
       {/* MOBILE NAV DRAWER */}
       {mobileNavOpen && (
-        <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-50">
-          <div className="absolute left-0 top-0 w-64 h-full bg-background border-r border-border p-6 shadow-xl">
-            <div className="flex justify-between items-center mb-6">
-              <h3 className="font-heading text-lg font-semibold">
-                {t("servicespage.nav")}
-              </h3>
+        <div className="fixed inset-0 bg-primary/30 backdrop-blur-md z-50">
+          <div className="absolute left-0 top-0 w-72 h-full bg-background/95 backdrop-blur-xl border-r border-border p-8 shadow-2xl">
+            <div className="flex justify-between items-center mb-8">
+              <span className="eyebrow">{t("servicespage.nav")}</span>
               <button
                 onClick={() => setMobileNavOpen(false)}
                 aria-label="Close navigation"
@@ -47,17 +45,20 @@ export const ServicesSidebar = ({
               </button>
             </div>
 
-            <nav className="space-y-2" aria-label="Services navigation">
-              {sections.map((section) => (
+            <nav className="space-y-1" aria-label="Services navigation">
+              {sections.map((section, idx) => (
                 <button
                   key={section.id}
                   onClick={() => scrollToSection(section.id)}
-                  className={`w-full text-left px-4 py-2 rounded-md font-body transition-colors ${
+                  className={`w-full text-left px-4 py-3 rounded-lg font-body font-light transition-all flex items-center gap-3 ${
                     activeSection === section.id
-                      ? "bg-accent text-accent-foreground font-medium"
-                      : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                      ? "text-accent bg-accent/5"
+                      : "text-muted-foreground hover:text-foreground"
                   }`}
                 >
+                  <span className="text-xs tracking-widest opacity-60">
+                    0{idx + 1}
+                  </span>
                   {section.label}
                 </button>
               ))}
@@ -67,42 +68,42 @@ export const ServicesSidebar = ({
       )}
 
       {/* DESKTOP SIDEBAR */}
-      <aside className="hidden lg:flex flex-none flex-col w-40 sticky top-28 self-start z-10 pr-4">
+      <aside className="hidden lg:flex flex-none flex-col w-48 sticky top-28 self-start z-10 pr-4">
         <motion.div
           initial={{ opacity: 0, x: -10 }}
           animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.4 }}
-          className="mb-6"
+          transition={{ duration: 0.5 }}
+          className="mb-8"
         >
-          <h2 className="font-heading text-xl font-bold text-primary">
-            {t("servicespage.nav")}
-          </h2>
+          <span className="eyebrow">{t("servicespage.nav")}</span>
         </motion.div>
 
         <motion.nav
           initial={{ opacity: 0, x: -10 }}
           animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.4 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
           className="relative space-y-1"
           aria-label="Services navigation"
         >
-          {sections.map((section) => (
-            <div key={section.id} className="relative">
-              {activeSection === section.id && (
-                <span className="absolute left-0 top-0 bottom-0 w-1 bg-accent rounded-r-md" />
-              )}
-
-              <button
-                onClick={() => scrollToSection(section.id)}
-                className={`w-full text-left pl-3 pr-2 py-2 ml-1 rounded-md font-body transition ${
+          {sections.map((section, idx) => (
+            <button
+              key={section.id}
+              onClick={() => scrollToSection(section.id)}
+              className={`group w-full text-left py-2.5 font-body font-light transition-all flex items-center gap-3 ${
+                activeSection === section.id
+                  ? "text-accent"
+                  : "text-muted-foreground hover:text-foreground"
+              }`}
+            >
+              <span
+                className={`h-px transition-all duration-500 ${
                   activeSection === section.id
-                    ? "text-accent font-medium"
-                    : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                    ? "w-8 bg-accent"
+                    : "w-3 bg-muted-foreground/40 group-hover:w-6 group-hover:bg-foreground"
                 }`}
-              >
-                {section.label}
-              </button>
-            </div>
+              />
+              <span className="text-sm">{section.label}</span>
+            </button>
           ))}
         </motion.nav>
       </aside>

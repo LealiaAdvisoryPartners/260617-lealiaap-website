@@ -4,39 +4,52 @@ import { useLanguage } from "@/contexts/LanguageContext";
 export const ServicesPerformance = () => {
   const { t } = useLanguage();
 
+  const steps = [
+    { label: t("servicespage.performance.step1"), desc: t("servicespage.performance.step1.desc") },
+    { label: t("servicespage.performance.step2"), desc: t("servicespage.performance.step2.desc") },
+    { label: t("servicespage.performance.step3"), desc: t("servicespage.performance.step3.desc") },
+    { label: t("servicespage.performance.step4"), desc: t("servicespage.performance.step4.desc") },
+  ];
+
   return (
-    <section id="performance" className="my-16 bg-secondary rounded-lg px-6 py-12 md:py-16">
+    <section id="performance" className="my-20 scroll-mt-28">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
+        transition={{ duration: 0.7 }}
       >
-        <h2 className="text-3xl md:text-4xl font-heading font-semibold text-primary mb-6">{t("servicespage.performance.title")}</h2>
+        <span className="eyebrow mb-6">04 — Performance</span>
+        <h2 className="text-3xl md:text-4xl lg:text-5xl font-heading font-light text-primary tracking-tight mt-6 mb-6 leading-tight">
+          {t("servicespage.performance.title").split(" ").slice(0, -1).join(" ")}{" "}
+          <span className="serif-accent text-accent">
+            {t("servicespage.performance.title").split(" ").slice(-1)}
+          </span>
+        </h2>
 
-        <p className="text-lg text-muted-foreground font-body leading-relaxed mb-12">
+        <p className="text-lg text-muted-foreground font-body font-light leading-relaxed mb-12">
           {t("servicespage.performance.desc")}
         </p>
 
-        <div className="bg-card rounded-lg p-8 shadow-[var(--shadow-elegant)]">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {[
-              { label: t("servicespage.performance.step1"), desc: t("servicespage.performance.step1.desc") },
-              { label: t("servicespage.performance.step2"), desc: t("servicespage.performance.step2.desc") },
-              { label: t("servicespage.performance.step3"), desc: t("servicespage.performance.step3.desc") },
-              { label: t("servicespage.performance.step4"), desc: t("servicespage.performance.step4.desc") },
-            ].map((step, index) => (
-              <div key={step.label} className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0">
-                  <span className="font-heading font-semibold text-accent text-lg">{index + 1}</span>
-                </div>
-                <div className="flex-1">
-                  <h3 className="font-heading font-semibold text-foreground mb-2">{step.label}</h3>
-                  <p className="text-sm text-muted-foreground font-body leading-relaxed">{step.desc}</p>
-                </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-border/60 rounded-2xl overflow-hidden">
+          {steps.map((step, index) => (
+            <motion.div
+              key={step.label}
+              initial={{ opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.08 }}
+              className="bg-card p-8 group hover:bg-secondary/50 transition-colors"
+            >
+              <div className="flex items-baseline gap-4 mb-3">
+                <span className="serif-accent text-3xl text-accent">0{index + 1}</span>
+                <h3 className="font-heading font-light text-xl text-primary">{step.label}</h3>
               </div>
-            ))}
-          </div>
+              <p className="text-sm text-muted-foreground font-body font-light leading-relaxed pl-12">
+                {step.desc}
+              </p>
+            </motion.div>
+          ))}
         </div>
       </motion.div>
     </section>
