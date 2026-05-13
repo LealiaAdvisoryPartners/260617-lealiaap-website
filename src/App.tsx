@@ -9,6 +9,8 @@ import Navigation from "./components/Navigation";
 import Footer from "./components/Footer";
 import ScrollToTop from "./components/ScrollToTop";
 import LanguageRedirect from "./components/LanguageRedirect";
+import { CustomCursor } from "./components/motion/CustomCursor";
+import { ScrollProgress } from "./components/motion/ScrollProgress";
 import Index from "./pages/Index";
 import About from "./pages/About";
 import Services from "./pages/Services";
@@ -28,6 +30,8 @@ const App = () => (
           <LanguageProvider>
             <ScrollToTop />
             <LanguageRedirect />
+            <ScrollProgress />
+            <CustomCursor />
             <div className="min-h-screen flex flex-col">
               <Navigation />
               <main className="flex-1 pt-16">

@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { buildPath } from "@/lib/routing";
+import { Magnetic } from "@/components/motion/MagneticButton";
 
 const CoreValues = () => {
   const { t, language } = useLanguage();
@@ -85,9 +86,11 @@ const CoreValues = () => {
           transition={{ duration: 0.8, delay: 0.4 }}
           className="text-center mt-20"
         >
-          <Link to={buildPath(language, "/about")}>
-            <Button className="btn-gold">{t("values.cta")}</Button>
-          </Link>
+          <Magnetic>
+            <Link to={buildPath(language, "/about")}>
+              <Button className="btn-gold">{t("values.cta")}</Button>
+            </Link>
+          </Magnetic>
         </motion.div>
       </div>
     </section>

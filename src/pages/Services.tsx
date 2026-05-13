@@ -9,6 +9,7 @@ import { ServicesSellSide } from "@/components/services/ServicesSellSide";
 import { ServicesPerformance } from "@/components/services/ServicesPerformance";
 import { ServicesModeling } from "@/components/services/ServicesModeling";
 import { ServicesCTA } from "@/components/services/ServicesCTA";
+import { SplitText } from "@/components/motion/SplitText";
 
 const Services = () => {
   const [activeSection, setActiveSection] = useState("overview");
@@ -83,12 +84,13 @@ const Services = () => {
             className="max-w-4xl"
           >
             <span className="eyebrow mb-8">{t("nav.services")}</span>
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-heading text-primary tracking-tight leading-[1.05] mb-6 mt-6">
-              <span className="serif-accent text-accent">
-                {t("servicespage.overview.title").split(" ")[0]}
-              </span>{" "}
-              {t("servicespage.overview.title").split(" ").slice(1).join(" ")}
-            </h1>
+            <SplitText
+              as="h1"
+              className="text-5xl md:text-6xl lg:text-7xl font-heading text-primary tracking-tight leading-[1.05] mb-6 mt-6"
+              highlight={t("servicespage.overview.title").split(" ")[0]}
+            >
+              {t("servicespage.overview.title")}
+            </SplitText>
           </motion.div>
         </motion.div>
       </section>

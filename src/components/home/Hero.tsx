@@ -1,8 +1,9 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
-import { ArrowDown } from "lucide-react";
+import { ArrowDown, Sparkles } from "lucide-react";
 import logo from "@/assets/logo.png";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { Marquee } from "@/components/motion/Marquee";
 
 const Hero = () => {
   const { t } = useLanguage();
@@ -77,6 +78,30 @@ const Hero = () => {
             className="h-px w-24 bg-gradient-to-r from-transparent via-accent to-transparent"
           />
         </div>
+      </motion.div>
+
+      {/* Marquee tagline strip */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1.2, delay: 1.6 }}
+        className="absolute bottom-32 sm:bottom-36 left-0 right-0 z-[1]"
+      >
+        <Marquee speed={45} className="py-4 text-primary/30">
+          {[
+            "Mergers & Acquisitions",
+            "Buy-side Advisory",
+            "Sell-side Advisory",
+            "Performance Improvement",
+            "Financial Modeling",
+            "Strategic Consulting",
+          ].flatMap((label) => [
+            <span key={label} className="serif-accent text-3xl md:text-5xl tracking-tight">
+              {label}
+            </span>,
+            <Sparkles key={label + "-s"} className="w-4 h-4 text-accent/60" />,
+          ])}
+        </Marquee>
       </motion.div>
 
       {/* Bottom contact + scroll cue */}

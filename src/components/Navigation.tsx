@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
 import LanguageToggle from "./LanguageToggle";
 import { buildPath, getPathWithoutLanguage } from "@/lib/routing";
+import { Magnetic } from "@/components/motion/MagneticButton";
 import logoHeader from "@/assets/Logo_text_biggerfont_samesize_2.png";
 
 const Navigation = () => {
@@ -68,11 +69,12 @@ const Navigation = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.6, delay: 0.4 }}
-              className=""
             >
-              <Button onClick={scrollToContact} className="btn-gold">
-                {t("nav.contact")}
-              </Button>
+              <Magnetic>
+                <Button onClick={scrollToContact} className="btn-gold">
+                  {t("nav.contact")}
+                </Button>
+              </Magnetic>
             </motion.div>
           </div>
 

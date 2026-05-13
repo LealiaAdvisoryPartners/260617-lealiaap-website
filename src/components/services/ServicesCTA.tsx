@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { Magnetic } from "@/components/motion/MagneticButton";
 
 export const ServicesCTA = () => {
   const { t } = useLanguage();
@@ -35,13 +36,15 @@ export const ServicesCTA = () => {
         <p className="text-lg md:text-xl text-primary-foreground/70 font-body font-light leading-relaxed mb-12 max-w-2xl mx-auto">
           {t("servicespage.cta.desc")}
         </p>
-        <button
-          onClick={() => (window.location.href = "/#contact")}
-          className="btn-gold group"
-        >
-          {t("nav.contact")}
-          <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
-        </button>
+        <Magnetic>
+          <button
+            onClick={() => (window.location.href = "/#contact")}
+            className="btn-gold group"
+          >
+            {t("nav.contact")}
+            <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
+          </button>
+        </Magnetic>
       </motion.div>
     </section>
   );
