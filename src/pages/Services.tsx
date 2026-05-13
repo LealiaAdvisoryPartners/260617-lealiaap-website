@@ -9,6 +9,7 @@ import { ServicesSellSide } from "@/components/services/ServicesSellSide";
 import { ServicesPerformance } from "@/components/services/ServicesPerformance";
 import { ServicesModeling } from "@/components/services/ServicesModeling";
 import { ServicesCTA } from "@/components/services/ServicesCTA";
+import { SplitText } from "@/components/motion/SplitText";
 
 const Services = () => {
   const [activeSection, setActiveSection] = useState("overview");

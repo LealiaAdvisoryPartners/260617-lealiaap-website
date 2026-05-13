@@ -11,6 +11,7 @@ import { buildPath } from "@/lib/routing";
 import SEOHead, { pageMeta } from "@/components/SEOHead";
 import aboutStory from "@/assets/about-story.jpg";
 import { ArrowRight } from "lucide-react";
+import { SplitText } from "@/components/motion/SplitText";
 
 const About = () => {
   const { t, language } = useLanguage();

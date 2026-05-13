@@ -5,6 +5,8 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import SEOHead, { pageMeta } from "@/components/SEOHead";
 import teamMember1 from "@/assets/Ricardo_cut.jpeg";
 import teamMember2 from "@/assets/Duarte_cut.jpeg";
+import { SplitText } from "@/components/motion/SplitText";
+import { Magnetic } from "@/components/motion/MagneticButton";
 
 const Team = () => {
   const { t } = useLanguage();
