@@ -269,4 +269,97 @@
     transform: scaleX(1);
     transform-origin: left;
   }
+
+  /* Marquee */
+  @keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+  @keyframes marquee-reverse {
+    0% { transform: translateX(-50%); }
+    100% { transform: translateX(0); }
+  }
+
+  /* Mask reveal — used for image curtain effect */
+  @keyframes curtain-in {
+    0% { transform: scaleY(1); }
+    100% { transform: scaleY(0); }
+  }
+  .mask-reveal {
+    position: relative;
+    overflow: hidden;
+  }
+  .mask-reveal::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: hsl(var(--primary));
+    transform-origin: top;
+    animation: curtain-in 1.4s var(--ease-out-expo) 0.2s forwards;
+    z-index: 2;
+  }
+
+  /* Custom cursor — hide native on devices supporting it */
+  @media (hover: hover) and (pointer: fine) {
+    html.has-custom-cursor,
+    html.has-custom-cursor body {
+      cursor: none;
+    }
+    html.has-custom-cursor a,
+    html.has-custom-cursor button,
+    html.has-custom-cursor [role="button"],
+    html.has-custom-cursor input,
+    html.has-custom-cursor textarea,
+    html.has-custom-cursor label,
+    html.has-custom-cursor [data-cursor] {
+      cursor: none;
+    }
+  }
+
+  /* Animated gradient text */
+  @keyframes gradient-shift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+  .text-gradient-gold {
+    background: linear-gradient(120deg, hsl(var(--primary)) 0%, hsl(var(--accent)) 50%, hsl(var(--primary)) 100%);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: gradient-shift 8s ease infinite;
+  }
+
+  /* Soft pulsing dot */
+  @keyframes ping-soft {
+    0% { transform: scale(1); opacity: 0.6; }
+    80%, 100% { transform: scale(2.4); opacity: 0; }
+  }
+  .ping-soft::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 9999px;
+    border: 1px solid hsl(var(--accent));
+    animation: ping-soft 2.4s cubic-bezier(0, 0, 0.2, 1) infinite;
+  }
+
+  /* Process path draw */
+  @keyframes draw-line {
+    from { stroke-dashoffset: 1000; }
+    to { stroke-dashoffset: 0; }
+  }
+  .animate-draw {
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+    animation: draw-line 2.5s var(--ease-out-expo) forwards;
+  }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
 }
