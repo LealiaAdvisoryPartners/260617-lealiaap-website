@@ -58,10 +58,13 @@ const About = () => {
             className="max-w-4xl"
           >
             <span className="eyebrow mb-8">{t("nav.about")}</span>
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-heading text-primary tracking-tight leading-[1.05] mb-8 mt-6">
-              {t("about.title").split(" ").slice(0, -1).join(" ")}{" "}
-              <span className="serif-accent text-accent">{t("about.title").split(" ").slice(-1)}</span>
-            </h1>
+            <SplitText
+              as="h1"
+              className="text-5xl md:text-6xl lg:text-7xl font-heading text-primary tracking-tight leading-[1.05] mb-8 mt-6"
+              highlightLast={1}
+            >
+              {t("about.title")}
+            </SplitText>
             <p className="text-lg md:text-xl text-muted-foreground font-body leading-relaxed font-light max-w-3xl">
               {t("about.intro")}
             </p>

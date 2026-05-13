@@ -62,10 +62,13 @@ const Team = () => {
             className="max-w-4xl"
           >
             <span className="eyebrow mb-8">{t("nav.team")}</span>
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-heading text-primary tracking-tight leading-[1.05] mb-8 mt-6">
-              {t("teampage.title").split(" ").slice(0, -1).join(" ")}{" "}
-              <span className="serif-accent text-accent">{t("teampage.title").split(" ").slice(-1)}</span>
-            </h1>
+            <SplitText
+              as="h1"
+              className="text-5xl md:text-6xl lg:text-7xl font-heading text-primary tracking-tight leading-[1.05] mb-8 mt-6"
+              highlightLast={1}
+            >
+              {t("teampage.title")}
+            </SplitText>
             <p className="text-lg md:text-xl text-muted-foreground font-body font-light leading-relaxed max-w-3xl">
               {t("teampage.intro")}
             </p>
@@ -184,13 +187,15 @@ const Team = () => {
           <p className="text-lg md:text-xl text-primary-foreground/70 font-body font-light leading-relaxed mb-12 max-w-2xl mx-auto">
             {t("teampage.cta.desc")}
           </p>
-          <button
-            onClick={() => (window.location.href = "/#contact")}
-            className="btn-gold group"
-          >
-            {t("nav.contact")}
-            <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
-          </button>
+          <Magnetic>
+            <button
+              onClick={() => (window.location.href = "/#contact")}
+              className="btn-gold group"
+            >
+              {t("nav.contact")}
+              <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
+            </button>
+          </Magnetic>
         </motion.div>
       </section>
     </>
