@@ -396,65 +396,9 @@ const ActTeam = () => {
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16">
-          {teamMembers.map((m, i) => {
-            const y = useTransform(scrollYProgress, [0, 1], [80, -80]);
-            return (
-              <motion.div
-                key={m.id}
-                initial={{ opacity: 0, y: 60 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-80px" }}
-                transition={{ duration: 1.1, delay: i * 0.15, ease: [0.16, 1, 0.3, 1] }}
-                className={`group ${i === 1 ? "md:mt-32" : ""}`}
-              >
-                <Link to={`${buildPath(language, "/team")}#${m.id}`} className="block">
-                  <div className="relative overflow-hidden rounded-[2rem] bg-secondary aspect-[4/5]">
-                    <motion.img
-                      src={m.image}
-                      alt={m.name}
-                      style={{ y }}
-                      className="absolute inset-0 w-full h-[120%] object-cover transition-transform duration-[1.4s] ease-out group-hover:scale-[1.05]"
-                    />
-                    <div
-                      aria-hidden
-                      className="absolute inset-0 bg-gradient-to-t from-primary via-primary/40 to-transparent opacity-70 group-hover:opacity-85 transition-opacity duration-700"
-                    />
-                    <div className="absolute bottom-0 left-0 right-0 p-8 md:p-10 translate-y-2 group-hover:translate-y-0 transition-transform duration-700">
-                      <span className="text-xs uppercase tracking-[0.3em] text-accent">
-                        {t("teampage.role")}
-                      </span>
-                      <h4
-                        className="font-heading text-primary-foreground mt-3"
-                        style={{ fontSize: "clamp(1.75rem, 2.5vw, 2.5rem)", fontWeight: 400, letterSpacing: "-0.01em" }}
-                      >
-                        {m.name}
-                      </h4>
-                      <div className="flex gap-3 mt-6">
-                        <a
-                          href={`mailto:${m.email}`}
-                          onClick={(e) => e.stopPropagation()}
-                          className="inline-flex items-center justify-center w-10 h-10 rounded-full border border-primary-foreground/30 text-primary-foreground hover:bg-accent hover:border-accent hover:text-accent-foreground transition-all duration-500"
-                          aria-label="Email"
-                        >
-                          <Mail className="w-4 h-4" strokeWidth={1.5} />
-                        </a>
-                        <a
-                          href={m.linkedin}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          onClick={(e) => e.stopPropagation()}
-                          className="inline-flex items-center justify-center w-10 h-10 rounded-full border border-primary-foreground/30 text-primary-foreground hover:bg-accent hover:border-accent hover:text-accent-foreground transition-all duration-500"
-                          aria-label="LinkedIn"
-                        >
-                          <Linkedin className="w-4 h-4" strokeWidth={1.5} />
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </Link>
-              </motion.div>
-            );
-          })}
+          {teamMembers.map((m, i) => (
+            <TeamCard key={m.id} member={m} index={i} role={t("teampage.role")} href={`${buildPath(language, "/team")}#${m.id}`} />
+          ))}
         </div>
 
         <div className="mt-20 flex justify-center">
