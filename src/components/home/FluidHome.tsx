@@ -1,0 +1,567 @@
+import { motion, useScroll, useTransform, useMotionTemplate, useSpring, MotionValue } from "framer-motion";
+import { useRef } from "react";
+import { Link } from "react-router-dom";
+import { ArrowDown, ArrowUpRight, Mail, Linkedin, Sparkles } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { buildPath } from "@/lib/routing";
+import { Marquee } from "@/components/motion/Marquee";
+import { Magnetic } from "@/components/motion/MagneticButton";
+import ContactForm from "@/components/home/ContactForm";
+import logo from "@/assets/logo.png";
+import teamMember1 from "@/assets/Ricardo_cut.jpeg";
+import teamMember2 from "@/assets/Duarte_cut.jpeg";
+
+/**
+ * One continuous, scroll-driven cinematic home.
+ * - Global animated backdrop that morphs hue/lightness with scroll
+ * - Sticky pinned acts (hero -> manifesto -> horizontal services -> team -> values -> contact)
+ * - No boxed "sections"; everything bleeds.
+ */
+
+const teamMembers = [
+  {
+    id: "ricardo-nascimento-ferreira",
+    name: "Ricardo Nascimento Ferreira",
+    image: teamMember1,
+    email: "ricardo.ferreira@lealiaap.com",
+    linkedin: "https://www.linkedin.com/in/ricardo-a-n-ferreira/",
+  },
+  {
+    id: "duarte-rocha-pereira",
+    name: "Duarte Rocha Pereira",
+    image: teamMember2,
+    email: "duarte.pereira@lealiaap.com",
+    linkedin: "https://www.linkedin.com/in/duarte-rocha-pereira/",
+  },
+];
+
+/* ---------- Backdrop ---------- */
+const FluidBackdrop = ({ progress }: { progress: MotionValue<number> }) => {
+  // Morph through palette stops as we scroll
+  const bg1 = useTransform(
+    progress,
+    [0, 0.25, 0.5, 0.75, 1],
+    ["#FAF7F2", "#F1ECE4", "#0D1428", "#0A1020", "#FAF7F2"]
+  );
+  const orbX = useTransform(progress, [0, 1], ["10%", "85%"]);
+  const orbY = useTransform(progress, [0, 0.5, 1], ["10%", "70%", "20%"]);
+  const orb2X = useTransform(progress, [0, 1], ["80%", "15%"]);
+  const orb2Y = useTransform(progress, [0, 0.5, 1], ["80%", "20%", "70%"]);
+  const orbScale = useTransform(progress, [0, 0.5, 1], [1, 1.4, 1]);
+  const accentOpacity = useTransform(progress, [0, 0.45, 0.55, 1], [0.18, 0.35, 0.35, 0.18]);
+  const gridOpacity = useTransform(progress, [0, 0.4, 0.6, 1], [0.05, 0.02, 0.04, 0.06]);
+  const gridColor = useTransform(progress, [0, 0.4, 0.6, 1], ["#0D1428", "#0D1428", "#E6C77A", "#0D1428"]);
+  const gridMask = useMotionTemplate`linear-gradient(${gridColor} 1px, transparent 1px), linear-gradient(90deg, ${gridColor} 1px, transparent 1px)`;
+
+  return (
+    <motion.div
+      aria-hidden
+      className="fixed inset-0 -z-10 overflow-hidden"
+      style={{ backgroundColor: bg1 }}
+    >
+      <motion.div
+        className="absolute w-[55vw] h-[55vw] rounded-full will-change-transform"
+        style={{
+          left: orbX,
+          top: orbY,
+          x: "-50%",
+          y: "-50%",
+          scale: orbScale,
+          opacity: accentOpacity,
+          background: "radial-gradient(circle, hsl(36 70% 58% / 0.75), transparent 65%)",
+          filter: "blur(40px)",
+        }}
+      />
+      <motion.div
+        className="absolute w-[60vw] h-[60vw] rounded-full will-change-transform"
+        style={{
+          left: orb2X,
+          top: orb2Y,
+          x: "-50%",
+          y: "-50%",
+          scale: orbScale,
+          opacity: useTransform(progress, [0, 0.5, 1], [0.25, 0.5, 0.25]),
+          background: "radial-gradient(circle, hsl(220 60% 22% / 0.55), transparent 65%)",
+          filter: "blur(60px)",
+        }}
+      />
+      <motion.div
+        className="absolute inset-0"
+        style={{
+          opacity: gridOpacity,
+          backgroundImage: gridMask,
+          backgroundSize: "80px 80px",
+          maskImage: "radial-gradient(ellipse at center, black 30%, transparent 75%)",
+        }}
+      />
+      {/* film grain */}
+      <div
+        className="absolute inset-0 opacity-[0.04] mix-blend-overlay pointer-events-none"
+        style={{
+          backgroundImage:
+            "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>\")",
+        }}
+      />
+    </motion.div>
+  );
+};
+
+/* ---------- Act I: Hero ---------- */
+const ActHero = () => {
+  const { t } = useLanguage();
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
+  const y = useTransform(scrollYProgress, [0, 1], [0, 200]);
+  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
+  const scale = useTransform(scrollYProgress, [0, 1], [1, 0.85]);
+  const blur = useTransform(scrollYProgress, [0, 1], [0, 12]);
+  const filter = useMotionTemplate`blur(${blur}px)`;
+
+  return (
+    <section ref={ref} className="relative h-[110vh] flex items-center justify-center">
+      <motion.div
+        style={{ y, opacity, scale, filter }}
+        className="relative max-w-5xl mx-auto px-6 w-full flex flex-col items-center"
+      >
+        <motion.div
+          initial={{ opacity: 0, scale: 0.94, filter: "blur(12px)" }}
+          animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+          transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <img src={logo} alt="Lealia Advisory Partners" className="w-full max-w-2xl mx-auto" />
+        </motion.div>
+
+        <motion.p
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          className="text-muted-foreground text-xs sm:text-sm md:text-base text-center font-body uppercase mt-10"
+          style={{ letterSpacing: "0.4em", fontWeight: 300 }}
+        >
+          {t("hero.services")}
+        </motion.p>
+
+        <motion.div
+          initial={{ scaleX: 0 }}
+          animate={{ scaleX: 1 }}
+          transition={{ duration: 1.4, delay: 1.1, ease: [0.16, 1, 0.3, 1] }}
+          className="h-px w-32 bg-gradient-to-r from-transparent via-accent to-transparent mt-10 origin-center"
+        />
+      </motion.div>
+
+      {/* Floating tagline marquee */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1.2, delay: 1.6 }}
+        className="absolute bottom-32 left-0 right-0"
+        style={{ opacity }}
+      >
+        <Marquee speed={50} className="py-4 text-primary/25">
+          {[
+            "Mergers & Acquisitions",
+            "Buy-side Advisory",
+            "Sell-side Advisory",
+            "Performance Improvement",
+            "Corporate Finance",
+            "Strategic Consulting",
+          ].flatMap((label) => [
+            <span key={label} className="serif-accent text-3xl md:text-5xl tracking-tight">
+              {label}
+            </span>,
+            <Sparkles key={label + "-s"} className="w-4 h-4 text-accent/60" />,
+          ])}
+        </Marquee>
+      </motion.div>
+
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1, delay: 1.8 }}
+        className="absolute bottom-10 left-0 right-0 flex justify-center text-muted-foreground/60"
+        style={{ opacity }}
+      >
+        <motion.div animate={{ y: [0, 8, 0] }} transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}>
+          <ArrowDown className="w-4 h-4" />
+        </motion.div>
+      </motion.div>
+    </section>
+  );
+};
+
+/* ---------- Act II: Big editorial manifesto ---------- */
+const ActManifesto = () => {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
+  const y = useTransform(scrollYProgress, [0, 1], [80, -80]);
+  const opacity = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0, 1, 1, 0]);
+
+  const words = [
+    "We", "advise", "ambitious",
+    { t: "founders,", italic: true },
+    "families", "and",
+    { t: "investors", italic: true },
+    "through", "their", "most",
+    { t: "defining", italic: true, gold: true },
+    "transactions.",
+  ];
+
+  return (
+    <section ref={ref} className="relative min-h-[140vh] flex items-center justify-center px-6">
+      <motion.div
+        style={{ y, opacity }}
+        className="max-w-6xl mx-auto text-center"
+      >
+        <motion.span
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="eyebrow mb-10 justify-center"
+        >
+          A boutique advisory
+        </motion.span>
+
+        <h2
+          className="font-heading text-primary leading-[1.05] tracking-tight mt-10"
+          style={{ fontSize: "clamp(2.5rem, 7vw, 6.5rem)", fontWeight: 300, letterSpacing: "-0.025em" }}
+        >
+          {words.map((w, i) => {
+            const text = typeof w === "string" ? w : w.t;
+            const italic = typeof w === "object" && w.italic;
+            const gold = typeof w === "object" && w.gold;
+            return (
+              <span key={i} className="inline-block overflow-hidden align-bottom pb-[0.12em] -mb-[0.12em] mr-[0.25em]">
+                <motion.span
+                  initial={{ y: "110%" }}
+                  whileInView={{ y: 0 }}
+                  viewport={{ once: true, margin: "-100px" }}
+                  transition={{ duration: 1.1, delay: i * 0.07, ease: [0.16, 1, 0.3, 1] }}
+                  className={`inline-block ${italic ? "serif-accent" : ""} ${gold ? "text-accent" : ""}`}
+                >
+                  {text}
+                </motion.span>
+              </span>
+            );
+          })}
+        </h2>
+      </motion.div>
+    </section>
+  );
+};
+
+/* ---------- Act III: Horizontal pinned services ---------- */
+const ActServices = () => {
+  const { t, language } = useLanguage();
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end end"] });
+  const x = useTransform(scrollYProgress, [0, 1], ["0%", "-66%"]);
+  const xSpring = useSpring(x, { stiffness: 80, damping: 22, mass: 0.4 });
+
+  const services = [
+    {
+      no: "01",
+      title: t("services.ma"),
+      desc: t("services.ma.desc"),
+      tag: "Mergers & Acquisitions",
+      link: buildPath(language, "/services#buy-side"),
+    },
+    {
+      no: "02",
+      title: t("services.performance"),
+      desc: t("services.performance.desc"),
+      tag: "Performance",
+      link: buildPath(language, "/services#performance"),
+    },
+    {
+      no: "03",
+      title: t("services.modeling"),
+      desc: t("services.modeling.desc"),
+      tag: "Corporate Finance",
+      link: buildPath(language, "/services#modeling"),
+    },
+  ];
+
+  return (
+    <section ref={ref} className="relative h-[300vh]">
+      <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden">
+        <div className="max-w-7xl w-full mx-auto px-6 mb-10 flex items-end justify-between">
+          <div>
+            <span className="eyebrow mb-4">{t("services.title")}</span>
+            <h3
+              className="font-heading text-primary mt-4"
+              style={{ fontSize: "clamp(2rem, 4.5vw, 4rem)", fontWeight: 300, letterSpacing: "-0.02em" }}
+            >
+              Advisory, <span className="serif-accent text-accent">crafted</span>.
+            </h3>
+          </div>
+          <div className="hidden md:block text-xs uppercase tracking-[0.3em] text-muted-foreground">
+            Scroll →
+          </div>
+        </div>
+
+        <motion.div style={{ x: xSpring }} className="flex gap-8 pl-[8vw] will-change-transform">
+          {services.map((s) => (
+            <Link
+              key={s.no}
+              to={s.link}
+              className="group relative shrink-0 w-[85vw] md:w-[55vw] lg:w-[42vw] h-[60vh] rounded-[2rem] overflow-hidden flex flex-col justify-between p-10 md:p-14 transition-all duration-700"
+              style={{
+                background:
+                  "linear-gradient(135deg, hsl(0 0% 100% / 0.55), hsl(0 0% 100% / 0.25))",
+                backdropFilter: "blur(20px) saturate(140%)",
+                WebkitBackdropFilter: "blur(20px) saturate(140%)",
+                border: "1px solid hsl(0 0% 100% / 0.5)",
+                boxShadow: "0 30px 80px -30px hsl(220 30% 12% / 0.25)",
+              }}
+            >
+              <div
+                aria-hidden
+                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"
+                style={{
+                  background:
+                    "radial-gradient(600px circle at 30% 0%, hsl(var(--accent) / 0.20), transparent 60%)",
+                }}
+              />
+              <div className="relative flex items-start justify-between">
+                <span className="serif-accent text-accent" style={{ fontSize: "clamp(3rem, 6vw, 5rem)" }}>
+                  {s.no}
+                </span>
+                <span className="text-xs uppercase tracking-[0.3em] text-muted-foreground mt-4">
+                  {s.tag}
+                </span>
+              </div>
+              <div className="relative">
+                <h4
+                  className="font-heading text-primary mb-6"
+                  style={{ fontSize: "clamp(2rem, 3.5vw, 3.25rem)", fontWeight: 300, letterSpacing: "-0.02em" }}
+                >
+                  {s.title}
+                </h4>
+                <p className="text-muted-foreground text-lg max-w-md leading-relaxed mb-8" style={{ fontWeight: 300 }}>
+                  {s.desc}
+                </p>
+                <div className="flex items-center gap-3 text-accent font-medium text-sm">
+                  <span className="link-underline uppercase tracking-[0.2em]">Explore</span>
+                  <ArrowUpRight className="w-4 h-4 transition-transform duration-500 group-hover:translate-x-1 group-hover:-translate-y-1" />
+                </div>
+              </div>
+            </Link>
+          ))}
+          {/* trailing CTA card */}
+          <div
+            className="shrink-0 w-[60vw] md:w-[35vw] h-[60vh] flex items-center justify-center pr-[10vw]"
+          >
+            <Magnetic>
+              <Link
+                to={buildPath(language, "/services")}
+                className="btn-gold whitespace-nowrap"
+              >
+                {t("services.cta")}
+              </Link>
+            </Magnetic>
+          </div>
+        </motion.div>
+      </div>
+    </section>
+  );
+};
+
+/* ---------- Act IV: Team — cinematic dark ---------- */
+const ActTeam = () => {
+  const { t, language } = useLanguage();
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
+
+  return (
+    <section ref={ref} className="relative py-32 md:py-48 px-6">
+      <div className="max-w-7xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+          className="mb-20 max-w-3xl"
+        >
+          <span className="eyebrow mb-6">{t("team.title")}</span>
+          <h3
+            className="font-heading text-primary-foreground mt-6"
+            style={{ fontSize: "clamp(2.5rem, 6vw, 5rem)", fontWeight: 300, letterSpacing: "-0.025em" }}
+          >
+            The <span className="serif-accent text-accent">people</span> behind the partnership.
+          </h3>
+          <p className="text-primary-foreground/65 mt-8 text-lg max-w-2xl leading-relaxed" style={{ fontWeight: 300 }}>
+            {t("team.subtitle")}
+          </p>
+        </motion.div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16">
+          {teamMembers.map((m, i) => {
+            const y = useTransform(scrollYProgress, [0, 1], [80, -80]);
+            return (
+              <motion.div
+                key={m.id}
+                initial={{ opacity: 0, y: 60 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-80px" }}
+                transition={{ duration: 1.1, delay: i * 0.15, ease: [0.16, 1, 0.3, 1] }}
+                className={`group ${i === 1 ? "md:mt-32" : ""}`}
+              >
+                <Link to={`${buildPath(language, "/team")}#${m.id}`} className="block">
+                  <div className="relative overflow-hidden rounded-[2rem] bg-secondary aspect-[4/5]">
+                    <motion.img
+                      src={m.image}
+                      alt={m.name}
+                      style={{ y }}
+                      className="absolute inset-0 w-full h-[120%] object-cover transition-transform duration-[1.4s] ease-out group-hover:scale-[1.05]"
+                    />
+                    <div
+                      aria-hidden
+                      className="absolute inset-0 bg-gradient-to-t from-primary via-primary/40 to-transparent opacity-70 group-hover:opacity-85 transition-opacity duration-700"
+                    />
+                    <div className="absolute bottom-0 left-0 right-0 p-8 md:p-10 translate-y-2 group-hover:translate-y-0 transition-transform duration-700">
+                      <span className="text-xs uppercase tracking-[0.3em] text-accent">
+                        {t("teampage.role")}
+                      </span>
+                      <h4
+                        className="font-heading text-primary-foreground mt-3"
+                        style={{ fontSize: "clamp(1.75rem, 2.5vw, 2.5rem)", fontWeight: 400, letterSpacing: "-0.01em" }}
+                      >
+                        {m.name}
+                      </h4>
+                      <div className="flex gap-3 mt-6">
+                        <a
+                          href={`mailto:${m.email}`}
+                          onClick={(e) => e.stopPropagation()}
+                          className="inline-flex items-center justify-center w-10 h-10 rounded-full border border-primary-foreground/30 text-primary-foreground hover:bg-accent hover:border-accent hover:text-accent-foreground transition-all duration-500"
+                          aria-label="Email"
+                        >
+                          <Mail className="w-4 h-4" strokeWidth={1.5} />
+                        </a>
+                        <a
+                          href={m.linkedin}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={(e) => e.stopPropagation()}
+                          className="inline-flex items-center justify-center w-10 h-10 rounded-full border border-primary-foreground/30 text-primary-foreground hover:bg-accent hover:border-accent hover:text-accent-foreground transition-all duration-500"
+                          aria-label="LinkedIn"
+                        >
+                          <Linkedin className="w-4 h-4" strokeWidth={1.5} />
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </Link>
+              </motion.div>
+            );
+          })}
+        </div>
+
+        <div className="mt-20 flex justify-center">
+          <Magnetic>
+            <Link
+              to={buildPath(language, "/team")}
+              className="group inline-flex items-center gap-3 text-primary-foreground text-sm uppercase tracking-[0.25em]"
+            >
+              <span className="link-underline">{t("team.cta")}</span>
+              <ArrowUpRight className="w-4 h-4 transition-transform duration-500 group-hover:translate-x-1 group-hover:-translate-y-1" />
+            </Link>
+          </Magnetic>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+/* ---------- Act V: Values as scrolling list ---------- */
+const ActValues = () => {
+  const { t, language } = useLanguage();
+  const values = [
+    { title: t("values.integrity"), desc: t("values.integrity.desc") },
+    { title: t("values.excellence"), desc: t("values.excellence.desc") },
+    { title: t("values.partnership"), desc: t("values.partnership.desc") },
+    { title: t("values.innovation"), desc: t("values.innovation.desc") },
+  ];
+
+  return (
+    <section className="relative py-32 md:py-48 px-6">
+      <div className="max-w-6xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 1 }}
+          className="mb-16"
+        >
+          <span className="eyebrow mb-6">{t("values.title")}</span>
+          <h3
+            className="font-heading text-primary-foreground mt-6 max-w-4xl"
+            style={{ fontSize: "clamp(2rem, 5vw, 4rem)", fontWeight: 300, letterSpacing: "-0.02em" }}
+          >
+            Principles that <span className="serif-accent text-accent">guide</span> every engagement.
+          </h3>
+        </motion.div>
+
+        <div className="border-t border-primary-foreground/10">
+          {values.map((v, i) => (
+            <motion.div
+              key={v.title}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ duration: 0.9, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
+              className="group grid grid-cols-12 gap-6 items-baseline py-10 md:py-12 border-b border-primary-foreground/10 cursor-default"
+            >
+              <span className="col-span-2 md:col-span-1 text-xs tracking-[0.3em] text-accent">
+                0{i + 1}
+              </span>
+              <h4
+                className="col-span-10 md:col-span-4 font-heading text-primary-foreground transition-transform duration-700 group-hover:translate-x-2"
+                style={{ fontSize: "clamp(1.5rem, 2.5vw, 2.25rem)", fontWeight: 300, letterSpacing: "-0.01em" }}
+              >
+                {v.title}
+              </h4>
+              <p
+                className="col-start-3 md:col-start-6 col-span-10 md:col-span-7 text-primary-foreground/65 leading-relaxed text-lg"
+                style={{ fontWeight: 300 }}
+              >
+                {v.desc}
+              </p>
+            </motion.div>
+          ))}
+        </div>
+
+        <div className="mt-16 flex justify-center">
+          <Magnetic>
+            <Link to={buildPath(language, "/about")} className="btn-gold">
+              {t("values.cta")}
+            </Link>
+          </Magnetic>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+/* ---------- Main shell ---------- */
+const FluidHome = () => {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end end"] });
+  const progress = useSpring(scrollYProgress, { stiffness: 80, damping: 24, mass: 0.4 });
+
+  return (
+    <div ref={ref} className="relative">
+      <FluidBackdrop progress={progress} />
+      <ActHero />
+      <ActManifesto />
+      <ActServices />
+      <ActTeam />
+      <ActValues />
+      <div className="relative">
+        <ContactForm />
+      </div>
+    </div>
+  );
+};
+
+export default FluidHome;
