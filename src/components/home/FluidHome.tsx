@@ -229,7 +229,7 @@ const ActServices = () => {
   const { t, language } = useLanguage();
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end end"] });
-  const x = useTransform(scrollYProgress, [0, 1], ["0%", "-66%"]);
+  const x = useTransform(scrollYProgress, [0, 1], ["0%", "-55%"]);
   const xSpring = useSpring(x, { stiffness: 80, damping: 22, mass: 0.4 });
 
   const services = [
@@ -256,88 +256,124 @@ const ActServices = () => {
     },
   ];
 
-  return (
-    <section ref={ref} className="relative h-[300vh]">
-      <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden">
-        <div className="max-w-7xl w-full mx-auto px-6 mb-10 flex items-end justify-between">
-          <div>
-            <span className="eyebrow mb-4">{t("services.title")}</span>
-            <h3
-              className="font-heading text-primary mt-4"
-              style={{ fontSize: "clamp(2rem, 4.5vw, 4rem)", fontWeight: 300, letterSpacing: "-0.02em" }}
-            >
-              Advisory, <span className="serif-accent text-accent">crafted</span>.
-            </h3>
-          </div>
-          <div className="hidden md:block text-xs uppercase tracking-[0.3em] text-muted-foreground">
-            Scroll →
-          </div>
-        </div>
+  const cardClass =
+    "group relative shrink-0 rounded-[2rem] overflow-hidden flex flex-col justify-between p-8 md:p-14 transition-all duration-700";
+  const cardStyle = {
+    background: "linear-gradient(135deg, hsl(0 0% 100% / 0.55), hsl(0 0% 100% / 0.25))",
+    backdropFilter: "blur(20px) saturate(140%)",
+    WebkitBackdropFilter: "blur(20px) saturate(140%)",
+    border: "1px solid hsl(0 0% 100% / 0.5)",
+    boxShadow: "0 30px 80px -30px hsl(220 30% 12% / 0.25)",
+  } as const;
 
-        <motion.div style={{ x: xSpring }} className="flex gap-8 pl-[8vw] will-change-transform">
+  const CardInner = ({ s }: { s: typeof services[number] }) => (
+    <>
+      <div
+        aria-hidden
+        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(600px circle at 30% 0%, hsl(var(--accent) / 0.20), transparent 60%)",
+        }}
+      />
+      <div className="relative flex items-start justify-between gap-4">
+        <span className="serif-accent text-accent" style={{ fontSize: "clamp(2.5rem, 6vw, 5rem)" }}>
+          {s.no}
+        </span>
+        <span className="text-[10px] md:text-xs uppercase tracking-[0.25em] md:tracking-[0.3em] text-muted-foreground mt-3 md:mt-4 text-right">
+          {s.tag}
+        </span>
+      </div>
+      <div className="relative mt-8 md:mt-0">
+        <h4
+          className="font-heading text-primary mb-4 md:mb-6"
+          style={{ fontSize: "clamp(1.5rem, 3.5vw, 3.25rem)", fontWeight: 300, letterSpacing: "-0.02em" }}
+        >
+          {s.title}
+        </h4>
+        <p
+          className="text-muted-foreground text-base md:text-lg max-w-md leading-relaxed mb-6 md:mb-8"
+          style={{ fontWeight: 300 }}
+        >
+          {s.desc}
+        </p>
+        <div className="flex items-center gap-3 text-accent font-medium text-sm">
+          <span className="link-underline uppercase tracking-[0.2em]">Explore</span>
+          <ArrowUpRight className="w-4 h-4 transition-transform duration-500 group-hover:translate-x-1 group-hover:-translate-y-1" />
+        </div>
+      </div>
+    </>
+  );
+
+  return (
+    <>
+      {/* Mobile: stacked, no pin */}
+      <section className="md:hidden relative py-20 px-6">
+        <div className="max-w-7xl mx-auto mb-10">
+          <span className="eyebrow mb-4">{t("services.title")}</span>
+          <h3
+            className="font-heading text-primary mt-4"
+            style={{ fontSize: "clamp(2rem, 7vw, 3rem)", fontWeight: 300, letterSpacing: "-0.02em" }}
+          >
+            Advisory, <span className="serif-accent text-accent">crafted</span>.
+          </h3>
+        </div>
+        <div className="flex flex-col gap-6">
           {services.map((s) => (
-            <Link
-              key={s.no}
-              to={s.link}
-              className="group relative shrink-0 w-[85vw] md:w-[55vw] lg:w-[42vw] h-[60vh] rounded-[2rem] overflow-hidden flex flex-col justify-between p-10 md:p-14 transition-all duration-700"
-              style={{
-                background:
-                  "linear-gradient(135deg, hsl(0 0% 100% / 0.55), hsl(0 0% 100% / 0.25))",
-                backdropFilter: "blur(20px) saturate(140%)",
-                WebkitBackdropFilter: "blur(20px) saturate(140%)",
-                border: "1px solid hsl(0 0% 100% / 0.5)",
-                boxShadow: "0 30px 80px -30px hsl(220 30% 12% / 0.25)",
-              }}
-            >
-              <div
-                aria-hidden
-                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"
-                style={{
-                  background:
-                    "radial-gradient(600px circle at 30% 0%, hsl(var(--accent) / 0.20), transparent 60%)",
-                }}
-              />
-              <div className="relative flex items-start justify-between">
-                <span className="serif-accent text-accent" style={{ fontSize: "clamp(3rem, 6vw, 5rem)" }}>
-                  {s.no}
-                </span>
-                <span className="text-xs uppercase tracking-[0.3em] text-muted-foreground mt-4">
-                  {s.tag}
-                </span>
-              </div>
-              <div className="relative">
-                <h4
-                  className="font-heading text-primary mb-6"
-                  style={{ fontSize: "clamp(2rem, 3.5vw, 3.25rem)", fontWeight: 300, letterSpacing: "-0.02em" }}
-                >
-                  {s.title}
-                </h4>
-                <p className="text-muted-foreground text-lg max-w-md leading-relaxed mb-8" style={{ fontWeight: 300 }}>
-                  {s.desc}
-                </p>
-                <div className="flex items-center gap-3 text-accent font-medium text-sm">
-                  <span className="link-underline uppercase tracking-[0.2em]">Explore</span>
-                  <ArrowUpRight className="w-4 h-4 transition-transform duration-500 group-hover:translate-x-1 group-hover:-translate-y-1" />
-                </div>
-              </div>
+            <Link key={s.no} to={s.link} className={`${cardClass} w-full min-h-[420px]`} style={cardStyle}>
+              <CardInner s={s} />
             </Link>
           ))}
-          {/* trailing CTA card */}
-          <div
-            className="shrink-0 w-[60vw] md:w-[35vw] h-[60vh] flex items-center justify-center pr-[10vw]"
-          >
+          <div className="flex justify-center mt-4">
             <Magnetic>
-              <Link
-                to={buildPath(language, "/services")}
-                className="btn-gold whitespace-nowrap"
-              >
+              <Link to={buildPath(language, "/services")} className="btn-gold whitespace-nowrap">
                 {t("services.cta")}
               </Link>
             </Magnetic>
           </div>
-        </motion.div>
-      </div>
-    </section>
+        </div>
+      </section>
+
+      {/* Desktop/tablet: horizontal pinned */}
+      <section ref={ref} className="hidden md:block relative h-[300vh]">
+        <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden">
+          <div className="max-w-7xl w-full mx-auto px-6 mb-10 flex items-end justify-between">
+            <div>
+              <span className="eyebrow mb-4">{t("services.title")}</span>
+              <h3
+                className="font-heading text-primary mt-4"
+                style={{ fontSize: "clamp(2rem, 4.5vw, 4rem)", fontWeight: 300, letterSpacing: "-0.02em" }}
+              >
+                Advisory, <span className="serif-accent text-accent">crafted</span>.
+              </h3>
+            </div>
+            <div className="hidden md:block text-xs uppercase tracking-[0.3em] text-muted-foreground">
+              Scroll →
+            </div>
+          </div>
+
+          <motion.div style={{ x: xSpring }} className="flex gap-8 pl-[8vw] will-change-transform">
+            {services.map((s) => (
+              <Link
+                key={s.no}
+                to={s.link}
+                className={`${cardClass} md:w-[55vw] lg:w-[42vw] h-[60vh]`}
+                style={cardStyle}
+              >
+                <CardInner s={s} />
+              </Link>
+            ))}
+            <div className="shrink-0 w-[35vw] h-[60vh] flex items-center justify-center pr-[10vw]">
+              <Magnetic>
+                <Link to={buildPath(language, "/services")} className="btn-gold whitespace-nowrap">
+                  {t("services.cta")}
+                </Link>
+              </Magnetic>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+    </>
   );
 };
 
