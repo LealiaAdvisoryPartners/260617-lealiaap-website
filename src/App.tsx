@@ -31,7 +31,7 @@ const App = () => (
             <ScrollToTop />
             <LanguageRedirect />
             <ScrollProgress />
-            <CustomCursor />
+            
             <div className="min-h-screen flex flex-col">
               <Navigation />
               <main className="flex-1 pt-16">
