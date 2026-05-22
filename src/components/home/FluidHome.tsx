@@ -118,7 +118,7 @@ const ActHero = () => {
   const filter = useMotionTemplate`blur(${blur}px)`;
 
   return (
-    <section ref={ref} className="relative h-[110vh] flex items-center justify-center">
+    <section ref={ref} className="relative h-[calc(100vh-4rem)] flex items-center justify-center">
       <motion.div
         style={{ y, opacity, scale, filter }}
         className="relative max-w-5xl mx-auto px-6 w-full flex flex-col items-center"
@@ -135,7 +135,7 @@ const ActHero = () => {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="text-muted-foreground text-xs sm:text-sm md:text-base text-center font-body uppercase mt-10"
+          className="text-muted-foreground text-xs sm:text-sm md:text-base text-center font-body uppercase mt-8"
           style={{ letterSpacing: "0.4em", fontWeight: 300 }}
         >
           {t("hero.services")}
@@ -145,40 +145,15 @@ const ActHero = () => {
           initial={{ scaleX: 0 }}
           animate={{ scaleX: 1 }}
           transition={{ duration: 1.4, delay: 1.1, ease: [0.16, 1, 0.3, 1] }}
-          className="h-px w-32 bg-gradient-to-r from-transparent via-accent to-transparent mt-10 origin-center"
+          className="h-px w-32 bg-gradient-to-r from-transparent via-accent to-transparent mt-8 origin-center"
         />
       </motion.div>
 
-      {/* Floating tagline marquee */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 1.2, delay: 1.6 }}
-        className="absolute bottom-32 left-0 right-0"
-        style={{ opacity }}
-      >
-        <Marquee speed={50} className="py-4 text-primary/25">
-          {[
-            "Mergers & Acquisitions",
-            "Buy-side Advisory",
-            "Sell-side Advisory",
-            "Performance Improvement",
-            "Corporate Finance",
-            "Strategic Consulting",
-          ].flatMap((label) => [
-            <span key={label} className="serif-accent text-3xl md:text-5xl tracking-tight">
-              {label}
-            </span>,
-            <Sparkles key={label + "-s"} className="w-4 h-4 text-accent/60" />,
-          ])}
-        </Marquee>
-      </motion.div>
-
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1, delay: 1.8 }}
-        className="absolute bottom-10 left-0 right-0 flex justify-center text-muted-foreground/60"
+        transition={{ duration: 1, delay: 1.4 }}
+        className="absolute bottom-8 left-0 right-0 flex justify-center text-muted-foreground/60"
         style={{ opacity }}
       >
         <motion.div animate={{ y: [0, 8, 0] }} transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}>
