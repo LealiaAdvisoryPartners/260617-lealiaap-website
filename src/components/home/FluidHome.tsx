@@ -182,7 +182,7 @@ const ActManifesto = () => {
   ];
 
   return (
-    <section ref={ref} className="relative min-h-[140vh] flex items-center justify-center px-6">
+    <section ref={ref} className="relative min-h-[80vh] flex items-center justify-center px-6 py-24">
       <motion.div
         style={{ y, opacity }}
         className="max-w-6xl mx-auto text-center"
