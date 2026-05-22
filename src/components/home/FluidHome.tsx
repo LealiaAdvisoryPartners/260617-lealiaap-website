@@ -229,7 +229,7 @@ const ActServices = () => {
   const { t, language } = useLanguage();
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end end"] });
-  const x = useTransform(scrollYProgress, [0, 1], ["0%", "-66%"]);
+  const x = useTransform(scrollYProgress, [0, 1], ["0%", "-55%"]);
   const xSpring = useSpring(x, { stiffness: 80, damping: 22, mass: 0.4 });
 
   const services = [
