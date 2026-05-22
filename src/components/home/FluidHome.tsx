@@ -391,7 +391,7 @@ const ActTeam = () => {
 
 
   return (
-    <section className="relative py-32 md:py-48 px-6">
+    <section className="relative py-20 md:py-28 px-6">
       <div className="max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -445,7 +445,7 @@ const ActValues = () => {
   ];
 
   return (
-    <section className="relative py-32 md:py-48 px-6">
+    <section className="relative py-20 md:py-28 px-6">
       <div className="max-w-6xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
