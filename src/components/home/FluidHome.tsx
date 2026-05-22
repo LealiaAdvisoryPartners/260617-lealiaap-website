@@ -1,10 +1,9 @@
 import { motion, useScroll, useTransform, useMotionTemplate, useSpring, MotionValue } from "framer-motion";
 import { useRef } from "react";
 import { Link } from "react-router-dom";
-import { ArrowDown, ArrowUpRight, Mail, Linkedin, Sparkles } from "lucide-react";
+import { ArrowDown, ArrowUpRight, Mail, Linkedin } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { buildPath } from "@/lib/routing";
-import { Marquee } from "@/components/motion/Marquee";
 import { Magnetic } from "@/components/motion/MagneticButton";
 import ContactForm from "@/components/home/ContactForm";
 import logo from "@/assets/logo.png";
