@@ -467,7 +467,7 @@ const ActTeam = () => {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">
           {teamMembers.map((m, i) => (
             <TeamCard key={m.id} member={m} index={i} role={t("teampage.role")} href={`${buildPath(language, "/team")}#${m.id}`} />
           ))}
