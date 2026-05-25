@@ -230,29 +230,45 @@ const ServiceStackCard = ({
   index,
   total,
   topPx,
+  releaseOpacity,
+  releaseY,
 }: {
   s: { no: string; title: string; desc: string; tag: string; link: string };
   index: number;
   total: number;
   topPx: number;
+  releaseOpacity?: MotionValue<number>;
+  releaseY?: MotionValue<number>;
 }) => {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
-  // As the NEXT card scrolls into view, this card recedes: scales down, tilts, fades slightly
   const scale = useTransform(scrollYProgress, [0, 1], [1, 0.92]);
-  const y = useTransform(scrollYProgress, [0, 1], [0, -40]);
+  const yScroll = useTransform(scrollYProgress, [0, 1], [0, -40]);
   const rotate = useTransform(scrollYProgress, [0, 1], [0, -2]);
-  const opacity = useTransform(scrollYProgress, [0, 1], [1, 1]);
-  // Stagger sticky offset so cards stack with a small reveal of the previous
-  const stagger = index * 20; // px
+  const isLast = index === total - 1;
+  const stagger = index * 20;
+
+  // Combine the natural scroll y with the release lift on the last card
+  const combinedY = useTransform(
+    [yScroll, releaseY ?? (yScroll as unknown as MotionValue<number>)] as MotionValue<number>[],
+    ([a, b]: number[]) => (isLast && releaseY ? a + b : a)
+  );
 
   return (
     <div
       ref={ref}
       className="sticky"
-      style={{ top: `${topPx + stagger}px`, zIndex: 10 + index, marginBottom: index === total - 1 ? 0 : "8vh" }}
+      style={{ top: `${topPx + stagger}px`, zIndex: 10 + index, marginBottom: isLast ? 0 : "8vh" }}
     >
-      <motion.div style={{ scale, y, rotate, opacity }} className="will-change-transform">
+      <motion.div
+        style={{
+          scale,
+          y: combinedY,
+          rotate,
+          opacity: isLast && releaseOpacity ? releaseOpacity : 1,
+        }}
+        className="will-change-transform"
+      >
         <Link
           to={s.link}
           className="group relative block overflow-hidden rounded-[2.5rem] p-10 md:p-16 lg:p-20 bg-background"
@@ -330,11 +346,12 @@ const ServiceStackCard = ({
 const ActServices = () => {
   const { t, language } = useLanguage();
   const headerRef = useRef<HTMLDivElement>(null);
+  const stackRef = useRef<HTMLDivElement>(null);
   const [stickyTop, setStickyTop] = useState(120);
 
   useLayoutEffect(() => {
     const NAV_H = 64; // h-16
-    const GAP = 16; // small breathing room below header
+    const GAP = 16;
     const compute = () => {
       const h = headerRef.current?.offsetHeight ?? 0;
       setStickyTop(NAV_H + h + GAP);
@@ -343,6 +360,14 @@ const ActServices = () => {
     window.addEventListener("resize", compute);
     return () => window.removeEventListener("resize", compute);
   }, []);
+
+  // Sync release fade for header + last card so they unfreeze together
+  const { scrollYProgress: stackProgress } = useScroll({
+    target: stackRef,
+    offset: ["end end", "end start"],
+  });
+  const releaseOpacity = useTransform(stackProgress, [0, 0.25], [1, 0]);
+  const releaseY = useTransform(stackProgress, [0, 0.25], [0, -30]);
 
   const services = [
     {
@@ -378,11 +403,8 @@ const ActServices = () => {
             style={{ top: "4rem" }}
           >
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-              className="flex flex-col md:flex-row md:items-end md:justify-between gap-6"
+              style={{ opacity: releaseOpacity, y: releaseY }}
+              className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 will-change-transform"
             >
               <div>
                 <span className="eyebrow mb-4">{t("services.title")}</span>
@@ -402,9 +424,17 @@ const ActServices = () => {
             </motion.div>
           </div>
 
-          <div className="relative mt-8 md:mt-12">
+          <div ref={stackRef} className="relative mt-8 md:mt-12">
             {services.map((s, i) => (
-              <ServiceStackCard key={s.no} s={s} index={i} total={services.length} topPx={stickyTop} />
+              <ServiceStackCard
+                key={s.no}
+                s={s}
+                index={i}
+                total={services.length}
+                topPx={stickyTop}
+                releaseOpacity={releaseOpacity}
+                releaseY={releaseY}
+              />
             ))}
           </div>
         </div>
