@@ -329,6 +329,20 @@ const ServiceStackCard = ({
 
 const ActServices = () => {
   const { t, language } = useLanguage();
+  const headerRef = useRef<HTMLDivElement>(null);
+  const [stickyTop, setStickyTop] = useState(120);
+
+  useLayoutEffect(() => {
+    const NAV_H = 64; // h-16
+    const GAP = 16; // small breathing room below header
+    const compute = () => {
+      const h = headerRef.current?.offsetHeight ?? 0;
+      setStickyTop(NAV_H + h + GAP);
+    };
+    compute();
+    window.addEventListener("resize", compute);
+    return () => window.removeEventListener("resize", compute);
+  }, []);
 
   const services = [
     {
@@ -357,33 +371,39 @@ const ActServices = () => {
   return (
     <section className="relative px-6 py-20 md:py-28">
       <div className="max-w-7xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-          className="mb-16 md:mb-24 flex flex-col md:flex-row md:items-end md:justify-between gap-6"
+        <div
+          ref={headerRef}
+          className="sticky z-30 -mx-6 px-6 pt-6 pb-8 md:pb-10"
+          style={{ top: "4rem" }}
         >
-          <div>
-            <span className="eyebrow mb-4">{t("services.title")}</span>
-            <h3
-              className="font-heading text-primary mt-4"
-              style={{ fontSize: "clamp(2.25rem, 5.5vw, 4.5rem)", fontWeight: 300, letterSpacing: "-0.025em" }}
-            >
-              Advisory, <span className="serif-accent text-accent">crafted</span>.
-            </h3>
-          </div>
-          <p
-            className="text-muted-foreground max-w-sm text-sm md:text-base leading-relaxed"
-            style={{ fontWeight: 300 }}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+            className="flex flex-col md:flex-row md:items-end md:justify-between gap-6"
           >
-            Three disciplines. One conviction — that the right counsel changes the outcome.
-          </p>
-        </motion.div>
+            <div>
+              <span className="eyebrow mb-4">{t("services.title")}</span>
+              <h3
+                className="font-heading text-primary mt-4"
+                style={{ fontSize: "clamp(2.25rem, 5.5vw, 4.5rem)", fontWeight: 300, letterSpacing: "-0.025em" }}
+              >
+                Advisory, <span className="serif-accent text-accent">crafted</span>.
+              </h3>
+            </div>
+            <p
+              className="text-muted-foreground max-w-sm text-sm md:text-base leading-relaxed"
+              style={{ fontWeight: 300 }}
+            >
+              Three disciplines. One conviction — that the right counsel changes the outcome.
+            </p>
+          </motion.div>
+        </div>
 
-        <div className="relative">
+        <div className="relative mt-8 md:mt-12">
           {services.map((s, i) => (
-            <ServiceStackCard key={s.no} s={s} index={i} total={services.length} />
+            <ServiceStackCard key={s.no} s={s} index={i} total={services.length} topPx={stickyTop} />
           ))}
         </div>
 
