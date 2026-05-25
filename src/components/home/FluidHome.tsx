@@ -1,5 +1,5 @@
 import { motion, useScroll, useTransform, useMotionTemplate, useSpring, MotionValue } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState, useLayoutEffect } from "react";
 import { Link } from "react-router-dom";
 import { ArrowDown, ArrowUpRight, Mail, Linkedin } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
