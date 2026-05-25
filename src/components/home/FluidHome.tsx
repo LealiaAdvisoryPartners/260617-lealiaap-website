@@ -230,29 +230,45 @@ const ServiceStackCard = ({
   index,
   total,
   topPx,
+  releaseOpacity,
+  releaseY,
 }: {
   s: { no: string; title: string; desc: string; tag: string; link: string };
   index: number;
   total: number;
   topPx: number;
+  releaseOpacity?: MotionValue<number>;
+  releaseY?: MotionValue<number>;
 }) => {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
-  // As the NEXT card scrolls into view, this card recedes: scales down, tilts, fades slightly
   const scale = useTransform(scrollYProgress, [0, 1], [1, 0.92]);
-  const y = useTransform(scrollYProgress, [0, 1], [0, -40]);
+  const yScroll = useTransform(scrollYProgress, [0, 1], [0, -40]);
   const rotate = useTransform(scrollYProgress, [0, 1], [0, -2]);
-  const opacity = useTransform(scrollYProgress, [0, 1], [1, 1]);
-  // Stagger sticky offset so cards stack with a small reveal of the previous
-  const stagger = index * 20; // px
+  const isLast = index === total - 1;
+  const stagger = index * 20;
+
+  // Combine the natural scroll y with the release lift on the last card
+  const combinedY = useTransform(
+    [yScroll, releaseY ?? (yScroll as unknown as MotionValue<number>)] as MotionValue<number>[],
+    ([a, b]: number[]) => (isLast && releaseY ? a + b : a)
+  );
 
   return (
     <div
       ref={ref}
       className="sticky"
-      style={{ top: `${topPx + stagger}px`, zIndex: 10 + index, marginBottom: index === total - 1 ? 0 : "8vh" }}
+      style={{ top: `${topPx + stagger}px`, zIndex: 10 + index, marginBottom: isLast ? 0 : "8vh" }}
     >
-      <motion.div style={{ scale, y, rotate, opacity }} className="will-change-transform">
+      <motion.div
+        style={{
+          scale,
+          y: combinedY,
+          rotate,
+          opacity: isLast && releaseOpacity ? releaseOpacity : 1,
+        }}
+        className="will-change-transform"
+      >
         <Link
           to={s.link}
           className="group relative block overflow-hidden rounded-[2.5rem] p-10 md:p-16 lg:p-20 bg-background"
