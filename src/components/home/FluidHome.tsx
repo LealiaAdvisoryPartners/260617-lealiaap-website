@@ -229,10 +229,12 @@ const ServiceStackCard = ({
   s,
   index,
   total,
+  topPx,
 }: {
   s: { no: string; title: string; desc: string; tag: string; link: string };
   index: number;
   total: number;
+  topPx: number;
 }) => {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
@@ -242,13 +244,13 @@ const ServiceStackCard = ({
   const rotate = useTransform(scrollYProgress, [0, 1], [0, -2]);
   const opacity = useTransform(scrollYProgress, [0, 1], [1, 1]);
   // Stagger sticky offset so cards stack with a small reveal of the previous
-  const topOffset = 5 + index * 2.5; // vh
+  const stagger = index * 20; // px
 
   return (
     <div
       ref={ref}
       className="sticky"
-      style={{ top: `${topOffset}vh`, zIndex: 10 + index, marginBottom: index === total - 1 ? 0 : "8vh" }}
+      style={{ top: `${topPx + stagger}px`, zIndex: 10 + index, marginBottom: index === total - 1 ? 0 : "8vh" }}
     >
       <motion.div style={{ scale, y, rotate, opacity }} className="will-change-transform">
         <Link
