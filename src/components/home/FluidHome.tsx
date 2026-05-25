@@ -412,8 +412,8 @@ const TeamCard = ({ member, index, role, href }: { member: TeamMember; index: nu
       transition={{ duration: 1.1, delay: index * 0.15, ease: [0.16, 1, 0.3, 1] }}
       className={`group ${index === 1 ? "md:mt-32" : ""}`}
     >
-      <Link to={href} className="block">
-        <div className="relative overflow-hidden rounded-[2rem] bg-secondary aspect-[4/5]">
+        <Link to={href} className="block">
+          <div className="relative overflow-hidden rounded-[2rem] bg-secondary aspect-[4/5] max-w-[280px] md:max-w-[340px] lg:max-w-none mx-auto lg:mx-0">
           <motion.img
             src={member.image}
             alt={member.name}
@@ -447,7 +447,7 @@ const ActTeam = () => {
 
   return (
     <section className="relative py-20 md:py-28 px-6">
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-5xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -467,7 +467,7 @@ const ActTeam = () => {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">
           {teamMembers.map((m, i) => (
             <TeamCard key={m.id} member={m} index={i} role={t("teampage.role")} href={`${buildPath(language, "/team")}#${m.id}`} />
           ))}

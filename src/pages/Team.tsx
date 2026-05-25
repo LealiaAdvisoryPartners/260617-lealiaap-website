@@ -89,10 +89,10 @@ const Team = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-100px" }}
                 transition={{ duration: 0.8 }}
-                className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center"
+                className="grid grid-cols-1 md:grid-cols-12 gap-10 lg:gap-16 items-center"
               >
                 {/* Image */}
-                <div className={`lg:col-span-5 ${!isEven ? "lg:order-2" : ""}`}>
+                <div className={`md:col-span-5 ${!isEven ? "md:order-2" : ""}`}>
                   <motion.div
                     initial={{ scale: 0.95, opacity: 0 }}
                     whileInView={{ scale: 1, opacity: 1 }}
@@ -107,11 +107,11 @@ const Team = () => {
                           : "bg-gradient-to-bl from-primary/15 to-accent/15"
                       }`}
                     />
-                    <div className="relative overflow-hidden rounded-2xl shadow-[var(--shadow-elegant)]">
+                    <div className="relative overflow-hidden rounded-2xl shadow-[var(--shadow-elegant)] max-w-sm mx-auto md:max-w-none md:mx-0">
                       <img
                         src={member.image}
                         alt={member.name}
-                        className="w-full aspect-[4/5] object-cover transition-transform duration-[1.4s] ease-out group-hover:scale-[1.04]"
+                        className="w-full aspect-[3/4] object-cover transition-transform duration-[1.4s] ease-out group-hover:scale-[1.04]"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-primary/20 via-transparent to-transparent" />
                     </div>
@@ -124,7 +124,7 @@ const Team = () => {
                 </div>
 
                 {/* Content */}
-                <div className={`lg:col-span-7 ${!isEven ? "lg:order-1" : ""}`}>
+                <div className={`md:col-span-7 ${!isEven ? "md:order-1" : ""}`}>
                   <span className="eyebrow mb-5">Partner</span>
                   <h2 className="text-3xl md:text-4xl lg:text-5xl font-heading font-light text-primary tracking-tight mt-4 mb-3 leading-tight">
                     {member.name}
