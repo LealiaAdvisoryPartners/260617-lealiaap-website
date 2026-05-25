@@ -346,11 +346,12 @@ const ServiceStackCard = ({
 const ActServices = () => {
   const { t, language } = useLanguage();
   const headerRef = useRef<HTMLDivElement>(null);
+  const stackRef = useRef<HTMLDivElement>(null);
   const [stickyTop, setStickyTop] = useState(120);
 
   useLayoutEffect(() => {
     const NAV_H = 64; // h-16
-    const GAP = 16; // small breathing room below header
+    const GAP = 16;
     const compute = () => {
       const h = headerRef.current?.offsetHeight ?? 0;
       setStickyTop(NAV_H + h + GAP);
@@ -359,6 +360,14 @@ const ActServices = () => {
     window.addEventListener("resize", compute);
     return () => window.removeEventListener("resize", compute);
   }, []);
+
+  // Sync release fade for header + last card so they unfreeze together
+  const { scrollYProgress: stackProgress } = useScroll({
+    target: stackRef,
+    offset: ["end end", "end start"],
+  });
+  const releaseOpacity = useTransform(stackProgress, [0, 0.25], [1, 0]);
+  const releaseY = useTransform(stackProgress, [0, 0.25], [0, -30]);
 
   const services = [
     {
@@ -394,11 +403,8 @@ const ActServices = () => {
             style={{ top: "4rem" }}
           >
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-              className="flex flex-col md:flex-row md:items-end md:justify-between gap-6"
+              style={{ opacity: releaseOpacity, y: releaseY }}
+              className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 will-change-transform"
             >
               <div>
                 <span className="eyebrow mb-4">{t("services.title")}</span>
@@ -418,9 +424,17 @@ const ActServices = () => {
             </motion.div>
           </div>
 
-          <div className="relative mt-8 md:mt-12">
+          <div ref={stackRef} className="relative mt-8 md:mt-12">
             {services.map((s, i) => (
-              <ServiceStackCard key={s.no} s={s} index={i} total={services.length} topPx={stickyTop} />
+              <ServiceStackCard
+                key={s.no}
+                s={s}
+                index={i}
+                total={services.length}
+                topPx={stickyTop}
+                releaseOpacity={releaseOpacity}
+                releaseY={releaseY}
+              />
             ))}
           </div>
         </div>
