@@ -447,7 +447,7 @@ const ActTeam = () => {
 
   return (
     <section className="relative py-20 md:py-28 px-6">
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-5xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
