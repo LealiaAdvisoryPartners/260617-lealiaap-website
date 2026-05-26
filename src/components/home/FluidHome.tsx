@@ -333,8 +333,8 @@ const ActServices = () => {
   const [stickyTop, setStickyTop] = useState(120);
 
   useLayoutEffect(() => {
-    const NAV_H = 64; // h-16
-    const GAP = 16; // small breathing room below header
+    const NAV_H = 80; // matches Navigation h-20
+    const GAP = 12; // small breathing room below header
     const compute = () => {
       const h = headerRef.current?.offsetHeight ?? 0;
       setStickyTop(NAV_H + h + GAP);
@@ -373,8 +373,8 @@ const ActServices = () => {
       <div className="max-w-7xl mx-auto">
         <div
           ref={headerRef}
-          className="sticky z-30 -mx-6 px-6 pt-6 pb-8 md:pb-10"
-          style={{ top: "4rem" }}
+          className="sticky z-30 -mx-6 px-6 pt-6 pb-8 md:pb-10 bg-background"
+          style={{ top: "5rem" }}
         >
           <motion.div
             initial={{ opacity: 0, y: 30 }}
