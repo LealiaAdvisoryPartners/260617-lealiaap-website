@@ -333,8 +333,8 @@ const ActServices = () => {
   const [stickyTop, setStickyTop] = useState(120);
 
   useLayoutEffect(() => {
-    const NAV_H = 64; // h-16
-    const GAP = 16; // small breathing room below header
+    const NAV_H = 80; // matches Navigation h-20
+    const GAP = 12; // small breathing room below header
     const compute = () => {
       const h = headerRef.current?.offsetHeight ?? 0;
       setStickyTop(NAV_H + h + GAP);
