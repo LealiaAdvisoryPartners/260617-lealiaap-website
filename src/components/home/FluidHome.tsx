@@ -373,8 +373,8 @@ const ActServices = () => {
       <div className="max-w-7xl mx-auto">
         <div
           ref={headerRef}
-          className="sticky z-30 -mx-6 px-6 pt-6 pb-8 md:pb-10"
-          style={{ top: "4rem" }}
+          className="sticky z-30 -mx-6 px-6 pt-6 pb-8 md:pb-10 bg-background"
+          style={{ top: "5rem" }}
         >
           <motion.div
             initial={{ opacity: 0, y: 30 }}
