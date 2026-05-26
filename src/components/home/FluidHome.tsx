@@ -1,5 +1,5 @@
 import { motion, useScroll, useTransform, useMotionTemplate, useSpring, MotionValue } from "framer-motion";
-import { useRef, useState, useLayoutEffect } from "react";
+import { useRef } from "react";
 import { Link } from "react-router-dom";
 import { ArrowDown, ArrowUpRight, Mail, Linkedin } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -229,12 +229,10 @@ const ServiceStackCard = ({
   s,
   index,
   total,
-  topPx,
 }: {
   s: { no: string; title: string; desc: string; tag: string; link: string };
   index: number;
   total: number;
-  topPx: number;
 }) => {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
@@ -242,25 +240,29 @@ const ServiceStackCard = ({
   const scale = useTransform(scrollYProgress, [0, 1], [1, 0.92]);
   const y = useTransform(scrollYProgress, [0, 1], [0, -40]);
   const rotate = useTransform(scrollYProgress, [0, 1], [0, -2]);
-  const opacity = useTransform(scrollYProgress, [0, 1], [1, 1]);
+  const opacity = useTransform(scrollYProgress, [0, 1], [1, 0.55]);
   // Stagger sticky offset so cards stack with a small reveal of the previous
-  const stagger = index * 20; // px
+  const topOffset = 5 + index * 2.5; // vh
 
   return (
     <div
       ref={ref}
       className="sticky"
-      style={{ top: `${topPx + stagger}px`, zIndex: 10 + index, marginBottom: index === total - 1 ? 0 : "8vh" }}
+      style={{ top: `${topOffset}vh`, zIndex: 10 + index, marginBottom: index === total - 1 ? 0 : "8vh" }}
     >
       <motion.div style={{ scale, y, rotate, opacity }} className="will-change-transform">
         <Link
           to={s.link}
-          className="group relative block overflow-hidden rounded-[2.5rem] p-10 md:p-16 lg:p-20 bg-background"
+          className="group relative block overflow-hidden rounded-[2.5rem] p-10 md:p-16 lg:p-20"
           style={{
             minHeight: "70vh",
-            border: "1px solid hsl(var(--border))",
+            background:
+              "linear-gradient(135deg, hsl(0 0% 100% / 0.7), hsl(0 0% 100% / 0.35))",
+            backdropFilter: "blur(24px) saturate(150%)",
+            WebkitBackdropFilter: "blur(24px) saturate(150%)",
+            border: "1px solid hsl(0 0% 100% / 0.55)",
             boxShadow:
-              "0 40px 100px -30px hsl(220 30% 8% / 0.5), 0 2px 0 hsl(0 0% 100% / 0.6) inset",
+              "0 40px 100px -30px hsl(220 30% 8% / 0.35), 0 2px 0 hsl(0 0% 100% / 0.6) inset",
           }}
         >
           {/* hover gold wash */}
@@ -329,20 +331,6 @@ const ServiceStackCard = ({
 
 const ActServices = () => {
   const { t, language } = useLanguage();
-  const headerRef = useRef<HTMLDivElement>(null);
-  const [stickyTop, setStickyTop] = useState(120);
-
-  useLayoutEffect(() => {
-    const NAV_H = 80; // matches Navigation h-20
-    const GAP = 12; // small breathing room below header
-    const compute = () => {
-      const h = headerRef.current?.offsetHeight ?? 0;
-      setStickyTop(NAV_H + h + GAP);
-    };
-    compute();
-    window.addEventListener("resize", compute);
-    return () => window.removeEventListener("resize", compute);
-  }, []);
 
   const services = [
     {
@@ -371,39 +359,33 @@ const ActServices = () => {
   return (
     <section className="relative px-6 py-20 md:py-28">
       <div className="max-w-7xl mx-auto">
-        <div
-          ref={headerRef}
-          className="sticky z-30 -mx-6 px-6 pt-6 pb-8 md:pb-10 bg-background"
-          style={{ top: "5rem" }}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+          className="mb-16 md:mb-24 flex flex-col md:flex-row md:items-end md:justify-between gap-6"
         >
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-            className="flex flex-col md:flex-row md:items-end md:justify-between gap-6"
-          >
-            <div>
-              <span className="eyebrow mb-4">{t("services.title")}</span>
-              <h3
-                className="font-heading text-primary mt-4"
-                style={{ fontSize: "clamp(2.25rem, 5.5vw, 4.5rem)", fontWeight: 300, letterSpacing: "-0.025em" }}
-              >
-                Advisory, <span className="serif-accent text-accent">crafted</span>.
-              </h3>
-            </div>
-            <p
-              className="text-muted-foreground max-w-sm text-sm md:text-base leading-relaxed"
-              style={{ fontWeight: 300 }}
+          <div>
+            <span className="eyebrow mb-4">{t("services.title")}</span>
+            <h3
+              className="font-heading text-primary mt-4"
+              style={{ fontSize: "clamp(2.25rem, 5.5vw, 4.5rem)", fontWeight: 300, letterSpacing: "-0.025em" }}
             >
-              Three disciplines. One conviction — that the right counsel changes the outcome.
-            </p>
-          </motion.div>
-        </div>
+              Advisory, <span className="serif-accent text-accent">crafted</span>.
+            </h3>
+          </div>
+          <p
+            className="text-muted-foreground max-w-sm text-sm md:text-base leading-relaxed"
+            style={{ fontWeight: 300 }}
+          >
+            Three disciplines. One conviction — that the right counsel changes the outcome.
+          </p>
+        </motion.div>
 
-        <div className="relative mt-8 md:mt-12">
+        <div className="relative">
           {services.map((s, i) => (
-            <ServiceStackCard key={s.no} s={s} index={i} total={services.length} topPx={stickyTop} />
+            <ServiceStackCard key={s.no} s={s} index={i} total={services.length} />
           ))}
         </div>
 
@@ -434,8 +416,8 @@ const TeamCard = ({ member, index, role, href }: { member: TeamMember; index: nu
       transition={{ duration: 1.1, delay: index * 0.15, ease: [0.16, 1, 0.3, 1] }}
       className={`group ${index === 1 ? "md:mt-32" : ""}`}
     >
-        <Link to={href} className="block">
-          <div className="relative overflow-hidden rounded-[2rem] bg-secondary aspect-[4/5] max-w-[280px] md:max-w-[340px] lg:max-w-none mx-auto lg:mx-0">
+      <Link to={href} className="block">
+        <div className="relative overflow-hidden rounded-[2rem] bg-secondary aspect-[4/5]">
           <motion.img
             src={member.image}
             alt={member.name}
@@ -469,7 +451,7 @@ const ActTeam = () => {
 
   return (
     <section className="relative py-20 md:py-28 px-6">
-      <div className="max-w-5xl mx-auto">
+      <div className="max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -489,7 +471,7 @@ const ActTeam = () => {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16">
           {teamMembers.map((m, i) => (
             <TeamCard key={m.id} member={m} index={i} role={t("teampage.role")} href={`${buildPath(language, "/team")}#${m.id}`} />
           ))}
