@@ -358,7 +358,7 @@ const ActServices = () => {
       <div className="max-w-7xl mx-auto">
         {/* Single sticky track: title + cards share one wrapper so they release together */}
         <div className="relative">
-          <div className="sticky top-0 z-0 pt-6 pb-8 md:pt-10 md:pb-10 bg-background">
+          <div className="sticky top-0 z-0 pt-6 pb-8 md:pt-10 md:pb-10">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
