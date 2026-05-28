@@ -356,31 +356,34 @@ const ActServices = () => {
   return (
     <section className="relative px-6 py-20 md:py-28">
       <div className="max-w-7xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-          className="mb-16 md:mb-24 flex flex-col md:flex-row md:items-end md:justify-between gap-6"
-        >
-          <div>
-            <span className="eyebrow mb-4">{t("services.title")}</span>
-            <h3
-              className="font-heading text-primary mt-4"
-              style={{ fontSize: "clamp(2.25rem, 5.5vw, 4.5rem)", fontWeight: 300, letterSpacing: "-0.025em" }}
-            >
-              Advisory, <span className="serif-accent text-accent">crafted</span>.
-            </h3>
-          </div>
-          <p
-            className="text-muted-foreground max-w-sm text-sm md:text-base leading-relaxed"
-            style={{ fontWeight: 300 }}
-          >
-            Three disciplines. One conviction — that the right counsel changes the outcome.
-          </p>
-        </motion.div>
-
+        {/* Single sticky track: title + cards share one wrapper so they release together */}
         <div className="relative">
+          <div className="sticky top-0 z-0 pt-6 pb-8 md:pt-10 md:pb-10 bg-background">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+              className="flex flex-col md:flex-row md:items-end md:justify-between gap-4"
+            >
+              <div>
+                <span className="eyebrow mb-4">{t("services.title")}</span>
+                <h3
+                  className="font-heading text-primary mt-4"
+                  style={{ fontSize: "clamp(2.25rem, 5.5vw, 4.5rem)", fontWeight: 300, letterSpacing: "-0.025em" }}
+                >
+                  Advisory, <span className="serif-accent text-accent">crafted</span>.
+                </h3>
+              </div>
+              <p
+                className="text-muted-foreground max-w-sm text-sm md:text-base leading-relaxed"
+                style={{ fontWeight: 300 }}
+              >
+                Three disciplines. One conviction — that the right counsel changes the outcome.
+              </p>
+            </motion.div>
+          </div>
+
           {services.map((s, i) => (
             <ServiceStackCard key={s.no} s={s} index={i} total={services.length} />
           ))}
@@ -397,6 +400,7 @@ const ActServices = () => {
     </section>
   );
 };
+
 
 /* ---------- Act IV: Team — cinematic dark ---------- */
 type TeamMember = (typeof teamMembers)[number];
