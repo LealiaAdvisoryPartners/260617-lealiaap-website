@@ -240,7 +240,7 @@ const ServiceStackCard = ({
   const scale = useTransform(scrollYProgress, [0, 1], [1, 0.92]);
   const y = useTransform(scrollYProgress, [0, 1], [0, -40]);
   const rotate = useTransform(scrollYProgress, [0, 1], [0, -2]);
-  const opacity = useTransform(scrollYProgress, [0, 1], [1, 0.55]);
+  const opacity = useTransform(scrollYProgress, [0, 1], [1, 1]);
   // Stagger sticky offset so cards stack with a small reveal of the previous
   const topOffset = 5 + index * 2.5; // vh
 
@@ -253,16 +253,12 @@ const ServiceStackCard = ({
       <motion.div style={{ scale, y, rotate, opacity }} className="will-change-transform">
         <Link
           to={s.link}
-          className="group relative block overflow-hidden rounded-[2.5rem] p-10 md:p-16 lg:p-20"
+          className="group relative block overflow-hidden rounded-[2.5rem] p-10 md:p-16 lg:p-20 bg-background"
           style={{
             minHeight: "70vh",
-            background:
-              "linear-gradient(135deg, hsl(0 0% 100% / 0.7), hsl(0 0% 100% / 0.35))",
-            backdropFilter: "blur(24px) saturate(150%)",
-            WebkitBackdropFilter: "blur(24px) saturate(150%)",
-            border: "1px solid hsl(0 0% 100% / 0.55)",
+            border: "1px solid hsl(var(--border))",
             boxShadow:
-              "0 40px 100px -30px hsl(220 30% 8% / 0.35), 0 2px 0 hsl(0 0% 100% / 0.6) inset",
+              "0 40px 100px -30px hsl(220 30% 8% / 0.5), 0 2px 0 hsl(0 0% 100% / 0.6) inset",
           }}
         >
           {/* hover gold wash */}
