@@ -241,8 +241,8 @@ const ServiceStackCard = ({
   const y = useTransform(scrollYProgress, [0, 1], [0, -40]);
   const rotate = useTransform(scrollYProgress, [0, 1], [0, -2]);
   const opacity = useTransform(scrollYProgress, [0, 1], [1, 1]);
-  // Stagger sticky offset so cards stack with a small reveal of the previous
-  const topOffset = 5 + index * 2.5; // vh
+  // Stagger sticky offset so cards stack just under the pinned title
+  const topOffset = 22 + index * 2.5; // vh
 
   return (
     <div
@@ -250,6 +250,7 @@ const ServiceStackCard = ({
       className="sticky"
       style={{ top: `${topOffset}vh`, zIndex: 10 + index, marginBottom: index === total - 1 ? 0 : "8vh" }}
     >
+
       <motion.div style={{ scale, y, rotate, opacity }} className="will-change-transform">
         <Link
           to={s.link}
