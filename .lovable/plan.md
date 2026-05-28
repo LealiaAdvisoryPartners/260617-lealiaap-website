@@ -1,37 +1,34 @@
+## Goal
 
-# Fix Netlify Forms Not Receiving Submissions
+In the home page Services section (`ActServices` in `src/components/home/FluidHome.tsx`), pin the "Advisory, crafted." title alongside the stacked cards so it stays visible the whole time the cards reveal, and release the title at the same moment the last card begins to unstick — both then scroll off together.
 
-## Problem
-The contact form POSTs to `/`, but the `_redirects` geo-redirect rules (`/* /en/:splat 302!`) intercept the POST request with a forced redirect before Netlify's form handler can process it. The form data is lost in the redirect.
+## Changes (single file: `src/components/home/FluidHome.tsx`, `ActServices` ~lines 355–397)
 
-## Solution
-Update `ContactForm.tsx` to POST to the current page path (e.g., `/en`, `/pt`, `/es`) instead of `/`. These language-prefixed paths already have `200` pass-through rules in `_redirects`, so Netlify will receive and process the form data correctly.
+1. **One shared sticky track**
+   - Wrap the title block and the cards stack inside a single relative container so they share the same scroll range and release point.
 
-## Changes
+2. **Sticky title**
+   - Make the title/eyebrow/subcopy block `sticky top-0` with a low `z-index` (below the cards).
+   - Tighten its bottom margin so the first card sits just under it.
+   - Keep the existing fade-in motion.
 
-### 1. `src/components/home/ContactForm.tsx`
-- Get the current URL path using `window.location.pathname`
-- Change `fetch('/')` to `fetch(window.location.pathname)` so the POST goes to a path that won't be redirected (e.g., `/en`, `/pt/about`, etc.)
+3. **Cards re-tune**
+   - Increase each card's sticky `top` offset so cards sit visually below the pinned title (base ~22vh + small per-index stagger), keeping current scale/rotate/translate transforms.
 
-**Before:**
-```typescript
-const response = await fetch('/', {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-  body: new URLSearchParams(formData as any),
-});
-```
+4. **Synchronized release (no trailing spacer)**
+   - Do NOT add a spacer after the last card.
+   - The wrapper ends right where the last card's sticky range ends, so the title and the last card unstick at the same instant and scroll off together as one block.
 
-**After:**
-```typescript
-const response = await fetch(window.location.pathname || '/', {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-  body: new URLSearchParams(formData as any),
-});
-```
+5. **CTA placement**
+   - Keep the "View all services" CTA outside the sticky wrapper so it appears after both have released.
 
-## Why This Works
-- Language-prefixed paths (`/en/*`, `/pt/*`, `/es/*`) have explicit `200` pass-through rules in `_redirects` that execute before the geo-redirect rules
-- Netlify's form handler processes the POST request at the `200` path, sees the `form-name=contact` field, matches it to the hidden form in `index.html`, and stores the submission
-- No other files need to change — the hidden form in `index.html` with `data-netlify="true"` is already correctly set up
+## Technical notes
+
+- Pure CSS sticky + existing Framer Motion transforms; no new deps.
+- Ensure no `overflow-hidden` on ancestors of the sticky wrapper (currently clean).
+- `z-index`: title `z-0`, cards `z-10 + index`.
+
+## Out of scope
+
+- No copy, color, typography, or card content changes.
+- No changes to other sections.
