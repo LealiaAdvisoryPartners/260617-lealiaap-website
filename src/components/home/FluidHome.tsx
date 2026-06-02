@@ -225,104 +225,54 @@ const ActManifesto = () => {
 };
 
 /* ---------- Act III: Stacked services reveal ---------- */
-const ServiceStackCard = ({
+const ServiceRow = ({
   s,
   index,
-  total,
 }: {
   s: { no: string; title: string; desc: string; tag: string; link: string };
   index: number;
-  total: number;
 }) => {
-  const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
-  // As the NEXT card scrolls into view, this card recedes: scales down, tilts, fades slightly
-  const scale = useTransform(scrollYProgress, [0, 1], [1, 0.92]);
-  const y = useTransform(scrollYProgress, [0, 1], [0, -40]);
-  const rotate = useTransform(scrollYProgress, [0, 1], [0, -2]);
-  const opacity = useTransform(scrollYProgress, [0, 1], [1, 1]);
-  // Stagger sticky offset so cards stack just under the pinned title
-  const topOffset = 22 + index * 2.5; // vh
-
   return (
-    <div
-      ref={ref}
-      className="sticky"
-      style={{ top: `${topOffset}vh`, zIndex: 10 + index, marginBottom: index === total - 1 ? 0 : "8vh" }}
+    <motion.div
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-80px" }}
+      transition={{ duration: 0.9, delay: index * 0.08, ease: [0.16, 1, 0.3, 1] }}
     >
-
-      <motion.div style={{ scale, y, rotate, opacity }} className="will-change-transform">
-        <Link
-          to={s.link}
-          className="group relative block overflow-hidden rounded-[2.5rem] p-10 md:p-16 lg:p-20 bg-background"
-          style={{
-            minHeight: "70vh",
-            border: "1px solid hsl(var(--border))",
-            boxShadow:
-              "0 40px 100px -30px hsl(220 30% 8% / 0.5), 0 2px 0 hsl(0 0% 100% / 0.6) inset",
-          }}
-        >
-          {/* hover gold wash */}
-          <div
-            aria-hidden
-            className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"
+      <Link
+        to={s.link}
+        className="group grid grid-cols-12 gap-6 items-baseline py-10 md:py-14 border-t border-primary/10 hover:border-accent/40 transition-colors duration-500"
+      >
+        <span className="col-span-2 md:col-span-1 serif-accent text-accent text-2xl md:text-3xl leading-none">
+          {s.no}
+        </span>
+        <div className="col-span-10 md:col-span-5">
+          <h4
+            className="font-heading text-primary transition-transform duration-700 group-hover:translate-x-2"
             style={{
-              background:
-                "radial-gradient(900px circle at 20% 0%, hsl(var(--accent) / 0.22), transparent 60%)",
+              fontSize: "clamp(1.75rem, 3.2vw, 3rem)",
+              fontWeight: 300,
+              letterSpacing: "-0.02em",
+              lineHeight: 1.1,
             }}
-          />
-
-          {/* Giant ghost numeral */}
-          <span
-            aria-hidden
-            className="serif-accent absolute -right-4 md:right-6 -bottom-10 md:-bottom-16 text-accent/15 leading-none pointer-events-none select-none"
-            style={{ fontSize: "clamp(14rem, 32vw, 32rem)" }}
           >
-            {s.no}
+            {s.title}
+          </h4>
+          <span className="block mt-3 text-[10px] md:text-xs uppercase tracking-[0.3em] text-muted-foreground">
+            {s.tag}
           </span>
-
-          <div className="relative grid md:grid-cols-12 gap-10 h-full">
-            <div className="md:col-span-3 flex md:flex-col justify-between items-start">
-              <span
-                className="serif-accent text-accent"
-                style={{ fontSize: "clamp(3rem, 5vw, 5rem)", lineHeight: 1 }}
-              >
-                {s.no}
-              </span>
-              <span className="text-[10px] md:text-xs uppercase tracking-[0.3em] text-muted-foreground md:mt-auto">
-                {s.tag}
-              </span>
-            </div>
-
-            <div className="md:col-span-9 flex flex-col justify-between">
-              <h4
-                className="font-heading text-primary"
-                style={{
-                  fontSize: "clamp(2rem, 5vw, 4.5rem)",
-                  fontWeight: 300,
-                  letterSpacing: "-0.025em",
-                  lineHeight: 1.05,
-                }}
-              >
-                {s.title}
-              </h4>
-              <div className="mt-8 md:mt-12 max-w-2xl">
-                <p
-                  className="text-muted-foreground text-base md:text-xl leading-relaxed mb-8"
-                  style={{ fontWeight: 300 }}
-                >
-                  {s.desc}
-                </p>
-                <div className="flex items-center gap-3 text-accent text-sm">
-                  <span className="link-underline uppercase tracking-[0.25em]">Explore</span>
-                  <ArrowUpRight className="w-4 h-4 transition-transform duration-500 group-hover:translate-x-1 group-hover:-translate-y-1" />
-                </div>
-              </div>
-            </div>
-          </div>
-        </Link>
-      </motion.div>
-    </div>
+        </div>
+        <p
+          className="col-start-3 md:col-start-7 col-span-10 md:col-span-5 text-muted-foreground leading-relaxed text-base md:text-lg"
+          style={{ fontWeight: 300 }}
+        >
+          {s.desc}
+        </p>
+        <div className="col-start-3 md:col-start-12 md:col-span-1 flex md:justify-end text-accent mt-2 md:mt-0">
+          <ArrowUpRight className="w-5 h-5 transition-transform duration-500 group-hover:translate-x-1 group-hover:-translate-y-1" />
+        </div>
+      </Link>
+    </motion.div>
   );
 };
 
@@ -354,42 +304,39 @@ const ActServices = () => {
   ];
 
   return (
-    <section className="relative px-6 py-20 md:py-28">
-      <div className="max-w-7xl mx-auto">
-        {/* Single sticky track: title + cards share one wrapper so they release together */}
-        <div className="relative">
-          <div className="sticky top-0 z-0 pt-6 pb-8 md:pt-10 md:pb-10">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-              className="flex flex-col md:flex-row md:items-end md:justify-between gap-4"
+    <section className="relative px-6 py-24 md:py-36">
+      <div className="max-w-6xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+          className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-16 md:mb-24"
+        >
+          <div>
+            <span className="eyebrow mb-4">{t("services.title")}</span>
+            <h3
+              className="font-heading text-primary mt-4"
+              style={{ fontSize: "clamp(2.25rem, 5.5vw, 4.5rem)", fontWeight: 300, letterSpacing: "-0.025em" }}
             >
-              <div>
-                <span className="eyebrow mb-4">{t("services.title")}</span>
-                <h3
-                  className="font-heading text-primary mt-4"
-                  style={{ fontSize: "clamp(2.25rem, 5.5vw, 4.5rem)", fontWeight: 300, letterSpacing: "-0.025em" }}
-                >
-                  Advisory, <span className="serif-accent text-accent">crafted</span>.
-                </h3>
-              </div>
-              <p
-                className="text-muted-foreground max-w-sm text-sm md:text-base leading-relaxed"
-                style={{ fontWeight: 300 }}
-              >
-                Three disciplines. One conviction — that the right counsel changes the outcome.
-              </p>
-            </motion.div>
+              Advisory, <span className="serif-accent text-accent">crafted</span>.
+            </h3>
           </div>
+          <p
+            className="text-muted-foreground max-w-sm text-sm md:text-base leading-relaxed"
+            style={{ fontWeight: 300 }}
+          >
+            Three disciplines. One conviction — that the right counsel changes the outcome.
+          </p>
+        </motion.div>
 
+        <div className="border-b border-primary/10">
           {services.map((s, i) => (
-            <ServiceStackCard key={s.no} s={s} index={i} total={services.length} />
+            <ServiceRow key={s.no} s={s} index={i} />
           ))}
         </div>
 
-        <div className="flex justify-center mt-20 md:mt-28">
+        <div className="flex justify-center mt-20 md:mt-24">
           <Magnetic>
             <Link to={buildPath(language, "/services")} className="btn-gold whitespace-nowrap">
               {t("services.cta")}
