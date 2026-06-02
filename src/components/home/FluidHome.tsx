@@ -181,25 +181,26 @@ const ActManifesto = () => {
   ];
 
   return (
-    <section ref={ref} className="relative min-h-[80vh] flex items-center justify-center px-6 py-24">
+    <section ref={ref} className="relative min-h-[60vh] flex items-center justify-center px-6 py-16">
       <motion.div
         style={{ y, opacity }}
-        className="max-w-6xl mx-auto text-center"
+        className="max-w-5xl mx-auto text-center"
       >
         <motion.span
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="eyebrow mb-10 justify-center"
+          className="eyebrow mb-6 justify-center"
         >
           A boutique advisory
         </motion.span>
 
         <h2
-          className="font-heading text-primary leading-[1.05] tracking-tight mt-10"
-          style={{ fontSize: "clamp(2.5rem, 7vw, 6.5rem)", fontWeight: 300, letterSpacing: "-0.025em" }}
+          className="font-heading text-primary leading-[1.05] tracking-tight mt-6"
+          style={{ fontSize: "clamp(1.75rem, 4.5vw, 4rem)", fontWeight: 300, letterSpacing: "-0.025em" }}
         >
+
           {words.map((w, i) => {
             const text = typeof w === "string" ? w : w.t;
             const italic = typeof w === "object" && w.italic;
