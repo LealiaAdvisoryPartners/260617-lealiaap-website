@@ -181,25 +181,26 @@ const ActManifesto = () => {
   ];
 
   return (
-    <section ref={ref} className="relative min-h-[80vh] flex items-center justify-center px-6 py-24">
+    <section ref={ref} className="relative min-h-[60vh] flex items-center justify-center px-6 py-16">
       <motion.div
         style={{ y, opacity }}
-        className="max-w-6xl mx-auto text-center"
+        className="max-w-5xl mx-auto text-center"
       >
         <motion.span
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="eyebrow mb-10 justify-center"
+          className="eyebrow mb-6 justify-center"
         >
           A boutique advisory
         </motion.span>
 
         <h2
-          className="font-heading text-primary leading-[1.05] tracking-tight mt-10"
-          style={{ fontSize: "clamp(2.5rem, 7vw, 6.5rem)", fontWeight: 300, letterSpacing: "-0.025em" }}
+          className="font-heading text-primary leading-[1.05] tracking-tight mt-6"
+          style={{ fontSize: "clamp(1.75rem, 4.5vw, 4rem)", fontWeight: 300, letterSpacing: "-0.025em" }}
         >
+
           {words.map((w, i) => {
             const text = typeof w === "string" ? w : w.t;
             const italic = typeof w === "object" && w.italic;
@@ -241,37 +242,38 @@ const ServiceRow = ({
     >
       <Link
         to={s.link}
-        className="group grid grid-cols-12 gap-6 items-baseline py-10 md:py-14 border-t border-primary/10 hover:border-accent/40 transition-colors duration-500"
+        className="group grid grid-cols-12 gap-4 items-baseline py-6 md:py-8 border-t border-primary/10 hover:border-accent/40 transition-colors duration-500"
       >
-        <span className="col-span-2 md:col-span-1 serif-accent text-accent text-2xl md:text-3xl leading-none">
+        <span className="col-span-2 md:col-span-1 serif-accent text-accent text-lg md:text-xl leading-none">
           {s.no}
         </span>
         <div className="col-span-10 md:col-span-5">
           <h4
             className="font-heading text-primary transition-transform duration-700 group-hover:translate-x-2"
             style={{
-              fontSize: "clamp(1.75rem, 3.2vw, 3rem)",
+              fontSize: "clamp(1.25rem, 2.2vw, 1.875rem)",
               fontWeight: 300,
               letterSpacing: "-0.02em",
-              lineHeight: 1.1,
+              lineHeight: 1.15,
             }}
           >
             {s.title}
           </h4>
-          <span className="block mt-3 text-[10px] md:text-xs uppercase tracking-[0.3em] text-muted-foreground">
+          <span className="block mt-2 text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
             {s.tag}
           </span>
         </div>
         <p
-          className="col-start-3 md:col-start-7 col-span-10 md:col-span-5 text-muted-foreground leading-relaxed text-base md:text-lg"
+          className="col-start-3 md:col-start-7 col-span-10 md:col-span-5 text-muted-foreground leading-relaxed text-sm md:text-base"
           style={{ fontWeight: 300 }}
         >
           {s.desc}
         </p>
         <div className="col-start-3 md:col-start-12 md:col-span-1 flex md:justify-end text-accent mt-2 md:mt-0">
-          <ArrowUpRight className="w-5 h-5 transition-transform duration-500 group-hover:translate-x-1 group-hover:-translate-y-1" />
+          <ArrowUpRight className="w-4 h-4 transition-transform duration-500 group-hover:translate-x-1 group-hover:-translate-y-1" />
         </div>
       </Link>
+
     </motion.div>
   );
 };
@@ -304,26 +306,26 @@ const ActServices = () => {
   ];
 
   return (
-    <section className="relative px-6 py-24 md:py-36">
-      <div className="max-w-6xl mx-auto">
+    <section className="relative px-6 py-16 md:py-24">
+      <div className="max-w-5xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-          className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-16 md:mb-24"
+          className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-10 md:mb-14"
         >
           <div>
-            <span className="eyebrow mb-4">{t("services.title")}</span>
+            <span className="eyebrow mb-3">{t("services.title")}</span>
             <h3
-              className="font-heading text-primary mt-4"
-              style={{ fontSize: "clamp(2.25rem, 5.5vw, 4.5rem)", fontWeight: 300, letterSpacing: "-0.025em" }}
+              className="font-heading text-primary mt-3"
+              style={{ fontSize: "clamp(1.75rem, 3.8vw, 3rem)", fontWeight: 300, letterSpacing: "-0.025em" }}
             >
               Advisory, <span className="serif-accent text-accent">crafted</span>.
             </h3>
           </div>
           <p
-            className="text-muted-foreground max-w-sm text-sm md:text-base leading-relaxed"
+            className="text-muted-foreground max-w-sm text-sm leading-relaxed"
             style={{ fontWeight: 300 }}
           >
             Three disciplines. One conviction — that the right counsel changes the outcome.
@@ -336,7 +338,7 @@ const ActServices = () => {
           ))}
         </div>
 
-        <div className="flex justify-center mt-20 md:mt-24">
+        <div className="flex justify-center mt-12 md:mt-16">
           <Magnetic>
             <Link to={buildPath(language, "/services")} className="btn-gold whitespace-nowrap">
               {t("services.cta")}
@@ -345,6 +347,7 @@ const ActServices = () => {
         </div>
       </div>
     </section>
+
   );
 };
 
@@ -362,10 +365,10 @@ const TeamCard = ({ member, index, role, href }: { member: TeamMember; index: nu
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-80px" }}
       transition={{ duration: 1.1, delay: index * 0.15, ease: [0.16, 1, 0.3, 1] }}
-      className={`group ${index === 1 ? "md:mt-32" : ""}`}
+      className={`group ${index === 1 ? "md:mt-20" : ""}`}
     >
       <Link to={href} className="block">
-        <div className="relative overflow-hidden rounded-[2rem] bg-secondary aspect-[4/5]">
+        <div className="relative overflow-hidden rounded-2xl bg-secondary aspect-[4/5]">
           <motion.img
             src={member.image}
             alt={member.name}
@@ -373,22 +376,23 @@ const TeamCard = ({ member, index, role, href }: { member: TeamMember; index: nu
             className="absolute inset-0 w-full h-[120%] object-cover transition-transform duration-[1.4s] ease-out group-hover:scale-[1.05]"
           />
           <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-primary via-primary/40 to-transparent opacity-70 group-hover:opacity-85 transition-opacity duration-700" />
-          <div className="absolute bottom-0 left-0 right-0 p-8 md:p-10 translate-y-2 group-hover:translate-y-0 transition-transform duration-700">
-            <span className="text-xs uppercase tracking-[0.3em] text-accent">{role}</span>
-            <h4 className="font-heading text-primary-foreground mt-3" style={{ fontSize: "clamp(1.75rem, 2.5vw, 2.5rem)", fontWeight: 400, letterSpacing: "-0.01em" }}>
+          <div className="absolute bottom-0 left-0 right-0 p-5 md:p-6 translate-y-2 group-hover:translate-y-0 transition-transform duration-700">
+            <span className="text-[10px] uppercase tracking-[0.3em] text-accent">{role}</span>
+            <h4 className="font-heading text-primary-foreground mt-2" style={{ fontSize: "clamp(1.125rem, 1.6vw, 1.5rem)", fontWeight: 400, letterSpacing: "-0.01em" }}>
               {member.name}
             </h4>
-            <div className="flex gap-3 mt-6">
-              <a href={`mailto:${member.email}`} onClick={(e) => e.stopPropagation()} className="inline-flex items-center justify-center w-10 h-10 rounded-full border border-primary-foreground/30 text-primary-foreground hover:bg-accent hover:border-accent hover:text-accent-foreground transition-all duration-500" aria-label="Email">
-                <Mail className="w-4 h-4" strokeWidth={1.5} />
+            <div className="flex gap-2 mt-4">
+              <a href={`mailto:${member.email}`} onClick={(e) => e.stopPropagation()} className="inline-flex items-center justify-center w-8 h-8 rounded-full border border-primary-foreground/30 text-primary-foreground hover:bg-accent hover:border-accent hover:text-accent-foreground transition-all duration-500" aria-label="Email">
+                <Mail className="w-3.5 h-3.5" strokeWidth={1.5} />
               </a>
-              <a href={member.linkedin} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()} className="inline-flex items-center justify-center w-10 h-10 rounded-full border border-primary-foreground/30 text-primary-foreground hover:bg-accent hover:border-accent hover:text-accent-foreground transition-all duration-500" aria-label="LinkedIn">
-                <Linkedin className="w-4 h-4" strokeWidth={1.5} />
+              <a href={member.linkedin} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()} className="inline-flex items-center justify-center w-8 h-8 rounded-full border border-primary-foreground/30 text-primary-foreground hover:bg-accent hover:border-accent hover:text-accent-foreground transition-all duration-500" aria-label="LinkedIn">
+                <Linkedin className="w-3.5 h-3.5" strokeWidth={1.5} />
               </a>
             </div>
           </div>
         </div>
       </Link>
+
     </motion.div>
   );
 };
@@ -398,38 +402,38 @@ const ActTeam = () => {
 
 
   return (
-    <section className="relative py-20 md:py-28 px-6">
-      <div className="max-w-7xl mx-auto">
+    <section className="relative py-14 md:py-20 px-6">
+      <div className="max-w-5xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-          className="mb-20 max-w-3xl"
+          className="mb-12 max-w-2xl"
         >
-          <span className="eyebrow mb-6">{t("team.title")}</span>
+          <span className="eyebrow mb-4">{t("team.title")}</span>
           <h3
-            className="font-heading text-primary-foreground mt-6"
-            style={{ fontSize: "clamp(2.5rem, 6vw, 5rem)", fontWeight: 300, letterSpacing: "-0.025em" }}
+            className="font-heading text-primary-foreground mt-4"
+            style={{ fontSize: "clamp(1.75rem, 4vw, 3.25rem)", fontWeight: 300, letterSpacing: "-0.025em" }}
           >
             The <span className="serif-accent text-accent">people</span> behind the partnership.
           </h3>
-          <p className="text-primary-foreground/65 mt-8 text-lg max-w-2xl leading-relaxed" style={{ fontWeight: 300 }}>
+          <p className="text-primary-foreground/65 mt-5 text-base max-w-xl leading-relaxed" style={{ fontWeight: 300 }}>
             {t("team.subtitle")}
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 max-w-3xl mx-auto">
           {teamMembers.map((m, i) => (
             <TeamCard key={m.id} member={m} index={i} role={t("teampage.role")} href={`${buildPath(language, "/team")}#${m.id}`} />
           ))}
         </div>
 
-        <div className="mt-20 flex justify-center">
+        <div className="mt-14 flex justify-center">
           <Magnetic>
             <Link
               to={buildPath(language, "/team")}
-              className="group inline-flex items-center gap-3 text-primary-foreground text-sm uppercase tracking-[0.25em]"
+              className="group inline-flex items-center gap-3 text-primary-foreground text-xs uppercase tracking-[0.25em]"
             >
               <span className="link-underline">{t("team.cta")}</span>
               <ArrowUpRight className="w-4 h-4 transition-transform duration-500 group-hover:translate-x-1 group-hover:-translate-y-1" />
@@ -437,6 +441,7 @@ const ActTeam = () => {
           </Magnetic>
         </div>
       </div>
+
     </section>
   );
 };
@@ -452,19 +457,19 @@ const ActValues = () => {
   ];
 
   return (
-    <section className="relative py-20 md:py-28 px-6">
-      <div className="max-w-6xl mx-auto">
+    <section className="relative py-14 md:py-20 px-6">
+      <div className="max-w-5xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 1 }}
-          className="mb-16"
+          className="mb-10"
         >
-          <span className="eyebrow mb-6">{t("values.title")}</span>
+          <span className="eyebrow mb-4">{t("values.title")}</span>
           <h3
-            className="font-heading text-primary-foreground mt-6 max-w-4xl"
-            style={{ fontSize: "clamp(2rem, 5vw, 4rem)", fontWeight: 300, letterSpacing: "-0.02em" }}
+            className="font-heading text-primary-foreground mt-4 max-w-3xl"
+            style={{ fontSize: "clamp(1.5rem, 3.5vw, 2.75rem)", fontWeight: 300, letterSpacing: "-0.02em" }}
           >
             Principles that <span className="serif-accent text-accent">guide</span> every engagement.
           </h3>
@@ -478,19 +483,19 @@ const ActValues = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
               transition={{ duration: 0.9, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
-              className="group grid grid-cols-12 gap-6 items-baseline py-10 md:py-12 border-b border-primary-foreground/10 cursor-default"
+              className="group grid grid-cols-12 gap-4 items-baseline py-6 md:py-8 border-b border-primary-foreground/10 cursor-default"
             >
-              <span className="col-span-2 md:col-span-1 text-xs tracking-[0.3em] text-accent">
+              <span className="col-span-2 md:col-span-1 text-[10px] tracking-[0.3em] text-accent">
                 0{i + 1}
               </span>
               <h4
                 className="col-span-10 md:col-span-4 font-heading text-primary-foreground transition-transform duration-700 group-hover:translate-x-2"
-                style={{ fontSize: "clamp(1.5rem, 2.5vw, 2.25rem)", fontWeight: 300, letterSpacing: "-0.01em" }}
+                style={{ fontSize: "clamp(1.125rem, 1.8vw, 1.625rem)", fontWeight: 300, letterSpacing: "-0.01em" }}
               >
                 {v.title}
               </h4>
               <p
-                className="col-start-3 md:col-start-6 col-span-10 md:col-span-7 text-primary-foreground/65 leading-relaxed text-lg"
+                className="col-start-3 md:col-start-6 col-span-10 md:col-span-7 text-primary-foreground/65 leading-relaxed text-sm md:text-base"
                 style={{ fontWeight: 300 }}
               >
                 {v.desc}
@@ -499,7 +504,7 @@ const ActValues = () => {
           ))}
         </div>
 
-        <div className="mt-16 flex justify-center">
+        <div className="mt-12 flex justify-center">
           <Magnetic>
             <Link to={buildPath(language, "/about")} className="btn-gold">
               {t("values.cta")}
@@ -507,6 +512,7 @@ const ActValues = () => {
           </Magnetic>
         </div>
       </div>
+
     </section>
   );
 };
