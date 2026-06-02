@@ -74,7 +74,7 @@ const ContactForm = () => {
   };
 
   return (
-    <section id="contact" className="relative overflow-hidden bg-background">
+    <section id="contact" className="relative overflow-hidden">
       {/* soft top divider */}
       <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
 
