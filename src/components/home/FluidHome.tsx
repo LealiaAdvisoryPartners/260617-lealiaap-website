@@ -402,38 +402,38 @@ const ActTeam = () => {
 
 
   return (
-    <section className="relative py-20 md:py-28 px-6">
-      <div className="max-w-7xl mx-auto">
+    <section className="relative py-14 md:py-20 px-6">
+      <div className="max-w-5xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-          className="mb-20 max-w-3xl"
+          className="mb-12 max-w-2xl"
         >
-          <span className="eyebrow mb-6">{t("team.title")}</span>
+          <span className="eyebrow mb-4">{t("team.title")}</span>
           <h3
-            className="font-heading text-primary-foreground mt-6"
-            style={{ fontSize: "clamp(2.5rem, 6vw, 5rem)", fontWeight: 300, letterSpacing: "-0.025em" }}
+            className="font-heading text-primary-foreground mt-4"
+            style={{ fontSize: "clamp(1.75rem, 4vw, 3.25rem)", fontWeight: 300, letterSpacing: "-0.025em" }}
           >
             The <span className="serif-accent text-accent">people</span> behind the partnership.
           </h3>
-          <p className="text-primary-foreground/65 mt-8 text-lg max-w-2xl leading-relaxed" style={{ fontWeight: 300 }}>
+          <p className="text-primary-foreground/65 mt-5 text-base max-w-xl leading-relaxed" style={{ fontWeight: 300 }}>
             {t("team.subtitle")}
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 max-w-3xl mx-auto">
           {teamMembers.map((m, i) => (
             <TeamCard key={m.id} member={m} index={i} role={t("teampage.role")} href={`${buildPath(language, "/team")}#${m.id}`} />
           ))}
         </div>
 
-        <div className="mt-20 flex justify-center">
+        <div className="mt-14 flex justify-center">
           <Magnetic>
             <Link
               to={buildPath(language, "/team")}
-              className="group inline-flex items-center gap-3 text-primary-foreground text-sm uppercase tracking-[0.25em]"
+              className="group inline-flex items-center gap-3 text-primary-foreground text-xs uppercase tracking-[0.25em]"
             >
               <span className="link-underline">{t("team.cta")}</span>
               <ArrowUpRight className="w-4 h-4 transition-transform duration-500 group-hover:translate-x-1 group-hover:-translate-y-1" />
@@ -441,6 +441,7 @@ const ActTeam = () => {
           </Magnetic>
         </div>
       </div>
+
     </section>
   );
 };
