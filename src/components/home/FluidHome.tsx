@@ -457,19 +457,19 @@ const ActValues = () => {
   ];
 
   return (
-    <section className="relative py-20 md:py-28 px-6">
-      <div className="max-w-6xl mx-auto">
+    <section className="relative py-14 md:py-20 px-6">
+      <div className="max-w-5xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 1 }}
-          className="mb-16"
+          className="mb-10"
         >
-          <span className="eyebrow mb-6">{t("values.title")}</span>
+          <span className="eyebrow mb-4">{t("values.title")}</span>
           <h3
-            className="font-heading text-primary-foreground mt-6 max-w-4xl"
-            style={{ fontSize: "clamp(2rem, 5vw, 4rem)", fontWeight: 300, letterSpacing: "-0.02em" }}
+            className="font-heading text-primary-foreground mt-4 max-w-3xl"
+            style={{ fontSize: "clamp(1.5rem, 3.5vw, 2.75rem)", fontWeight: 300, letterSpacing: "-0.02em" }}
           >
             Principles that <span className="serif-accent text-accent">guide</span> every engagement.
           </h3>
@@ -483,19 +483,19 @@ const ActValues = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
               transition={{ duration: 0.9, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
-              className="group grid grid-cols-12 gap-6 items-baseline py-10 md:py-12 border-b border-primary-foreground/10 cursor-default"
+              className="group grid grid-cols-12 gap-4 items-baseline py-6 md:py-8 border-b border-primary-foreground/10 cursor-default"
             >
-              <span className="col-span-2 md:col-span-1 text-xs tracking-[0.3em] text-accent">
+              <span className="col-span-2 md:col-span-1 text-[10px] tracking-[0.3em] text-accent">
                 0{i + 1}
               </span>
               <h4
                 className="col-span-10 md:col-span-4 font-heading text-primary-foreground transition-transform duration-700 group-hover:translate-x-2"
-                style={{ fontSize: "clamp(1.5rem, 2.5vw, 2.25rem)", fontWeight: 300, letterSpacing: "-0.01em" }}
+                style={{ fontSize: "clamp(1.125rem, 1.8vw, 1.625rem)", fontWeight: 300, letterSpacing: "-0.01em" }}
               >
                 {v.title}
               </h4>
               <p
-                className="col-start-3 md:col-start-6 col-span-10 md:col-span-7 text-primary-foreground/65 leading-relaxed text-lg"
+                className="col-start-3 md:col-start-6 col-span-10 md:col-span-7 text-primary-foreground/65 leading-relaxed text-sm md:text-base"
                 style={{ fontWeight: 300 }}
               >
                 {v.desc}
@@ -504,7 +504,7 @@ const ActValues = () => {
           ))}
         </div>
 
-        <div className="mt-16 flex justify-center">
+        <div className="mt-12 flex justify-center">
           <Magnetic>
             <Link to={buildPath(language, "/about")} className="btn-gold">
               {t("values.cta")}
@@ -512,6 +512,7 @@ const ActValues = () => {
           </Magnetic>
         </div>
       </div>
+
     </section>
   );
 };
