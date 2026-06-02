@@ -365,10 +365,10 @@ const TeamCard = ({ member, index, role, href }: { member: TeamMember; index: nu
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-80px" }}
       transition={{ duration: 1.1, delay: index * 0.15, ease: [0.16, 1, 0.3, 1] }}
-      className={`group ${index === 1 ? "md:mt-32" : ""}`}
+      className={`group ${index === 1 ? "md:mt-20" : ""}`}
     >
       <Link to={href} className="block">
-        <div className="relative overflow-hidden rounded-[2rem] bg-secondary aspect-[4/5]">
+        <div className="relative overflow-hidden rounded-2xl bg-secondary aspect-[4/5]">
           <motion.img
             src={member.image}
             alt={member.name}
@@ -376,22 +376,23 @@ const TeamCard = ({ member, index, role, href }: { member: TeamMember; index: nu
             className="absolute inset-0 w-full h-[120%] object-cover transition-transform duration-[1.4s] ease-out group-hover:scale-[1.05]"
           />
           <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-primary via-primary/40 to-transparent opacity-70 group-hover:opacity-85 transition-opacity duration-700" />
-          <div className="absolute bottom-0 left-0 right-0 p-8 md:p-10 translate-y-2 group-hover:translate-y-0 transition-transform duration-700">
-            <span className="text-xs uppercase tracking-[0.3em] text-accent">{role}</span>
-            <h4 className="font-heading text-primary-foreground mt-3" style={{ fontSize: "clamp(1.75rem, 2.5vw, 2.5rem)", fontWeight: 400, letterSpacing: "-0.01em" }}>
+          <div className="absolute bottom-0 left-0 right-0 p-5 md:p-6 translate-y-2 group-hover:translate-y-0 transition-transform duration-700">
+            <span className="text-[10px] uppercase tracking-[0.3em] text-accent">{role}</span>
+            <h4 className="font-heading text-primary-foreground mt-2" style={{ fontSize: "clamp(1.125rem, 1.6vw, 1.5rem)", fontWeight: 400, letterSpacing: "-0.01em" }}>
               {member.name}
             </h4>
-            <div className="flex gap-3 mt-6">
-              <a href={`mailto:${member.email}`} onClick={(e) => e.stopPropagation()} className="inline-flex items-center justify-center w-10 h-10 rounded-full border border-primary-foreground/30 text-primary-foreground hover:bg-accent hover:border-accent hover:text-accent-foreground transition-all duration-500" aria-label="Email">
-                <Mail className="w-4 h-4" strokeWidth={1.5} />
+            <div className="flex gap-2 mt-4">
+              <a href={`mailto:${member.email}`} onClick={(e) => e.stopPropagation()} className="inline-flex items-center justify-center w-8 h-8 rounded-full border border-primary-foreground/30 text-primary-foreground hover:bg-accent hover:border-accent hover:text-accent-foreground transition-all duration-500" aria-label="Email">
+                <Mail className="w-3.5 h-3.5" strokeWidth={1.5} />
               </a>
-              <a href={member.linkedin} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()} className="inline-flex items-center justify-center w-10 h-10 rounded-full border border-primary-foreground/30 text-primary-foreground hover:bg-accent hover:border-accent hover:text-accent-foreground transition-all duration-500" aria-label="LinkedIn">
-                <Linkedin className="w-4 h-4" strokeWidth={1.5} />
+              <a href={member.linkedin} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()} className="inline-flex items-center justify-center w-8 h-8 rounded-full border border-primary-foreground/30 text-primary-foreground hover:bg-accent hover:border-accent hover:text-accent-foreground transition-all duration-500" aria-label="LinkedIn">
+                <Linkedin className="w-3.5 h-3.5" strokeWidth={1.5} />
               </a>
             </div>
           </div>
         </div>
       </Link>
+
     </motion.div>
   );
 };
