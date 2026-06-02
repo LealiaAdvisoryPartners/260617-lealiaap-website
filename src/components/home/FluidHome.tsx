@@ -242,37 +242,38 @@ const ServiceRow = ({
     >
       <Link
         to={s.link}
-        className="group grid grid-cols-12 gap-6 items-baseline py-10 md:py-14 border-t border-primary/10 hover:border-accent/40 transition-colors duration-500"
+        className="group grid grid-cols-12 gap-4 items-baseline py-6 md:py-8 border-t border-primary/10 hover:border-accent/40 transition-colors duration-500"
       >
-        <span className="col-span-2 md:col-span-1 serif-accent text-accent text-2xl md:text-3xl leading-none">
+        <span className="col-span-2 md:col-span-1 serif-accent text-accent text-lg md:text-xl leading-none">
           {s.no}
         </span>
         <div className="col-span-10 md:col-span-5">
           <h4
             className="font-heading text-primary transition-transform duration-700 group-hover:translate-x-2"
             style={{
-              fontSize: "clamp(1.75rem, 3.2vw, 3rem)",
+              fontSize: "clamp(1.25rem, 2.2vw, 1.875rem)",
               fontWeight: 300,
               letterSpacing: "-0.02em",
-              lineHeight: 1.1,
+              lineHeight: 1.15,
             }}
           >
             {s.title}
           </h4>
-          <span className="block mt-3 text-[10px] md:text-xs uppercase tracking-[0.3em] text-muted-foreground">
+          <span className="block mt-2 text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
             {s.tag}
           </span>
         </div>
         <p
-          className="col-start-3 md:col-start-7 col-span-10 md:col-span-5 text-muted-foreground leading-relaxed text-base md:text-lg"
+          className="col-start-3 md:col-start-7 col-span-10 md:col-span-5 text-muted-foreground leading-relaxed text-sm md:text-base"
           style={{ fontWeight: 300 }}
         >
           {s.desc}
         </p>
         <div className="col-start-3 md:col-start-12 md:col-span-1 flex md:justify-end text-accent mt-2 md:mt-0">
-          <ArrowUpRight className="w-5 h-5 transition-transform duration-500 group-hover:translate-x-1 group-hover:-translate-y-1" />
+          <ArrowUpRight className="w-4 h-4 transition-transform duration-500 group-hover:translate-x-1 group-hover:-translate-y-1" />
         </div>
       </Link>
+
     </motion.div>
   );
 };
