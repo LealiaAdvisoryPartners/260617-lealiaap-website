@@ -306,26 +306,26 @@ const ActServices = () => {
   ];
 
   return (
-    <section className="relative px-6 py-24 md:py-36">
-      <div className="max-w-6xl mx-auto">
+    <section className="relative px-6 py-16 md:py-24">
+      <div className="max-w-5xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-          className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-16 md:mb-24"
+          className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-10 md:mb-14"
         >
           <div>
-            <span className="eyebrow mb-4">{t("services.title")}</span>
+            <span className="eyebrow mb-3">{t("services.title")}</span>
             <h3
-              className="font-heading text-primary mt-4"
-              style={{ fontSize: "clamp(2.25rem, 5.5vw, 4.5rem)", fontWeight: 300, letterSpacing: "-0.025em" }}
+              className="font-heading text-primary mt-3"
+              style={{ fontSize: "clamp(1.75rem, 3.8vw, 3rem)", fontWeight: 300, letterSpacing: "-0.025em" }}
             >
               Advisory, <span className="serif-accent text-accent">crafted</span>.
             </h3>
           </div>
           <p
-            className="text-muted-foreground max-w-sm text-sm md:text-base leading-relaxed"
+            className="text-muted-foreground max-w-sm text-sm leading-relaxed"
             style={{ fontWeight: 300 }}
           >
             Three disciplines. One conviction — that the right counsel changes the outcome.
@@ -338,7 +338,7 @@ const ActServices = () => {
           ))}
         </div>
 
-        <div className="flex justify-center mt-20 md:mt-24">
+        <div className="flex justify-center mt-12 md:mt-16">
           <Magnetic>
             <Link to={buildPath(language, "/services")} className="btn-gold whitespace-nowrap">
               {t("services.cta")}
@@ -347,6 +347,7 @@ const ActServices = () => {
         </div>
       </div>
     </section>
+
   );
 };
 
