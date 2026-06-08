@@ -105,9 +105,6 @@ const Team = () => {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-primary/20 via-transparent to-transparent" />
                 </div>
-                <div className="absolute -top-6 -left-6 hidden md:flex items-center justify-center w-16 h-16 rounded-full glass">
-                  <span className="serif-accent text-2xl text-accent">0{index + 1}</span>
-                </div>
               </motion.div>
             );
 
