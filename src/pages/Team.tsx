@@ -161,34 +161,34 @@ const Team = () => {
                 viewport={{ once: true, margin: "-100px" }}
                 transition={{ duration: 0.8 }}
               >
-                {/* Mobile layout: name/role -> image -> contacts -> bio */}
-                <div className="lg:hidden flex flex-col gap-8">
+                {/* Small screens: name/role -> image -> contacts -> bio */}
+                <div className="sm:hidden flex flex-col gap-8">
                   <div>{nameBlock}</div>
                   <div>{imageBlock}</div>
                   {contactsBlock}
                   {bioBlock}
                 </div>
 
-                {/* Desktop/tablet (lg+) alternating layout */}
-                <div className="hidden lg:grid lg:grid-cols-12 lg:gap-16 lg:items-center">
+                {/* sm+ alternating two-column layout */}
+                <div className="hidden sm:grid sm:grid-cols-12 sm:gap-8 lg:gap-16 sm:items-center">
                   {isEven ? (
                     <>
-                      <div className="lg:col-span-5 flex flex-col gap-8">
+                      <div className="sm:col-span-5 flex flex-col gap-8">
                         {imageBlock}
                         {contactsBlock}
                       </div>
-                      <div className="lg:col-span-7">
+                      <div className="sm:col-span-7">
                         {nameBlock}
                         <div className="mt-8">{bioBlock}</div>
                       </div>
                     </>
                   ) : (
                     <>
-                      <div className="lg:col-span-7">
+                      <div className="sm:col-span-7">
                         {nameBlock}
                         <div className="mt-8">{bioBlock}</div>
                       </div>
-                      <div className="lg:col-span-5 flex flex-col gap-8">
+                      <div className="sm:col-span-5 flex flex-col gap-8">
                         {imageBlock}
                         {contactsBlock}
                       </div>
