@@ -87,11 +87,10 @@ const Services = () => {
             <SplitText
               as="h1"
               className="text-5xl md:text-6xl lg:text-7xl font-heading text-primary tracking-tight leading-[1.05] mb-6 mt-6"
-              highlightLast={1}
+              highlight={t("servicespage.overview.title").split(" ")[0]}
             >
               {t("servicespage.overview.title")}
             </SplitText>
-
             <p className="text-lg md:text-xl text-muted-foreground font-body font-light leading-relaxed max-w-3xl">
               Placeholder subtitle — a short editorial sentence introducing the breadth of our advisory offering. Replace me with the final copy.
             </p>

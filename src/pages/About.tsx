@@ -160,12 +160,11 @@ const About = () => {
               >
                 <a
                   href={buildPath(language, "/services")}
-                  className="group inline-flex items-center gap-3 px-5 py-2.5 rounded-full border border-accent/40 bg-accent/5 text-primary font-heading font-medium text-base tracking-wide transition-all hover:bg-accent/10 hover:border-accent hover:-translate-y-0.5"
+                  className="group inline-flex items-center gap-3 text-primary font-heading text-base tracking-wide link-underline"
                 >
                   {t("about.servicesLink")}
                   <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                 </a>
-
               </motion.div>
             </div>
           </div>
