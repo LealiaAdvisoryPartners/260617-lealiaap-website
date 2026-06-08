@@ -112,7 +112,7 @@ const Team = () => {
             );
 
             const contactsBlock = (
-              <div className="flex flex-col sm:flex-row gap-6 pt-6 border-t border-border/60">
+              <div className="flex flex-col gap-6 pt-6 border-t border-border/60">
                 <a
                   href={`mailto:${member.email}`}
                   className="group flex items-center gap-3 text-sm text-foreground hover:text-accent transition-colors"
