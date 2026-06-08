@@ -35,7 +35,21 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const location = useLocation();
-  const [language, setLanguageState] = useState<Language>("en");
+  const [language, setLanguageState] = useState<Language>(() => {
+    // Initialize synchronously from URL so the first render matches the active
+    // language. Otherwise titles re-animate when the language switches in the
+    // post-mount effect below.
+    const pathLang = getLanguageFromPath(
+      typeof window !== "undefined" ? window.location.pathname : "/"
+    );
+    if (pathLang) return pathLang;
+    if (typeof window !== "undefined") {
+      const saved = window.localStorage.getItem("language") as Language | null;
+      if (saved === "en" || saved === "pt" || saved === "es") return saved;
+    }
+    return "en";
+  });
+
 
   const setLanguage = (lang: Language) => {
     setLanguageState(lang);
