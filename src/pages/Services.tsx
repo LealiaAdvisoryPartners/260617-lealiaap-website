@@ -64,11 +64,7 @@ const Services = () => {
       />
 
       {/* Editorial hero */}
-      <section
-        ref={heroRef}
-        className="relative overflow-hidden grain"
-        style={{ background: "var(--gradient-hero)" }}
-      >
+      <section ref={heroRef} className="relative overflow-hidden grain" style={{ background: "var(--gradient-hero)" }}>
         <div
           className="absolute -top-32 -right-32 w-[480px] h-[480px] rounded-full float-slow pointer-events-none"
           style={{ background: "radial-gradient(circle, hsl(var(--accent) / 0.18), transparent 70%)" }}
@@ -87,12 +83,13 @@ const Services = () => {
             <SplitText
               as="h1"
               className="text-5xl md:text-6xl lg:text-7xl font-heading text-primary tracking-tight leading-[1.05] mb-6 mt-6"
-              highlight={t("servicespage.overview.title").split(" ")[0]}
+              highlight={t("servicespage.overview.title").split(" ")[1]}
             >
               {t("servicespage.overview.title")}
             </SplitText>
             <p className="text-lg md:text-xl text-muted-foreground font-body font-light leading-relaxed max-w-3xl">
-              Placeholder subtitle — a short editorial sentence introducing the breadth of our advisory offering. Replace me with the final copy.
+              Placeholder subtitle — a short editorial sentence introducing the breadth of our advisory offering.
+              Replace me with the final copy.
             </p>
           </motion.div>
         </motion.div>
