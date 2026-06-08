@@ -75,7 +75,7 @@ const Services = () => {
         />
         <motion.div
           style={{ y }}
-          className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 md:pt-44 pb-20 md:pb-28 relative z-10"
+          className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 md:pt-32 pb-12 md:pb-16 relative z-10"
         >
           <motion.div
             initial={{ opacity: 0, y: 24 }}
@@ -91,6 +91,9 @@ const Services = () => {
             >
               {t("servicespage.overview.title")}
             </SplitText>
+            <p className="text-lg md:text-xl text-muted-foreground font-body font-light leading-relaxed max-w-3xl">
+              Placeholder subtitle — a short editorial sentence introducing the breadth of our advisory offering. Replace me with the final copy.
+            </p>
           </motion.div>
         </motion.div>
       </section>
