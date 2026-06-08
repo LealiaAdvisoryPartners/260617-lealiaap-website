@@ -81,6 +81,77 @@ const Team = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-28 md:space-y-40">
           {teamMembers.map((member, index) => {
             const isEven = index % 2 === 0;
+
+            const imageBlock = (
+              <motion.div
+                initial={{ scale: 0.95, opacity: 0 }}
+                whileInView={{ scale: 1, opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.9 }}
+                className="relative group"
+              >
+                <div
+                  className={`absolute -inset-4 rounded-2xl blur-2xl transition-opacity duration-700 group-hover:opacity-100 opacity-60 ${
+                    isEven
+                      ? "bg-gradient-to-br from-accent/25 to-transparent"
+                      : "bg-gradient-to-bl from-primary/15 to-accent/15"
+                  }`}
+                />
+                <div className="relative overflow-hidden rounded-2xl shadow-[var(--shadow-elegant)]">
+                  <img
+                    src={member.image}
+                    alt={member.name}
+                    className="w-full aspect-[4/5] object-cover transition-transform duration-[1.4s] ease-out group-hover:scale-[1.04]"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-primary/20 via-transparent to-transparent" />
+                </div>
+                <div className="absolute -top-6 -left-6 hidden md:flex items-center justify-center w-16 h-16 rounded-full glass">
+                  <span className="serif-accent text-2xl text-accent">0{index + 1}</span>
+                </div>
+              </motion.div>
+            );
+
+            const contactsBlock = (
+              <div className="flex flex-col sm:flex-row gap-6 pt-6 border-t border-border/60">
+                <a
+                  href={`mailto:${member.email}`}
+                  className="group flex items-center gap-3 text-sm text-foreground hover:text-accent transition-colors"
+                >
+                  <Mail className="w-4 h-4 text-accent" />
+                  <span className="font-body link-underline break-all">{member.email}</span>
+                </a>
+                <a
+                  href={member.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex items-center gap-3 text-sm text-foreground hover:text-accent transition-colors"
+                >
+                  <Linkedin className="w-4 h-4 text-accent" />
+                  <span className="font-body link-underline">{member.linkedinPath}</span>
+                </a>
+              </div>
+            );
+
+            const nameBlock = (
+              <>
+                <span className="eyebrow mb-5">Partner</span>
+                <h2 className="text-3xl md:text-4xl lg:text-5xl font-heading font-light text-primary tracking-tight mt-4 mb-3 leading-tight">
+                  {member.name}
+                </h2>
+                <p className="serif-accent text-lg md:text-xl text-accent">
+                  {member.role}
+                </p>
+              </>
+            );
+
+            const bioBlock = (
+              <div className="space-y-5 font-body font-light text-muted-foreground leading-relaxed">
+                {member.bio.map((paragraph, idx) => (
+                  <p key={idx}>{paragraph}</p>
+                ))}
+              </div>
+            );
+
             return (
               <motion.article
                 id={member.id}
@@ -89,74 +160,40 @@ const Team = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-100px" }}
                 transition={{ duration: 0.8 }}
-                className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center"
               >
-                {/* Image */}
-                <div className={`lg:col-span-5 ${!isEven ? "lg:order-2" : ""}`}>
-                  <motion.div
-                    initial={{ scale: 0.95, opacity: 0 }}
-                    whileInView={{ scale: 1, opacity: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.9 }}
-                    className="relative group"
-                  >
-                    <div
-                      className={`absolute -inset-4 rounded-2xl blur-2xl transition-opacity duration-700 group-hover:opacity-100 opacity-60 ${
-                        isEven
-                          ? "bg-gradient-to-br from-accent/25 to-transparent"
-                          : "bg-gradient-to-bl from-primary/15 to-accent/15"
-                      }`}
-                    />
-                    <div className="relative overflow-hidden rounded-2xl shadow-[var(--shadow-elegant)]">
-                      <img
-                        src={member.image}
-                        alt={member.name}
-                        className="w-full aspect-[4/5] object-cover transition-transform duration-[1.4s] ease-out group-hover:scale-[1.04]"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-primary/20 via-transparent to-transparent" />
-                    </div>
-
-                    {/* Number badge */}
-                    <div className="absolute -top-6 -left-6 hidden md:flex items-center justify-center w-16 h-16 rounded-full glass">
-                      <span className="serif-accent text-2xl text-accent">0{index + 1}</span>
-                    </div>
-                  </motion.div>
+                {/* Mobile layout: name/role -> image -> contacts -> bio */}
+                <div className="lg:hidden flex flex-col gap-8">
+                  <div>{nameBlock}</div>
+                  <div>{imageBlock}</div>
+                  {contactsBlock}
+                  {bioBlock}
                 </div>
 
-                {/* Content */}
-                <div className={`lg:col-span-7 ${!isEven ? "lg:order-1" : ""}`}>
-                  <span className="eyebrow mb-5">Partner</span>
-                  <h2 className="text-3xl md:text-4xl lg:text-5xl font-heading font-light text-primary tracking-tight mt-4 mb-3 leading-tight">
-                    {member.name}
-                  </h2>
-                  <p className="serif-accent text-lg md:text-xl text-accent mb-8">
-                    {member.role}
-                  </p>
-
-                  <div className="space-y-5 font-body font-light text-muted-foreground leading-relaxed">
-                    {member.bio.map((paragraph, idx) => (
-                      <p key={idx}>{paragraph}</p>
-                    ))}
-                  </div>
-
-                  <div className="mt-10 flex flex-col sm:flex-row gap-6 pt-6 border-t border-border/60">
-                    <a
-                      href={`mailto:${member.email}`}
-                      className="group flex items-center gap-3 text-sm text-foreground hover:text-accent transition-colors"
-                    >
-                      <Mail className="w-4 h-4 text-accent" />
-                      <span className="font-body link-underline break-all">{member.email}</span>
-                    </a>
-                    <a
-                      href={member.linkedin}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="group flex items-center gap-3 text-sm text-foreground hover:text-accent transition-colors"
-                    >
-                      <Linkedin className="w-4 h-4 text-accent" />
-                      <span className="font-body link-underline">{member.linkedinPath}</span>
-                    </a>
-                  </div>
+                {/* Desktop/tablet (lg+) alternating layout */}
+                <div className="hidden lg:grid lg:grid-cols-12 lg:gap-16 lg:items-center">
+                  {isEven ? (
+                    <>
+                      <div className="lg:col-span-5 flex flex-col gap-8">
+                        {imageBlock}
+                        {contactsBlock}
+                      </div>
+                      <div className="lg:col-span-7">
+                        {nameBlock}
+                        <div className="mt-8">{bioBlock}</div>
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <div className="lg:col-span-7">
+                        {nameBlock}
+                        <div className="mt-8">{bioBlock}</div>
+                      </div>
+                      <div className="lg:col-span-5 flex flex-col gap-8">
+                        {imageBlock}
+                        {contactsBlock}
+                      </div>
+                    </>
+                  )}
                 </div>
               </motion.article>
             );
