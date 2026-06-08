@@ -1,11 +1,6 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { buildPath } from "@/lib/routing";
 import SEOHead, { pageMeta } from "@/components/SEOHead";
@@ -32,11 +27,7 @@ const About = () => {
       <SEOHead titleKey={pageMeta.about.titleKey} descriptionKey={pageMeta.about.descriptionKey} path="about" />
 
       {/* Editorial Hero */}
-      <section
-        ref={heroRef}
-        className="relative overflow-hidden grain"
-        style={{ background: "var(--gradient-hero)" }}
-      >
+      <section ref={heroRef} className="relative overflow-hidden grain" style={{ background: "var(--gradient-hero)" }}>
         {/* Floating orbs */}
         <div
           className="absolute -top-32 -right-32 w-[480px] h-[480px] rounded-full float-slow pointer-events-none"
@@ -44,12 +35,15 @@ const About = () => {
         />
         <div
           className="absolute -bottom-40 -left-32 w-[420px] h-[420px] rounded-full float-slow pointer-events-none"
-          style={{ background: "radial-gradient(circle, hsl(var(--primary) / 0.10), transparent 70%)", animationDelay: "3s" }}
+          style={{
+            background: "radial-gradient(circle, hsl(var(--primary) / 0.10), transparent 70%)",
+            animationDelay: "3s",
+          }}
         />
 
         <motion.div
           style={{ y, opacity }}
-          className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 md:pt-32 pb-16 md:pb-20 relative z-10"
+          className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 md:pt-32 pb-12 md:pb-16 relative z-10"
         >
           <motion.div
             initial={{ opacity: 0, y: 24 }}
@@ -86,9 +80,7 @@ const About = () => {
               <span className="eyebrow mb-6">02 — Approach</span>
               <h2 className="section-title mt-4">
                 {t("about.whyus.title").split(" ")[0]}{" "}
-                <span className="serif-accent text-accent">
-                  {t("about.whyus.title").split(" ").slice(1).join(" ")}
-                </span>
+                <span className="serif-accent text-accent">{t("about.whyus.title").split(" ").slice(1).join(" ")}</span>
               </h2>
             </div>
 
@@ -102,15 +94,10 @@ const About = () => {
                     viewport={{ once: true }}
                     transition={{ duration: 0.5, delay: index * 0.08 }}
                   >
-                    <AccordionItem
-                      value={`item-${index}`}
-                      className="gradient-border px-6 border-0 overflow-hidden"
-                    >
+                    <AccordionItem value={`item-${index}`} className="gradient-border px-6 border-0 overflow-hidden">
                       <AccordionTrigger className="text-lg md:text-xl font-heading font-light text-primary hover:text-accent hover:no-underline py-6">
                         <span className="flex items-center gap-5 text-left">
-                          <span className="text-xs text-accent tracking-[0.2em]">
-                            0{index + 1}
-                          </span>
+                          <span className="text-xs text-accent tracking-[0.2em]">0{index + 1}</span>
                           {item.title}
                         </span>
                       </AccordionTrigger>
@@ -139,9 +126,7 @@ const About = () => {
             <span className="eyebrow mb-6">03 — Origin</span>
             <h2 className="section-title mt-4 max-w-3xl">
               {t("about.story.title").split(" ").slice(0, -1).join(" ")}{" "}
-              <span className="serif-accent text-accent">
-                {t("about.story.title").split(" ").slice(-1)}
-              </span>
+              <span className="serif-accent text-accent">{t("about.story.title").split(" ").slice(-1)}</span>
             </h2>
           </motion.div>
 
