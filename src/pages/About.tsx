@@ -160,7 +160,7 @@ const About = () => {
               >
                 <a
                   href={buildPath(language, "/services")}
-                  className="group inline-flex items-center gap-3 text-primary font-heading text-base tracking-wide link-underline"
+                  className="group inline-flex items-center gap-3 text-primary font-heading font-bold text-base tracking-wide link-underline"
                 >
                   {t("about.servicesLink")}
                   <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
