@@ -83,7 +83,7 @@ const Services = () => {
             <SplitText
               as="h1"
               className="text-5xl md:text-6xl lg:text-7xl font-heading text-primary tracking-tight leading-[1.05] mb-6 mt-6"
-              highlight={t("servicespage.overview.title").split(" ").at(-1)}
+              highlightLast={1}
             >
               {t("servicespage.overview.title")}
             </SplitText>
