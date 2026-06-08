@@ -42,18 +42,14 @@ const Team = () => {
       <SEOHead titleKey={pageMeta.team.titleKey} descriptionKey={pageMeta.team.descriptionKey} path="team" />
 
       {/* Editorial Hero */}
-      <section
-        ref={heroRef}
-        className="relative overflow-hidden grain"
-        style={{ background: "var(--gradient-hero)" }}
-      >
+      <section ref={heroRef} className="relative overflow-hidden grain" style={{ background: "var(--gradient-hero)" }}>
         <div
           className="absolute -top-32 -left-20 w-[460px] h-[460px] rounded-full float-slow pointer-events-none"
           style={{ background: "radial-gradient(circle, hsl(var(--accent) / 0.16), transparent 70%)" }}
         />
         <motion.div
           style={{ y }}
-          className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 md:pt-32 pb-16 md:pb-20 relative z-10"
+          className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 md:pt-32 pb-12 md:pb-16 relative z-10"
         >
           <motion.div
             initial={{ opacity: 0, y: 24 }}
@@ -135,9 +131,7 @@ const Team = () => {
                 <h2 className="text-3xl md:text-4xl lg:text-5xl font-heading font-light text-primary tracking-tight mt-4 mb-3 leading-tight">
                   {member.name}
                 </h2>
-                <p className="serif-accent text-lg md:text-xl text-accent">
-                  {member.role}
-                </p>
+                <p className="serif-accent text-lg md:text-xl text-accent">{member.role}</p>
               </>
             );
 
@@ -199,10 +193,7 @@ const Team = () => {
       </section>
 
       {/* CTA */}
-      <section
-        className="relative overflow-hidden py-24 md:py-32"
-        style={{ background: "var(--gradient-dark)" }}
-      >
+      <section className="relative overflow-hidden py-24 md:py-32" style={{ background: "var(--gradient-dark)" }}>
         <div
           className="absolute -top-20 right-1/4 w-[400px] h-[400px] rounded-full float-slow pointer-events-none"
           style={{ background: "radial-gradient(circle, hsl(var(--accent) / 0.18), transparent 70%)" }}
@@ -222,10 +213,7 @@ const Team = () => {
             {t("teampage.cta.desc")}
           </p>
           <Magnetic>
-            <button
-              onClick={() => (window.location.href = "/#contact")}
-              className="btn-gold group"
-            >
+            <button onClick={() => (window.location.href = "/#contact")} className="btn-gold group">
               {t("nav.contact")}
               <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
             </button>
