@@ -33,7 +33,7 @@ const pageMeta: Record<string, { titleKey: string; descriptionKey: string }> = {
 const SEOHead = ({ titleKey, descriptionKey, path = "" }: SEOHeadProps) => {
   const { t, language } = useLanguage();
 
-  const title = titleKey ? t(titleKey) : "Lealia Advisory Partners | M&A Advisory";
+  const title = titleKey ? t(titleKey) : "Lealia Advisory Partners | M&A & Strategic Consulting";
   const description = descriptionKey
     ? t(descriptionKey)
     : t("seo.home.description");
