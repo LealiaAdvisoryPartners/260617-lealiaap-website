@@ -24,6 +24,7 @@ export const en = {
   "nav.contact": "Contact Us",
 
   // Hero
+  "hero.h1": "M&A Advisory & Strategic Consulting for Transformative Outcomes",
   "hero.tagline": "Strategic Advisory for Transformative Outcomes",
   "hero.services": "M&A ADVISORY & STRATEGIC CONSULTING",
 

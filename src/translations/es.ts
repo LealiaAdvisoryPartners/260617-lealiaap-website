@@ -24,6 +24,7 @@ export const es = {
   "nav.contact": "Contacto",
 
   // Hero
+  "hero.h1": "Asesoramiento M&A y Consultoría Estratégica para Resultados Transformadores",
   "hero.tagline": "Asesoramiento Estratégico para Resultados Transformadores",
   "hero.services": "ASESORAMIENTO M&A Y CONSULTORÍA ESTRATÉGICA",
 
