@@ -130,16 +130,6 @@ const ActHero = () => {
           <img src={logo} alt="Lealia Advisory Partners" className="w-full max-w-2xl mx-auto" />
         </motion.div>
 
-        <motion.h1
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
-          className="font-heading text-primary text-center mt-6 md:mt-8"
-          style={{ fontSize: "clamp(1.25rem, 2.5vw, 2rem)", fontWeight: 300, letterSpacing: "-0.02em", lineHeight: 1.2 }}
-        >
-          {t("hero.h1")}
-        </motion.h1>
-
         <motion.p
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}

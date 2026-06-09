@@ -1,8 +1,8 @@
 export const en = {
   // SEO
-  "seo.home.title": "Lealia Advisory Partners | M&A & Strategic Consulting",
+  "seo.home.title": "Lealia Advisory Partners | M&A Advisory & Strategic Consulting",
   "seo.home.description":
-    "Independent M&A advisory for SMEs and lower mid-market in Iberia. Buy-side, sell-side, performance improvement, and corporate finance.",
+    "Independent M&A advisory firm specializing in SMEs and lower mid-market transactions in Iberia. Buy-side & sell-side advisory, performance improvement, and corporate finance.",
   "seo.about.title": "About Us | Lealia Advisory Partners",
   "seo.about.description":
     "Learn about Lealia Advisory Partners — an independent financial advisory firm focused on M&A and corporate finance for SMEs in the Iberian market.",
@@ -24,7 +24,6 @@ export const en = {
   "nav.contact": "Contact Us",
 
   // Hero
-  "hero.h1": "M&A Advisory & Strategic Consulting for Transformative Outcomes",
   "hero.tagline": "Strategic Advisory for Transformative Outcomes",
   "hero.services": "M&A ADVISORY & STRATEGIC CONSULTING",
 
