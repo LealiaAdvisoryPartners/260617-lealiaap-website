@@ -21,7 +21,7 @@ export const ServicesBuySide = () => {
         viewport={{ once: true }}
         transition={{ duration: 0.7 }}
       >
-        <span className="eyebrow mb-6">02 — Buy-side</span>
+        <span className="eyebrow mb-6">01 — Buy-side</span>
         <h2 className="text-3xl md:text-4xl lg:text-5xl font-heading font-light text-primary tracking-tight mt-6 mb-6 leading-tight">
           {t("servicespage.buyside.title").split(" ").slice(0, -1).join(" ")}{" "}
           <span className="serif-accent text-accent">

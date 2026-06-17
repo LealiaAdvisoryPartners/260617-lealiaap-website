@@ -1,15 +1,7 @@
-## Objective
-Move the Services overview text from the body section into the hero area beneath the page title, and remove the dedicated Overview body section.
+Fix hardcoded service section eyebrow numbers on the Services page. After the Overview section was removed, the remaining sections still show `02` through `05` instead of `01` through `04`.
 
-## Changes
-
-### 1. `src/pages/Services.tsx`
-- In the hero: replace the single placeholder `<p>` subtitle with a styled block containing the three overview paragraphs (`servicespage.overview.p1`, `p2`, `p3`) in a `space-y-5` layout matching the current overview styling.
-- Remove the `ServicesOverview` import and its usage inside `<main>`.
-- Remove `overview` from the `sections` array used by the sidebar and scroll-spy logic, so the sidebar starts directly with Buy-Side (renumbered as 01).
-
-### 2. `src/components/services/ServicesOverview.tsx`
-- No longer imported; can be left in place or removed. I will leave it untouched to avoid unnecessary deletion.
-
-## Result
-The hero will display the page title "Our Services" followed immediately by the three overview paragraphs. The body will begin directly with the Buy-Side section, and the sidebar will list: 01 Buy-Side, 02 Sell-Side, 03 Performance, 04 Corporate Finance.
+Changes:
+- `src/components/services/ServicesBuySide.tsx`: change eyebrow from `02` to `01`
+- `src/components/services/ServicesSellSide.tsx`: change eyebrow from `03` to `02`
+- `src/components/services/ServicesPerformance.tsx`: change eyebrow from `04` to `03`
+- `src/components/services/ServicesModeling.tsx`: change eyebrow from `05` to `04`

@@ -19,7 +19,7 @@ export const ServicesPerformance = () => {
         viewport={{ once: true }}
         transition={{ duration: 0.7 }}
       >
-        <span className="eyebrow mb-6">04 — Performance</span>
+        <span className="eyebrow mb-6">03 — Performance</span>
         <h2 className="text-3xl md:text-4xl lg:text-5xl font-heading font-light text-primary tracking-tight mt-6 mb-6 leading-tight">
           {t("servicespage.performance.title").split(" ").slice(0, -1).join(" ")}{" "}
           <span className="serif-accent text-accent">
