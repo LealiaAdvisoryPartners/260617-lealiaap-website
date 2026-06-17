@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import SEOHead, { pageMeta } from "@/components/SEOHead";
 import { ServicesSidebar } from "@/components/services/ServicesSidebar";
-import { ServicesOverview } from "@/components/services/ServicesOverview";
+
 import { ServicesBuySide } from "@/components/services/ServicesBuySide";
 import { ServicesSellSide } from "@/components/services/ServicesSellSide";
 import { ServicesPerformance } from "@/components/services/ServicesPerformance";
@@ -12,7 +12,7 @@ import { ServicesCTA } from "@/components/services/ServicesCTA";
 import { SplitText } from "@/components/motion/SplitText";
 
 const Services = () => {
-  const [activeSection, setActiveSection] = useState("overview");
+  const [activeSection, setActiveSection] = useState("buy-side");
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const { t } = useLanguage();
   const heroRef = useRef<HTMLDivElement>(null);
@@ -20,7 +20,6 @@ const Services = () => {
   const y = useTransform(scrollYProgress, [0, 1], [0, 100]);
 
   const sections = [
-    { id: "overview", label: t("servicespage.overview") },
     { id: "buy-side", label: t("servicespage.buyside") },
     { id: "sell-side", label: t("servicespage.sellside") },
     { id: "performance", label: t("servicespage.performance") },
@@ -87,10 +86,11 @@ const Services = () => {
             >
               {t("servicespage.overview.title")}
             </SplitText>
-            <p className="text-lg md:text-xl text-muted-foreground font-body font-light leading-relaxed max-w-3xl">
-              Placeholder subtitle — a short editorial sentence introducing the breadth of our advisory offering.
-              Replace me with the final copy.
-            </p>
+            <div className="space-y-5 max-w-3xl text-lg md:text-xl text-muted-foreground font-body font-light leading-relaxed">
+              <p>{t("servicespage.overview.p1")}</p>
+              <p>{t("servicespage.overview.p2")}</p>
+              <p>{t("servicespage.overview.p3")}</p>
+            </div>
           </motion.div>
         </motion.div>
       </section>
@@ -107,7 +107,6 @@ const Services = () => {
           />
 
           <main className="flex-1 max-w-4xl">
-            <ServicesOverview />
             <ServicesBuySide />
             <ServicesSellSide />
             <ServicesPerformance />
