@@ -452,7 +452,14 @@ const ActTeam = () => {
             className="font-heading text-primary-foreground mt-4"
             style={{ fontSize: "clamp(1.75rem, 4vw, 3.25rem)", fontWeight: 300, letterSpacing: "-0.025em" }}
           >
-            The <span className="serif-accent text-accent">people</span> behind the partnership.
+            {parseInline(t("home.team.heading")).map((seg, i) => (
+              <span
+                key={i}
+                className={`${seg.italic ? "serif-accent" : ""} ${seg.gold ? "text-accent" : ""}`}
+              >
+                {seg.text}
+              </span>
+            ))}
           </h3>
           <p className="text-primary-foreground/65 mt-5 text-base max-w-xl leading-relaxed" style={{ fontWeight: 300 }}>
             {t("team.subtitle")}
