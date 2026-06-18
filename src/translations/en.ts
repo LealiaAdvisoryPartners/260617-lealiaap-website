@@ -219,4 +219,8 @@ export const en = {
   "servicespage.cta": "Ready to Achieve Your Strategic Goals?",
   "servicespage.cta.desc":
     "Let's discuss how we can help you achieve your strategic objectives and create lasting value for your business.",
+  "teampage.partner": "Partner",
+  "privacy.eyebrow": "Legal",
+  "notfound.message": "Oops! Page not found",
+  "notfound.home": "Return to Home",
 };
