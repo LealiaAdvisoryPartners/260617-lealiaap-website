@@ -39,9 +39,12 @@ const CoreValues = () => {
           className="flex flex-col items-center text-center mb-20"
         >
           <span className="eyebrow mb-6">{t("values.title")}</span>
-          <h2 className="section-title text-primary-foreground max-w-3xl">
-            {t("home.values.heading").replace(/{a:(\w+)}/g, '<span class="serif-accent text-accent">$1</span>')}
-          </h2>
+          <h2
+            className="section-title text-primary-foreground max-w-3xl"
+            dangerouslySetInnerHTML={{
+              __html: t("home.values.heading").replace(/{a:([^}]+)}/g, '<span class="serif-accent text-accent">$1</span>')
+            }}
+          />
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8">
