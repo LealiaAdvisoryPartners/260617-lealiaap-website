@@ -27,6 +27,24 @@ export const en = {
   "hero.tagline": "Strategic Advisory for Transformative Outcomes",
   "hero.services": "M&A ADVISORY & STRATEGIC CONSULTING",
 
+  // Home — FluidHome
+  "home.manifesto.eyebrow": "A boutique advisory",
+  "home.manifesto.words": "We advise ambitious {i:founders,} families and {i:investors} through their most {a:defining} transactions.",
+  "home.services.heading": "Advisory, {a:crafted}.",
+  "home.services.subheading": "Three disciplines. One conviction — that the right counsel changes the outcome.",
+  "home.services.tag.ma": "Mergers & Acquisitions",
+  "home.services.tag.performance": "Performance",
+  "home.services.tag.modeling": "Corporate Finance",
+  "home.team.heading": "The {a:people} behind the partnership.",
+  "home.values.heading": "Principles that {a:guide} every engagement.",
+  "home.marquee.ma": "Mergers & Acquisitions",
+  "home.marquee.buyside": "Buy-side Advisory",
+  "home.marquee.sellside": "Sell-side Advisory",
+  "home.marquee.performance": "Performance Improvement",
+  "home.marquee.modeling": "Financial Modeling",
+  "home.marquee.consulting": "Strategic Consulting",
+  "home.servicesoverview.heading": "Advisory {a:crafted} for ambitious transactions",
+
   // Core Values
   "values.title": "Our Foundation",
   "values.integrity": "Tailored Solutions",
