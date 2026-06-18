@@ -39,7 +39,7 @@ const TeamPreview = () => {
       >
         <span className="eyebrow mb-6">{t("team.title")}</span>
         <h2 className="section-title max-w-3xl">
-          The <span className="serif-accent text-accent">people</span> behind the partnership
+          {t("home.team.heading").replace(/{a:(\w+)}/g, '<span class="serif-accent text-accent">$1</span>')}
         </h2>
         <p className="section-subtitle mx-auto mt-4">{t("team.subtitle")}</p>
       </motion.div>

@@ -45,7 +45,7 @@ const ServicesOverview = () => {
       >
         <span className="eyebrow mb-6">{t("services.title")}</span>
         <h2 className="section-title max-w-3xl">
-          Advisory <span className="serif-accent text-accent">crafted</span> for ambitious transactions
+          {t("home.servicesoverview.heading").replace(/{a:(\w+)}/g, '<span class="serif-accent text-accent">$1</span>')}
         </h2>
       </motion.div>
 

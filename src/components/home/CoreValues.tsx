@@ -40,7 +40,7 @@ const CoreValues = () => {
         >
           <span className="eyebrow mb-6">{t("values.title")}</span>
           <h2 className="section-title text-primary-foreground max-w-3xl">
-            Principles that <span className="serif-accent text-accent">guide</span> every engagement
+            {t("home.values.heading").replace(/{a:(\w+)}/g, '<span class="serif-accent text-accent">$1</span>')}
           </h2>
         </motion.div>
 
