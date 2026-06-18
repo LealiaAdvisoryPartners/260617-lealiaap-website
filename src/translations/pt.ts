@@ -28,15 +28,16 @@ export const pt = {
   "hero.services": "ASSESSORIA M&A E CONSULTORIA ESTRATÉGICA",
 
   // Home — FluidHome
-  "home.manifesto.eyebrow": "Uma assessoria boutique",
-  "home.manifesto.words": "Aconselhamos {i:fundadores,} famílias e {i:investidores} ambiciosos nas suas transações mais {a:definidoras}.",
-  "home.services.heading": "Assessoria, {a:com arte}.",
-  "home.services.subheading": "Três disciplinas. Uma convicção — que o aconselhamento certo altera o resultado.",
+  "home.manifesto.eyebrow": "Uma boutique de M&A",
+  "home.manifesto.words":
+    "Apoiamos {i:fundadores,} famílias e {i:investidores} ao longo de todo o processo de {a:transação}.",
+  "home.services.heading": "Assessoria, {a:feita à medida}.",
+  "home.services.subheading": "Três modalidades. Uma convicção: o aconselhamento certo altera o resultado.",
   "home.services.tag.ma": "M&A",
   "home.services.tag.performance": "Performance",
   "home.services.tag.modeling": "Corporate Finance",
   "home.team.heading": "As {a:pessoas} por detrás da parceria.",
-  "home.values.heading": "Princípios que {a:orientam} cada projeto.",
+  "home.values.heading": "Os princípios que {a:movem} cada interação.",
   "home.marquee.ma": "M&A",
   "home.marquee.buyside": "Assessoria Buy-Side",
   "home.marquee.sellside": "Assessoria Sell-Side",
