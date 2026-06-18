@@ -26,7 +26,7 @@ const Privacy = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <span className="eyebrow mb-6">Legal</span>
+            <span className="eyebrow mb-6">{t("privacy.eyebrow")}</span>
             <h1 className="text-5xl md:text-6xl font-heading font-light text-primary tracking-tight leading-[1.05] mt-6 mb-6">
               <span className="serif-accent text-accent">
                 {t("privacy.title").split(" ")[0]}
