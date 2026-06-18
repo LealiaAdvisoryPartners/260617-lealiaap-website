@@ -27,6 +27,24 @@ export const pt = {
   "hero.tagline": "Assessoria estratégica para resultados transformadores",
   "hero.services": "ASSESSORIA M&A E CONSULTORIA ESTRATÉGICA",
 
+  // Home — FluidHome
+  "home.manifesto.eyebrow": "Uma assessoria boutique",
+  "home.manifesto.words": "Aconselhamos {i:fundadores,} famílias e {i:investidores} ambiciosos nas suas transações mais {a:definidoras}.",
+  "home.services.heading": "Assessoria, {a:com arte}.",
+  "home.services.subheading": "Três disciplinas. Uma convicção — que o aconselhamento certo altera o resultado.",
+  "home.services.tag.ma": "M&A",
+  "home.services.tag.performance": "Performance",
+  "home.services.tag.modeling": "Corporate Finance",
+  "home.team.heading": "As {a:pessoas} por detrás da parceria.",
+  "home.values.heading": "Princípios que {a:orientam} cada projeto.",
+  "home.marquee.ma": "M&A",
+  "home.marquee.buyside": "Assessoria Buy-Side",
+  "home.marquee.sellside": "Assessoria Sell-Side",
+  "home.marquee.performance": "Melhoria de Performance",
+  "home.marquee.modeling": "Modelização Financeira",
+  "home.marquee.consulting": "Consultoria Estratégica",
+  "home.servicesoverview.heading": "Assessoria {a:construída} para transações ambiciosas",
+
   // Valores Fundamentais
   "values.title": "A Nossa Base",
   "values.integrity": "Soluções Personalizadas",

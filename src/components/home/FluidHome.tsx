@@ -164,28 +164,42 @@ const ActHero = () => {
 };
 
 /* ---------- Act II: Big editorial manifesto ---------- */
+const parseManifestoWords = (text: string) => {
+  const words: { text: string; italic: boolean; gold: boolean }[] = [];
+  let remaining = text.trim();
+  while (remaining.length > 0) {
+    const match = remaining.match(/^(.*?)\{([ia]):([^}]+)\}(.*)$/);
+    if (match) {
+      const [, before, marker, content, after] = match;
+      if (before.trim()) {
+        before.trim().split(/\s+/).forEach((w) => {
+          if (w) words.push({ text: w, italic: false, gold: false });
+        });
+      }
+      words.push({ text: content, italic: true, gold: marker === "a" });
+      remaining = after;
+    } else {
+      remaining.trim().split(/\s+/).forEach((w) => {
+        if (w) words.push({ text: w, italic: false, gold: false });
+      });
+      break;
+    }
+  }
+  return words;
+};
+
 const ActManifesto = () => {
   const ref = useRef<HTMLDivElement>(null);
+  const { t } = useLanguage();
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
   const y = useTransform(scrollYProgress, [0, 1], [80, -80]);
   const opacity = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0, 1, 1, 0]);
 
-  const words = [
-    "We", "advise", "ambitious",
-    { t: "founders,", italic: true },
-    "families", "and",
-    { t: "investors", italic: true },
-    "through", "their", "most",
-    { t: "defining", italic: true, gold: true },
-    "transactions.",
-  ];
+  const words = parseManifestoWords(t("home.manifesto.words"));
 
   return (
     <section ref={ref} className="relative min-h-[60vh] flex items-center justify-center px-6 py-16">
-      <motion.div
-        style={{ y, opacity }}
-        className="max-w-5xl mx-auto text-center"
-      >
+      <motion.div style={{ y, opacity }} className="max-w-5xl mx-auto text-center">
         <motion.span
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
@@ -193,32 +207,29 @@ const ActManifesto = () => {
           transition={{ duration: 0.8 }}
           className="eyebrow mb-6 justify-center"
         >
-          A boutique advisory
+          {t("home.manifesto.eyebrow")}
         </motion.span>
 
         <h2
           className="font-heading text-primary leading-[1.05] tracking-tight mt-6"
           style={{ fontSize: "clamp(1.75rem, 4.5vw, 4rem)", fontWeight: 300, letterSpacing: "-0.025em" }}
         >
-
-          {words.map((w, i) => {
-            const text = typeof w === "string" ? w : w.t;
-            const italic = typeof w === "object" && w.italic;
-            const gold = typeof w === "object" && w.gold;
-            return (
-              <span key={i} className="inline-block overflow-hidden align-bottom pb-[0.12em] -mb-[0.12em] mr-[0.25em]">
-                <motion.span
-                  initial={{ y: "110%" }}
-                  whileInView={{ y: 0 }}
-                  viewport={{ once: true, margin: "-100px" }}
-                  transition={{ duration: 1.1, delay: i * 0.07, ease: [0.16, 1, 0.3, 1] }}
-                  className={`inline-block ${italic ? "serif-accent" : ""} ${gold ? "text-accent" : ""}`}
-                >
-                  {text}
-                </motion.span>
-              </span>
-            );
-          })}
+          {words.map((w, i) => (
+            <span
+              key={i}
+              className="inline-block overflow-hidden align-bottom pb-[0.12em] -mb-[0.12em] mr-[0.25em]"
+            >
+              <motion.span
+                initial={{ y: "110%" }}
+                whileInView={{ y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 1.1, delay: i * 0.07, ease: [0.16, 1, 0.3, 1] }}
+                className={`inline-block ${w.italic ? "serif-accent" : ""} ${w.gold ? "text-accent" : ""}`}
+              >
+                {w.text}
+              </motion.span>
+            </span>
+          ))}
         </h2>
       </motion.div>
     </section>
@@ -226,6 +237,24 @@ const ActManifesto = () => {
 };
 
 /* ---------- Act III: Stacked services reveal ---------- */
+const parseInline = (text: string) => {
+  const segments: { text: string; italic: boolean; gold: boolean }[] = [];
+  let remaining = text;
+  while (remaining.length > 0) {
+    const match = remaining.match(/^(.*?)\{([ia]):([^}]+)\}(.*)$/s);
+    if (match) {
+      const [, before, marker, content, after] = match;
+      if (before) segments.push({ text: before, italic: false, gold: false });
+      segments.push({ text: content, italic: true, gold: marker === "a" });
+      remaining = after;
+    } else {
+      segments.push({ text: remaining, italic: false, gold: false });
+      break;
+    }
+  }
+  return segments;
+};
+
 const ServiceRow = ({
   s,
   index,
@@ -286,21 +315,21 @@ const ActServices = () => {
       no: "01",
       title: t("services.ma"),
       desc: t("services.ma.desc"),
-      tag: "Mergers & Acquisitions",
+      tag: t("home.services.tag.ma"),
       link: buildPath(language, "/services#buy-side"),
     },
     {
       no: "02",
       title: t("services.performance"),
       desc: t("services.performance.desc"),
-      tag: "Performance",
+      tag: t("home.services.tag.performance"),
       link: buildPath(language, "/services#performance"),
     },
     {
       no: "03",
       title: t("services.modeling"),
       desc: t("services.modeling.desc"),
-      tag: "Corporate Finance",
+      tag: t("home.services.tag.modeling"),
       link: buildPath(language, "/services#modeling"),
     },
   ];
@@ -321,14 +350,21 @@ const ActServices = () => {
               className="font-heading text-primary mt-3"
               style={{ fontSize: "clamp(1.75rem, 3.8vw, 3rem)", fontWeight: 300, letterSpacing: "-0.025em" }}
             >
-              Advisory, <span className="serif-accent text-accent">crafted</span>.
+              {parseInline(t("home.services.heading")).map((seg, i) => (
+                <span
+                  key={i}
+                  className={`${seg.italic ? "serif-accent" : ""} ${seg.gold ? "text-accent" : ""}`}
+                >
+                  {seg.text}
+                </span>
+              ))}
             </h3>
           </div>
           <p
             className="text-muted-foreground max-w-sm text-sm leading-relaxed"
             style={{ fontWeight: 300 }}
           >
-            Three disciplines. One conviction — that the right counsel changes the outcome.
+            {t("home.services.subheading")}
           </p>
         </motion.div>
 
@@ -416,7 +452,14 @@ const ActTeam = () => {
             className="font-heading text-primary-foreground mt-4"
             style={{ fontSize: "clamp(1.75rem, 4vw, 3.25rem)", fontWeight: 300, letterSpacing: "-0.025em" }}
           >
-            The <span className="serif-accent text-accent">people</span> behind the partnership.
+            {parseInline(t("home.team.heading")).map((seg, i) => (
+              <span
+                key={i}
+                className={`${seg.italic ? "serif-accent" : ""} ${seg.gold ? "text-accent" : ""}`}
+              >
+                {seg.text}
+              </span>
+            ))}
           </h3>
           <p className="text-primary-foreground/65 mt-5 text-base max-w-xl leading-relaxed" style={{ fontWeight: 300 }}>
             {t("team.subtitle")}
@@ -471,7 +514,14 @@ const ActValues = () => {
             className="font-heading text-primary-foreground mt-4 max-w-3xl"
             style={{ fontSize: "clamp(1.5rem, 3.5vw, 2.75rem)", fontWeight: 300, letterSpacing: "-0.02em" }}
           >
-            Principles that <span className="serif-accent text-accent">guide</span> every engagement.
+            {parseInline(t("home.values.heading")).map((seg, i) => (
+              <span
+                key={i}
+                className={`${seg.italic ? "serif-accent" : ""} ${seg.gold ? "text-accent" : ""}`}
+              >
+                {seg.text}
+              </span>
+            ))}
           </h3>
         </motion.div>
 

@@ -44,9 +44,12 @@ const ServicesOverview = () => {
         className="flex flex-col items-center text-center mb-20"
       >
         <span className="eyebrow mb-6">{t("services.title")}</span>
-        <h2 className="section-title max-w-3xl">
-          Advisory <span className="serif-accent text-accent">crafted</span> for ambitious transactions
-        </h2>
+        <h2
+          className="section-title max-w-3xl"
+          dangerouslySetInnerHTML={{
+            __html: t("home.servicesoverview.heading").replace(/{a:([^}]+)}/g, '<span class="serif-accent text-accent">$1</span>')
+          }}
+        />
       </motion.div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
