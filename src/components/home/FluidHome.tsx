@@ -514,7 +514,14 @@ const ActValues = () => {
             className="font-heading text-primary-foreground mt-4 max-w-3xl"
             style={{ fontSize: "clamp(1.5rem, 3.5vw, 2.75rem)", fontWeight: 300, letterSpacing: "-0.02em" }}
           >
-            Principles that <span className="serif-accent text-accent">guide</span> every engagement.
+            {parseInline(t("home.values.heading")).map((seg, i) => (
+              <span
+                key={i}
+                className={`${seg.italic ? "serif-accent" : ""} ${seg.gold ? "text-accent" : ""}`}
+              >
+                {seg.text}
+              </span>
+            ))}
           </h3>
         </motion.div>
 
