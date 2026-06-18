@@ -220,4 +220,8 @@ export const pt = {
   "servicespage.cta": "Pronto para Alcançar os Seus Objetivos Estratégicos?",
   "servicespage.cta.desc":
     "Fale connosco para explorar como podemos apoiar a sua empresa na concretização de objetivos estratégicos e na criação de valor sustentável.",
+  "teampage.partner": "Sócio",
+  "privacy.eyebrow": "Legal",
+  "notfound.message": "Página não encontrada",
+  "notfound.home": "Voltar ao Início",
 };
