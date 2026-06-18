@@ -38,9 +38,12 @@ const TeamPreview = () => {
         className="flex flex-col items-center text-center mb-16"
       >
         <span className="eyebrow mb-6">{t("team.title")}</span>
-        <h2 className="section-title max-w-3xl">
-          {t("home.team.heading").replace(/{a:(\w+)}/g, '<span class="serif-accent text-accent">$1</span>')}
-        </h2>
+        <h2
+          className="section-title max-w-3xl"
+          dangerouslySetInnerHTML={{
+            __html: t("home.team.heading").replace(/{a:([^}]+)}/g, '<span class="serif-accent text-accent">$1</span>')
+          }}
+        />
         <p className="section-subtitle mx-auto mt-4">{t("team.subtitle")}</p>
       </motion.div>
 
