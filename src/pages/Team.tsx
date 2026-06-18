@@ -127,7 +127,7 @@ const Team = () => {
 
             const nameBlock = (
               <>
-                <span className="eyebrow mb-5">{t("teampage.partner")}</span>
+                <span className="eyebrow mb-5">Partner</span>
                 <h2 className="text-3xl md:text-4xl lg:text-5xl font-heading font-light text-primary tracking-tight mt-4 mb-3 leading-tight">
                   {member.name}
                 </h2>
