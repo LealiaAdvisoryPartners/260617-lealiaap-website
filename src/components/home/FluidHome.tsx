@@ -237,6 +237,24 @@ const ActManifesto = () => {
 };
 
 /* ---------- Act III: Stacked services reveal ---------- */
+const parseInline = (text: string) => {
+  const segments: { text: string; italic: boolean; gold: boolean }[] = [];
+  let remaining = text;
+  while (remaining.length > 0) {
+    const match = remaining.match(/^(.*?)\{([ia]):([^}]+)\}(.*)$/s);
+    if (match) {
+      const [, before, marker, content, after] = match;
+      if (before) segments.push({ text: before, italic: false, gold: false });
+      segments.push({ text: content, italic: true, gold: marker === "a" });
+      remaining = after;
+    } else {
+      segments.push({ text: remaining, italic: false, gold: false });
+      break;
+    }
+  }
+  return segments;
+};
+
 const ServiceRow = ({
   s,
   index,
@@ -297,21 +315,21 @@ const ActServices = () => {
       no: "01",
       title: t("services.ma"),
       desc: t("services.ma.desc"),
-      tag: "Mergers & Acquisitions",
+      tag: t("home.services.tag.ma"),
       link: buildPath(language, "/services#buy-side"),
     },
     {
       no: "02",
       title: t("services.performance"),
       desc: t("services.performance.desc"),
-      tag: "Performance",
+      tag: t("home.services.tag.performance"),
       link: buildPath(language, "/services#performance"),
     },
     {
       no: "03",
       title: t("services.modeling"),
       desc: t("services.modeling.desc"),
-      tag: "Corporate Finance",
+      tag: t("home.services.tag.modeling"),
       link: buildPath(language, "/services#modeling"),
     },
   ];
@@ -332,14 +350,21 @@ const ActServices = () => {
               className="font-heading text-primary mt-3"
               style={{ fontSize: "clamp(1.75rem, 3.8vw, 3rem)", fontWeight: 300, letterSpacing: "-0.025em" }}
             >
-              Advisory, <span className="serif-accent text-accent">crafted</span>.
+              {parseInline(t("home.services.heading")).map((seg, i) => (
+                <span
+                  key={i}
+                  className={`${seg.italic ? "serif-accent" : ""} ${seg.gold ? "text-accent" : ""}`}
+                >
+                  {seg.text}
+                </span>
+              ))}
             </h3>
           </div>
           <p
             className="text-muted-foreground max-w-sm text-sm leading-relaxed"
             style={{ fontWeight: 300 }}
           >
-            Three disciplines. One conviction — that the right counsel changes the outcome.
+            {t("home.services.subheading")}
           </p>
         </motion.div>
 
