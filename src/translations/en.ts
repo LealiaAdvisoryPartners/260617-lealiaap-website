@@ -29,9 +29,10 @@ export const en = {
 
   // Home — FluidHome
   "home.manifesto.eyebrow": "A boutique advisory",
-  "home.manifesto.words": "We advise ambitious {i:founders,} families and {i:investors} through their most {a:defining} transactions.",
+  "home.manifesto.words":
+    "We advise ambitious {i:founders,} families and {i:investors} through their most {a:defining} transactions.",
   "home.services.heading": "Advisory, {a:crafted}.",
-  "home.services.subheading": "Three disciplines. One conviction — that the right counsel changes the outcome.",
+  "home.services.subheading": "Three disciplines. One conviction: the right counsel changes the outcome.",
   "home.services.tag.ma": "Mergers & Acquisitions",
   "home.services.tag.performance": "Performance",
   "home.services.tag.modeling": "Corporate Finance",
