@@ -29,8 +29,7 @@ export const pt = {
 
   // Home — FluidHome
   "home.manifesto.eyebrow": "Uma boutique de M&A",
-  "home.manifesto.words":
-    "Apoiamos {i:fundadores,} famílias e {i:investidores} ao longo de todo o processo de {a:transação}.",
+  "home.manifesto.words": "Apoiamos {i:fundadores,} famílias e {i:investidores} ao longo de toda a {a:transação}.",
   "home.services.heading": "Assessoria, {a:feita à medida}.",
   "home.services.subheading": "Três modalidades. Uma convicção: o aconselhamento certo altera o resultado.",
   "home.services.tag.ma": "M&A",
